@@ -1,5 +1,5 @@
 package Primitives;
 
-public class Point {
+public class Ray {
 
 }
