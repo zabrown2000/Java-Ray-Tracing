@@ -1,5 +1,5 @@
 package Primitives;
 
-public class Vector {
+public class Vector extends Point3 {
 
 }
