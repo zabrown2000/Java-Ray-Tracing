@@ -1,8 +1,9 @@
 package Default;
 
-import Primitives.*;
 import static java.lang.System.out;
-import static Primitives.Util.*;
+import static primitives.Util.*;
+
+import primitives.*;
 
 /**
  * Test program for the 1st stage

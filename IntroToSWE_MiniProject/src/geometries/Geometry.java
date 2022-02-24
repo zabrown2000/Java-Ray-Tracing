@@ -1,4 +1,4 @@
-package Geometries;
+package geometries;
 
 public interface Geometry {
 
