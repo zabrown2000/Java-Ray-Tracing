@@ -1,5 +1,5 @@
-package primitives; //fghcg
+package primitives; 
 
-public class Vector extends Point3 {
+public class Vector extends Point {
 
 }

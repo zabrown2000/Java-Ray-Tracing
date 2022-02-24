@@ -1,5 +1,5 @@
 package primitives;
 
-public class Point3 {
+public class Point {
 
 }
