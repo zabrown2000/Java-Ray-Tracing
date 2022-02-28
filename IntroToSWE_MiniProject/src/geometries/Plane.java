@@ -41,7 +41,7 @@ public class Plane implements Geometry {
 	 * @return the normal vector
 	 */
 	public Vector getNormal() {
-		return null;
+		return normal;
 	}
 	
 	public Point getQ0() {

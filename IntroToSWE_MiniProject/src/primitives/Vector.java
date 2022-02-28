@@ -21,7 +21,9 @@ public class Vector extends Point { //need equals to string
 			throw new IllegalArgumentException("Error: Zero Vector");
 		}
 		Point(d1, d2, d3);
+		
 	}
+	
 	
 	/**
 	 * Vector constructor that receives an object of type Double3
@@ -35,7 +37,6 @@ public class Vector extends Point { //need equals to string
 		Point(d);
 	}
 	
-	
 	/**
 	 * Method to scale a vector by a scalar
 	 * @param v the vector
@@ -46,7 +47,7 @@ public class Vector extends Point { //need equals to string
 		if (scalar == 0) {
 			throw new IllegalArgumentException("Error: Zero Vector");
 		}
-		return new Vector(this.xyz * scalar); //should call double3 scale?
+		return new Vector(this.xyz.scale(scalar)); 
 	}
 	
 	/**
