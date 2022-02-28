@@ -26,7 +26,7 @@ public class Tube implements Geometry {
 		this.ray = ray;
 	}
 
-	public Vector getNormal() {
+	public Vector getNormal(Point point) {
 		return null;
 	}
 	

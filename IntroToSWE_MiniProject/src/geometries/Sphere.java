@@ -44,7 +44,7 @@ public class Sphere implements Geometry {
 	}
 	
 
-	public Vector getNormal() {
+	public Vector getNormal(Point point) {
 		return null;
 	}
 	
