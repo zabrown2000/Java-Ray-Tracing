@@ -16,15 +16,10 @@ public class Vector extends Point { //need equals to string
 	 * @param d3 third number value
 	 */
 	public Vector(double d1, double d2, double d3) {
-		
+		super(d1,d2,d3);
 		if ((d1 == 0) && (d2 == 0) && (d3 == 0)) {
 			throw new IllegalArgumentException("Error: Zero Vector");
 		}
-		Point(d1,d2,d3);
-		
-		//this = new Point(d1,d2,d3);
-		//Point p = new Point(d1, d2, d3);
-		
 	}
 
 	/**
@@ -32,11 +27,11 @@ public class Vector extends Point { //need equals to string
 	 * @param d 3d coordinate
 	 */
 	public Vector(Double3 d) {
-		
+		super(d);
 		if ((d.d1 == 0) && (d.d2 == 0) && (d.d3 == 0)) {
 			throw new IllegalArgumentException("Error: Zero Vector");
 		}
-		Point(d);
+		
 	}
 	
 	/**
