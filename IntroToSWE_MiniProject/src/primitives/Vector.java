@@ -20,21 +20,36 @@ public class Vector extends Point { //need equals to string
 		if ((d1 == 0) && (d2 == 0) && (d3 == 0)) {
 			throw new IllegalArgumentException("Error: Zero Vector");
 		}
-		Point(d1, d2, d3);
+		Point(d1,d2,d3);
+		
+		//this = new Point(d1,d2,d3);
+		//Point p = new Point(d1, d2, d3);
 		
 	}
-	
-	
+
 	/**
 	 * Vector constructor that receives an object of type Double3
 	 * @param d 3d coordinate
 	 */
-	Vector(Double3 d) {
+	public Vector(Double3 d) {
 		
 		if ((d.d1 == 0) && (d.d2 == 0) && (d.d3 == 0)) {
 			throw new IllegalArgumentException("Error: Zero Vector");
 		}
 		Point(d);
+	}
+	
+	/**
+	 * Sums up two vectors 
+	 * 
+	 * @param vector1 the first vector
+	 * @param vector2 the second vector
+	 * @return the triads of the sums of the two vectors 
+	 */
+	public Vector add(Vector vector1, Vector vector2) {
+		Point sum = vector1.add(vector2);
+		Vector added = new Vector(sum.xyz);
+		return added;
 	}
 	
 	/**
@@ -48,6 +63,37 @@ public class Vector extends Point { //need equals to string
 			throw new IllegalArgumentException("Error: Zero Vector");
 		}
 		return new Vector(this.xyz.scale(scalar)); 
+	}
+	
+	/**
+	 * the dot product of vectors
+	 * @param the vector you want to dot product you current vector with 
+	 * @return the double value of the dot product 
+	 */
+	public double dotProduct(Vector vector) {
+		this.xyz.product(vector.xyz);
+		double dotproduct = this.xyz.d1+this.xyz.d2+this.xyz.d3;
+		return dotproduct;
+	}
+	
+
+	/**
+	 * the cross product of the two vectors 
+	 * 
+	 * @param v1 the first vector
+	 * @param v2 the second vector
+	 * @return the cross product vector 
+	 */
+	public Vector crossProduct(Vector v) {
+		double x = (this.xyz.d2*v.xyz.d3) - (this.xyz.d3*v.xyz.d2);
+	    double y = (this.xyz.d3*v.xyz.d1) - (this.xyz.d1*v.xyz.d3);
+	    double z = (this.xyz.d1*v.xyz.d2) - (this.xyz.d2*v.xyz.d1);
+	    
+
+	    if ((x == 0) && (y == 0) && (z == 0)) {
+			throw new IllegalArgumentException("Error: Zero Vector");
+		}
+	    return new Vector(x,y,z);
 	}
 	
 	/**
