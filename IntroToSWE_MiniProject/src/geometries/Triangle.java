@@ -1,5 +1,12 @@
 package geometries;
 
+/**
+ * Class Triangle is the basic class representing a triangle of Euclidean geometry in Cartesian
+ * 3-Dimensional coordinate system.
+ * @author Zahava Brown and Gabriella Bondi
+ *
+ */
+
 import primitives.*;
 
 public class Triangle extends Polygon {

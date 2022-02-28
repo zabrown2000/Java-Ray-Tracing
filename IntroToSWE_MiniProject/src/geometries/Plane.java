@@ -1,5 +1,12 @@
 package geometries;
 
+/**
+ * Class Plane is the basic class representing a plane of Euclidean geometry in Cartesian
+ * 3-Dimensional coordinate system.
+ * @author Zahava Brown and Gabriella Bondi
+ *
+ */
+
 import primitives.Point;
 import primitives.Vector;
 

@@ -1,5 +1,12 @@
 package primitives;
 
+/**
+ * Class Ray is the basic class representing a ray of Euclidean geometry in Cartesian
+ * 3-Dimensional coordinate system.
+ * @author Zahava Brown and Gabriella Bondi
+ *
+ */
+
 public class Ray {
 	
 	public Point p0;
