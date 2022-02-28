@@ -40,6 +40,10 @@ public class Plane implements Geometry {
 	 * Method to get vector normal to the plane
 	 * @return the normal vector
 	 */
+	public Vector getNormal(Point point) {
+		return null;
+	}
+	
 	public Vector getNormal() {
 		return normal;
 	}
