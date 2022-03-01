@@ -38,8 +38,8 @@ public class Point {
 	 * @return vector from second point to the point which called the method
 	 */
 	public Vector subtract(Point p){
-		this.xyz.subtract(p.xyz);  //subtract is in double 3 returns dounle and then vector constructor turns it into a double 
-	    Vector vector = new Vector(xyz);
+	    Point newXYZ = new Point(this.xyz.subtract(p.xyz));  //subtract is in double 3 returns dounle and then vector constructor turns it into a double 
+	    Vector vector = new Vector(newXYZ.xyz);
 	    return vector;
 	}
 	
