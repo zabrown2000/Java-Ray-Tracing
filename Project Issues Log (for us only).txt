@@ -1,0 +1,2 @@
+1. LoD, in cross and dot, accessing the ds from Double3
+	  -possible fix: adding getters to double3, need go ahead for that
