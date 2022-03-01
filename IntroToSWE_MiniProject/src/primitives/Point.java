@@ -12,7 +12,7 @@ public class Point {
 	final Double3 xyz;
 
 	/**
-	 * Constructor to initialize Point based on a Double3
+	 * Constructor to initialize Point based on a Double3.
 	 * 
 	 * @param xyz Double3 value
 	 */
@@ -38,11 +38,7 @@ public class Point {
 	 * @return vector from second point to the point which called the method
 	 */
 	public Vector subtract(Point p){
-<<<<<<< HEAD
-		Point newXYZ = new Point(this.xyz.subtract(p.xyz));  //subtract is in double 3 returns dounle and then vector constructor turns it into a double 
-=======
 	    Point newXYZ = new Point(this.xyz.subtract(p.xyz));  //subtract is in double 3 returns dounle and then vector constructor turns it into a double 
->>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 	    Vector vector = new Vector(newXYZ.xyz);
 	    return vector;
 	}
