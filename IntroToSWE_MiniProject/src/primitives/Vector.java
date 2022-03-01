@@ -66,8 +66,8 @@ public class Vector extends Point { //need equals to string
 	 * @return the double value of the dot product 
 	 */
 	public double dotProduct(Vector vector) {
-		this.xyz.product(vector.xyz);
-		double dotproduct = this.xyz.d1+this.xyz.d2+this.xyz.d3;
+		Point newXYZ = new Point(this.xyz.product(vector.xyz));
+		double dotproduct = newXYZ.xyz.d1+newXYZ.xyz.d2+newXYZ.xyz.d3;
 		return dotproduct;
 	}
 	
