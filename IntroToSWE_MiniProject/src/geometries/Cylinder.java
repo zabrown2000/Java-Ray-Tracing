@@ -29,8 +29,11 @@ public class Cylinder extends Tube {
 	public double getHeight() {
 		return height;
 	}
-
 	
+	public double testfun() {
+		return 2.5;
+	}
+
 
 	@Override
 	public String toString() {
