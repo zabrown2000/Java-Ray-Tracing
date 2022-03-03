@@ -30,11 +30,7 @@ public class Cylinder extends Tube {
 		return height;
 	}
 	
-	public double testfun() {
-		return 2.5;
-	}
-
-
+	
 	@Override
 	public String toString() {
 		return "Cylinder [height=" + height + "]";
