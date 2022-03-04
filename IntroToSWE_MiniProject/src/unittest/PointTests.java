@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Vector;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
 /**
  * @author gabibondi
