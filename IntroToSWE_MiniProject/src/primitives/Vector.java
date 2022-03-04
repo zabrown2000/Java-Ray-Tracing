@@ -71,6 +71,7 @@ public class Vector extends Point { //need equals to string
 		return dotproduct;
 	}
 	
+	
 
 	/**
 	 * the cross product of the two vectors 
