@@ -2,6 +2,7 @@ package unittest;
 
 import primitives.*;
 
+import static java.lang.System.out;
 //import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,6 +55,21 @@ class VectorTests {
         //     fail("crossProduct() for parallel vectors does not throw an exception");
         // } catch (Exception e) {}
     }
+    
+    @Test
+    public void testNormalize() {
+    	Vector v = new Vector(0, 3, 4);
+    	Vector u = v.normalize();
+    	
+    	// ============ Equivalence Partitions Tests ==============
+    	//TC01: Simple test
+    	assertEquals(1d, u.lengthSquared(), 0.00001, "ERROR: the normalized vector is not a unit vector");
+    	assertThrows(IllegalArgumentException.class, ()->v.crossProduct(u), "ERROR: the normalized vector is not parallel to the original one");
+    	assertEquals(new Vector(0, 0.6, 0.8), u, "ERROR: wrong normalized vector");
+    	assertThrows(IllegalArgumentException.class, ()->v.dotProduct(u), "ERROR: the normalized vector is opposite to the original one"); //right way?
+    }
+    
+   
     
     
 }
