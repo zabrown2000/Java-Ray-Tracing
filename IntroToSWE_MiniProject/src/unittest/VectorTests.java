@@ -56,6 +56,39 @@ class VectorTests {
         // } catch (Exception e) {}
     }
     
+    /**
+     * Test method for {@link primitives.Vector#dotProduct(primitives.Vector)}
+     */
+    @Test
+    public void testDotProduct() {
+    	
+    	Vector v1 = new Vector(1, 2, 3);
+    	Vector v2 = new Vector(-2, -4, -6);
+		Vector v3 = new Vector(0, 3, -2);
+		
+    	// ============ Equivalence Partitions Tests ==============
+    	//TC01: Test dot product of orthogonal vectors returns 0
+    	assertTrue(isZero(v1.dotProduct(v3)), "ERROR: dotProduct() for orthogonal vectors is not zero");
+    	
+    	//TC02: Test for general functionality of dot product
+    	assertTrue(isZero(v1.dotProduct(v2) + 28), "ERROR: dotProduct() wrong value");
+    }
+    
+    /*
+     * Vector v1 = new Vector(1, 2, 3);
+		Vector v2 = new Vector(-2, -4, -6);
+		Vector v3 = new Vector(0, 3, -2);
+		
+     * // test length..
+		if (!isZero(v1.lengthSquared() - 14))
+			out.println("ERROR: lengthSquared() wrong value");
+		if (!isZero(new Vector(0, 3, 4).length() - 5))
+			out.println("ERROR: length() wrong value");
+
+    
+    /**
+     * Test method for {@link primitives.Vector#normalize(primitives.Vector)}
+     */
     @Test
     public void testNormalize() {
     	Vector v = new Vector(0, 3, 4);
