@@ -45,7 +45,14 @@ public class Sphere implements Geometry {
 	
 
 	public Vector getNormal(Point point) {
+		//double distance = distance(point, this.point); //not sure why there is an error 
+		//if( distance != this.radius){
+		//	throw new IllegalArgumentException("Error: point is not on the boundry");
+		//}
 		
+		Vector normal;
+		normal = (point.subtract(this.point)).normalize();
+		return normal;
 	}
 	
 

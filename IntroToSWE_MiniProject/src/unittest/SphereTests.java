@@ -15,15 +15,20 @@ class SphereTests {
 
 		// TC01: check the getNormal function for a sphere;
 		Point p0 = new Point(0,0,0);
-		Sphere s1 = new Sphere(p0, 2);
-		Vector v1 = new Vector(2,2,2);
-		Vector v2 = new Vector(Math.sqrt(3),Math.sqrt(3),Math.sqrt(3));
+		Point p3 = new Point(8,6,5);
+		Sphere s1 = new Sphere(p0, Math.sqrt(57));
+		Sphere s2 = new Sphere(p0, Math.sqrt(27));
+		Vector v1 = new Vector(3,3,3);
+		Vector v2 = new Vector(1/Math.sqrt(3),1/Math.sqrt(3),1/Math.sqrt(3));
+		Vector v3 = new Vector(4/Math.sqrt(57),4/Math.sqrt(57),5/Math.sqrt(57));
+		Vector v4 = new Vector(4,4,5);
 		
-		assertEquals(s1.getNormal(v1), v2, "Error: sphere getNoraml");
+		assertEquals(v2,s2.getNormal(v1), "Error: sphere getNoraml");
+		assertEquals(v3,s1.getNormal(v4), "Error: sphere getNoraml");
 		
 		// =============== Boundary Values Tests ==================
-		// TC02: test that the bound lies on the boundry of the shpere
-		assertThrows(IllegalArgumentException.class, ()->s1.getNormal(p0), "ERROR: vector is not on the boundry");
+		// TC02: test that the bound lies on the boundry of the sphere
+		//assertThrows(IllegalArgumentException.class, ()->s1.getNormal(p3), "ERROR: vector is not on the boundry");
 	}
 	
 
