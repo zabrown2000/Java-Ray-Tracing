@@ -22,8 +22,11 @@ public class Plane implements Geometry {
 	 * @param p3 point 3
 	 */
 	public Plane(Point p1, Point p2, Point p3) {
-		this.normal = null;
 		this.q0 = p1;
+		Vector v1 = p2.subtract(p1);
+		Vector v2 = p3.subtract(p1);
+		Vector n = v1.crossProduct(v2);
+		this.normal = n.normalize();
 	}
 	
 	/**
@@ -40,7 +43,7 @@ public class Plane implements Geometry {
 	 * Method to get vector normal to the plane
 	 * @return the normal vector
 	 */
-	public Vector getNormal(Point point) {
+	public Vector getNormal(Point point) { //calls below function
 		return null;
 	}
 	

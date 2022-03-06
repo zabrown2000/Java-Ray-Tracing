@@ -75,7 +75,7 @@ class VectorTests {
     }
     
     /**
-     * Test method for {@link primitives.Vector#length(primitives.Vector)}
+     * Test method for {@link primitives.Vector#length()}
      */
     @Test
     public void testLength() {
@@ -91,7 +91,7 @@ class VectorTests {
     }
     
     /**
-     * Test method for {@link primitives.Vector#normalize(primitives.Vector)}
+     * Test method for {@link primitives.Vector#normalize()}
      */
     @Test
     public void testNormalize() {
