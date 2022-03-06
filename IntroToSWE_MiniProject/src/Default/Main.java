@@ -28,6 +28,7 @@ public final class Main {
 		Vector v1 = new Vector(1, 2, 3);
 		Vector v2 = new Vector(-2, -4, -6);
 		Vector v3 = new Vector(0, 3, -2);
+		
 
 		// test length..
 		if (!isZero(v1.lengthSquared() - 14))
