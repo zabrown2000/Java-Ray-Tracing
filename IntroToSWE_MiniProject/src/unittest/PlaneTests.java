@@ -28,7 +28,6 @@ class PlaneTests {
 	void testPlane() {
 		// =============== Boundary Values Tests ==================
 		//TC01: The first and second points are equal.
-		
 		assertThrows(IllegalArgumentException.class,()->new Plane(new Point(1,0,2), new Point(1,0,2), new Point(0,0,1)),
 				"ERROR: Plane with a zero normal vector doesn't throw an exception");
 		

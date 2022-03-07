@@ -80,14 +80,22 @@ class VectorTests {
     @Test
     public void testLength() {
     	
+    	// ============ Equivalence Partitions Tests ==============
+    	//TC01: Testing general functionality of length
+    	assertTrue(isZero(new Vector(0, 3, 4).length() - 5), "ERROR: length() wrong value");
+    }
+    
+    /**
+     * Test method for {@link primitives.Vector#lengthSquared()}
+     */
+    @Test
+    public void testLengthSquared() {
+    	
     	Vector v1 = new Vector(1, 2, 3);
     	
     	// ============ Equivalence Partitions Tests ==============
     	//TC01: Testing general functionality of length squared
     	assertTrue(isZero(v1.lengthSquared() - 14), "ERROR: lengthSquared() wrong value");
-    	
-    	//TC02: Testing general functionality of length
-    	assertTrue(isZero(new Vector(0, 3, 4).length() - 5), "ERROR: length() wrong value");
     }
     
     /**
