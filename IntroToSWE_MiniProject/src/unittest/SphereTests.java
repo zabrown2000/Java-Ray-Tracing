@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 class SphereTests {
 
+	/**
+     * Test method for {@link geometries.Sphere#getNormal(primitives.Point)}
+     */
 	@Test
 	public void testGetNormal() {
 		// ============ Equivalence Partitions Tests ==============
