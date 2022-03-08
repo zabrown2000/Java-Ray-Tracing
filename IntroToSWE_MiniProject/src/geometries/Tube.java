@@ -25,9 +25,24 @@ public class Tube implements Geometry {
 		this.radius = radius;
 		this.ray = ray;
 	}
-
+	
+	/**
+	 * gets the normal to a tube 
+	 * 
+	 * @param point Point
+	 * @return the normal vector to the point 
+	 */
 	public Vector getNormal(Point point) {
-		return null;
+		//double distance = distance(point, this.point); //not sure why there is an error 
+		//if( distance != this.radius){
+			//	throw new IllegalArgumentException("Error: point is not on the boundry");
+		//}
+		
+		double distance = this.ray.dir.dotProduct(point.subtract(this.ray.p0));
+		Point center = this.ray.p0.add(ray.dir.scale(distance));
+		Sphere s1 = new Sphere(center, radius);
+		Vector normal = s1.getNormal(point);
+		return normal;		
 	}
 	
 	/**
