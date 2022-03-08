@@ -26,8 +26,8 @@ class SphereTests {
 		Vector v3 = new Vector(4/Math.sqrt(57),4/Math.sqrt(57),5/Math.sqrt(57));
 		Vector v4 = new Vector(4,4,5);
 		
-		assertEquals(v2,s2.getNormal(v1), "Error: sphere getNoraml");
-		assertEquals(v3,s1.getNormal(v4), "Error: sphere getNoraml");
+		assertEquals(v2,s2.getNormal(v1), "Error: sphere getNormal");
+		assertEquals(v3,s1.getNormal(v4), "Error: sphere getNormal");
 		
 		// =============== Boundary Values Tests ==================
 		// TC02: test that the bound lies on the boundry of the sphere
