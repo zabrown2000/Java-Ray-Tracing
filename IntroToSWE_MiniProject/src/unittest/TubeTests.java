@@ -15,12 +15,12 @@ class TubeTests {
 	public void testGetNormal() {
 		
 	// ============ Equivalence Partitions Tests ==============
-	Point p0 = new Point(1,0,0);
-	Point p = new Point(3,1,0);
-	Vector v = new Vector(2,0,0);
+	Point p0 = new Point(3,3,0);
+	Point p = new Point(1,1,1);
+	Vector v = new Vector(2,2,0);
 	Ray r1 = new Ray(p0,v);
 	Tube t = new Tube(1, r1);
-	Vector ans1 = new Vector(-6/Math.sqrt(37),1/Math.sqrt(37),0);
+	Vector ans1 = new Vector(1/Math.sqrt(2),1/Math.sqrt(2),0);
 	
 	assertEquals(ans1,t.getNormal(p), "Error: sphere getNoraml");
 
@@ -32,6 +32,17 @@ class TubeTests {
 	Ray r2 = new Ray(p1, v1);
 	Tube t1 = new Tube(1, r2);	
 	Vector ans2 = new Vector(0,0,1);
+	
+	/*Point p0 = new Point(3,0,0);
+	Point p = new Point(1,1,0);
+	Vector v = new Vector(2,0,0);
+	Ray r1 = new Ray(p0,v);
+	Tube t = new Tube(1, r1);
+	Vector ans1 = new Vector(0,1,0);*/
+	
+	
+	assertEquals(ans1,t.getNormal(p), "Error: sphere getNoraml");
+
 	
 	assertEquals(ans2,t1.getNormal(p2), "Error: sphere getNoraml");
 	
