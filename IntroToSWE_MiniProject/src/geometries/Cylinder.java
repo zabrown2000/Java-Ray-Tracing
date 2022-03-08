@@ -8,6 +8,7 @@ package geometries;
  */
 
 import primitives.Ray;
+import primitives.*;
 
 public class Cylinder extends Tube {
 
@@ -30,6 +31,17 @@ public class Cylinder extends Tube {
 		return height;
 	}
 	
+	public Vector getNormal(Point point) {
+		
+		/*if(point.dotProdcuct(point,this.getRay().p0) == && distance(point,this.getRay().p0) <= this.getRadius()){
+				return(this.getRay().dir)	;
+	    }
+	
+		Tube t1 = new Tube(this.getRadius(), this.getRay());
+		return t1.getNormal(point);*/
+		
+		return null;
+	}
 	
 	@Override
 	public String toString() {

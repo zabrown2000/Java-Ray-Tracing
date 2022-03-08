@@ -74,19 +74,7 @@ public class Point {
 		return distanceSqr;
 	}
 
-	/**
-	 * the distance of two points
-	 * 
-	 * @param p1 first Point value
-	 * @param p2 second Point value
-	 * @return the distance between these two points squared 
-	 */
-	public double distance(Point p1, Point p2) {
-		double distance = distanceSquared(p1,p2);
-		distance = Math.sqrt(distance);
-		return distance;
-	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
@@ -100,6 +88,19 @@ public class Point {
 	@Override
 	public String toString() {
 	return this.xyz.toString();
+	}
+	
+	/**
+	 * the distance of two points
+	 * 
+	 * @param p1 first Point value
+	 * @param p2 second Point value
+	 * @return the distance between these two points squared 
+	 */
+	public double distance(Point point) {
+		double distance = distanceSquared(this,point);
+		distance = Math.sqrt(distance);
+		return distance;
 	}
 	
 }
