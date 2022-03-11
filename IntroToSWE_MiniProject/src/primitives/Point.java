@@ -32,6 +32,30 @@ public class Point {
 	}
 
 	/**
+	 * Getter for x coordinate
+	 * @return double
+	 */
+	public double getX() {
+		return this.xyz.d1;
+	}
+	
+	/**
+	 * Getter for y coordinate
+	 * @return double
+	 */
+	public double getY() {
+		return this.xyz.d2;
+	}
+	
+	/**
+	 * Getter for z coordinate
+	 * @return double
+	 */
+	public double getZ() {
+		return this.xyz.d3;
+	}
+	
+	/**
 	 * Subtracts current point from the point given in the parameter
 	 * 
 	 * @param p Point value

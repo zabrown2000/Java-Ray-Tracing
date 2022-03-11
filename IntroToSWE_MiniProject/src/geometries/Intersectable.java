@@ -4,7 +4,7 @@ import java.util.List;
 
 import primitives.*;
 
-public interface Intersectable extends Geometry {
+public interface Intersectable {
 	
 	List<Point> findIntsersections(Ray ray);
 }
