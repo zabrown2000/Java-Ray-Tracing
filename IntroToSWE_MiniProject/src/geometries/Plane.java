@@ -8,6 +8,7 @@ package geometries;
  */
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 public class Plane implements Geometry {
@@ -58,6 +59,18 @@ public class Plane implements Geometry {
 	@Override
 	public String toString() {
 		return "Plane [q0=" + q0.toString() + ", normal=" + normal.toString() + "]";
+	}
+	
+	/**
+     * Method to calculate the intersection points between the ray shot and the plane
+     * 
+     * @param ray the Ray shot by the camera
+     * @return the intersection Point 
+     */
+	public Point findIntersection(Ray ray) {
+		double t = (normal.dotProduct(q0.subtract(ray.getP0())))/(normal.dotProduct(ray.getDir()));
+		Point P = ray.getP0().add( ray.getDir().scale(t));
+		return P;
 	}
 	
 	

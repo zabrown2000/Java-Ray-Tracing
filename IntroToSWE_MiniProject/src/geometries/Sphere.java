@@ -62,4 +62,9 @@ public class Sphere implements Geometry {
 	public String toString() {
 		return "Sphere [radius=" + radius + "]";
 	}
+	
+	public Point findIntersection(Ray ray) {
+		
+		
+	}
 }
