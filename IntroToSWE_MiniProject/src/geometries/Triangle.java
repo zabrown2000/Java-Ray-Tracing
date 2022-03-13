@@ -26,6 +26,12 @@ public class Triangle extends Polygon {
 		return "Triangle [vertices=" + vertices + ", plane=" + plane + "]"; //need to iterate through list?
 	}
 	
+	public Point findIntersections(Ray ray) {
+		Vector v1;
+		Vector v2;
+		Vector v3; 
+		
+	}
 	
 	
 }
