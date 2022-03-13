@@ -35,5 +35,29 @@ class PlaneTests {
 		assertThrows(IllegalArgumentException.class,()->new Plane(new Point(1,2,3), new Point(2,4,6), new Point(3,6,9)),
 				"ERROR: Plane with a zero normal vector doesn't throw an exception");
 	}
+	
+	
+	@Test
+	void testFindIntersection() {
+		
+		// ============ Equivalence Partitions Tests ==============
+		//TC01: Ray intersects the plane 
+		//TC02: Ray does not intersect the plane 
+		//TC03: Ray orthogonal to the point 
+		//TC04: Ray parallel to the plane
+		
+		// =============== Boundary Values Tests ==================
+		//TC11: Ray is parallel to the plane including the plane
+		//TC12: Ray parallel to the plane excluding the plane
+		//TC13: orthogonal to the plane before the plane
+		//TC14: orthogonal to the plane in the plane 
+		//TC15: orthogonal to the plane after the plane
+		//TC16: Ray begins at the plane
+		//TC17: Ray begins at the same point with is a reference point in the plane 
+		
+		
+		
+		
+	}
 }
 
