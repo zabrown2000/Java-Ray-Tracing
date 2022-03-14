@@ -74,7 +74,7 @@ public class Plane implements Geometry {
 		// TODO Auto-generated method stub
 		double t = (normal.dotProduct(q0.subtract(ray.getP0())))/(normal.dotProduct(ray.getDir()));
 		Point P = ray.getP0().add( ray.getDir().scale(t));
-		return P;
+		return (List<Point>) P;
 	}
 	
 	
