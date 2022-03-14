@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import geometries.Plane;
-import primitives.Point;
+import geometries.*;
+import primitives.*;
 
 class PlaneTests {
 
@@ -40,8 +40,10 @@ class PlaneTests {
 	@Test
 	void testFindIntersection() {
 		
+		Plane plane1 = new Plane(new Point(1,1,0), new Vector(1,1,1));
 		// ============ Equivalence Partitions Tests ==============
 		//TC01: Ray intersects the plane 
+		Point p1 = new Point()
 		//TC02: Ray does not intersect the plane 
 		//TC03: Ray orthogonal to the point 
 		//TC04: Ray parallel to the plane
