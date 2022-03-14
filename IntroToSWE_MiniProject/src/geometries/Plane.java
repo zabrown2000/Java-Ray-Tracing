@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 /**
  * Class Plane is the basic class representing a plane of Euclidean geometry in Cartesian
  * 3-Dimensional coordinate system.
@@ -65,9 +67,11 @@ public class Plane implements Geometry {
      * Method to calculate the intersection points between the ray shot and the plane
      * 
      * @param ray the Ray shot by the camera
-     * @return the intersection Point 
+     * @return the intersection Point to the list of intersections
      */
-	public Point findIntersection(Ray ray) {
+	@Override
+	public List<Point> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
 		double t = (normal.dotProduct(q0.subtract(ray.getP0())))/(normal.dotProduct(ray.getDir()));
 		Point P = ray.getP0().add( ray.getDir().scale(t));
 		return P;
