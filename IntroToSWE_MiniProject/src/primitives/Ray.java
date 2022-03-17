@@ -44,7 +44,7 @@ public class Ray {
 	 * @return new point
 	 */
 	public Point getPoint(double t) {
-		return (this.p0.add(dir.scale(t)));
+		return (this.p0.add(dir.scale(t))); //p0 + t*v
 	}
 	
 	@Override
