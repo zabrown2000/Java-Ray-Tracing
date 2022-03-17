@@ -17,10 +17,6 @@ class GeometriesTest {
 	 */
 	@Test
 	void testFindIntsersections() {
-		//List<Intersectable> geos = null;
-		//geos.add(new Plane(new Point(0,1,-2), new Point(1,-1,2), new Point(-1,-1,2)));
-		//geos.add(new Triangle(new Point(0,1,-2), new Point(1,-1,2), new Point(-1,-1,2)));
-		//geos.add(new Sphere(new Point(0,0,1), 1)); 
 		
 		Plane p = new Plane(new Point(0,1,-2), new Point(1,-1,2), new Point(-1,-1,2));
 		Triangle t = new Triangle(new Point(0,1,-2), new Point(1,-1,2), new Point(-1,-1,2));

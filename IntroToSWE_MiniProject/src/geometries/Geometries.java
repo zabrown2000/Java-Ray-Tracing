@@ -44,10 +44,24 @@ public class Geometries implements Intersectable { //look up composite design pa
 	}
 	
 	public List<Point> findIntsersections(Ray ray) {
-		//if geo list is empty return null
-		// TODO Auto-generated method stub
-		return null;
-		//will use iterator behavioral design pattern
+		//no shapes in collection
+		if (this.groupGeometries.size() == 0) {
+			return null;
+		}
+		
+		List<Point> p = new ArrayList<Point>(); //array list because need to index
+		
+		for (Intersectable shape : this.groupGeometries) {
+			List<Point> temp = shape.findIntsersections(ray); //will call each shape's own function
+			if (temp.size() == 1) { //1 intersection point for shape
+				p.add(temp.get(0));
+			} else if (temp.size() == 2) { //2 intersection points for shape
+				p.add(temp.get(0));
+				p.add(temp.get(1));
+			}
+			
+		}
+		return (p.size() == 0) ? null : p; //returns null if no intersection points
 	}
 
 }
