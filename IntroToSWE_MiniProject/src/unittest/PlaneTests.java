@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import geometries.*;
 import primitives.*;
+import java.util.List;
 
 class PlaneTests {
 
@@ -70,11 +71,20 @@ class PlaneTests {
 
 		
 		//TC13: orthogonal to the plane before the plane
+		//interpreting before below the plane as the plane is infinitly long and wide 
+		Ray ray5 = new Ray(new Point(1,1,-1), new Vector(1,1,0));
+		Point p5 = new Point (1,1,0);
+		assertEquals(p5, plane3.findIntsersections(ray5), "Ray orthogonal to the plane before the plane");
 		
-		//TC14: orthogonal to the plane in the plane
-		//asserEquals(p6, plane3.findIntsersections(ray6); orthog in the plane)
-		
-		//TC15: orthogonal to the plane after the plane
+		//TC14: orthogonal to the plane in the plan
+		//ray starts on the plane 
+		assertEquals(p5, plane3.findIntsersections(ray5), "Ray orthogonal to the plane in the plane");
+				
+		//TC15: orthogonal to the plane after the plan
+		// ray starts below after the plane and therefore should not intersect 
+		Ray ray6 = new Ray (new Point (1,1,4), new Vector (1,1, 6));
+		assertNull(plane3.findIntsersections(ray6), "Ray orthogonal to the plane after the plan");
+	
 		
 		//TC16: Ray begins at the plane
 		Ray ray8 = new Ray(new Point (0.5,0.5,0), new Vector (0.5,0.5,0.5));
