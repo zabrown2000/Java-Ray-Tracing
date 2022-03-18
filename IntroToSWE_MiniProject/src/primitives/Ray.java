@@ -12,8 +12,6 @@ public class Ray {
 	public Point p0;
 	public Vector dir;
 	
-	//need 1 ctor (noralize), getters, equals and tostring
-	
 	/**
 	 * constructor to create a Ray
 	 * @param p point field
@@ -40,6 +38,15 @@ public class Ray {
 		return dir;
 	}
 
+	/**
+	 * refactored getter method for point on ray
+	 * @param t scalar for ray vector
+	 * @return new point
+	 */
+	public Point getPoint(double t) {
+		return (this.p0.add(dir.scale(t)));
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
