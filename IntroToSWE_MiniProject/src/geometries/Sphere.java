@@ -62,26 +62,34 @@ public class Sphere implements Geometry {
 	
 
 
+	/**
+     * Method to calculate the intersection points between the ray shot and the sphere
+     * 
+     * @param ray the Ray shot by the camera
+     * @return the intersection Point to the list of intersections
+     */
 	@Override
 	public List<Point> findIntsersections(Ray ray) {
-		Vector u = this.point.subtract(ray.getP0());
+		Vector u = this.point.subtract(ray.getP0()); //note that at the moment my vector is not normalized after a subtraction  
 		double tm = ray.getDir().dotProduct(u);
-		double distance = u.distance(ray.getDir());
-		if (distance>= this.radius) return null;
-		double th = Math.sqrt(this.radius*this.radius - distance*distance);
-		double t1 = tm + th;
-		double t2 = tm - th;
-		
-		List<Point> Intersection = new ArrayList<>();
-		
-		if (t1>0) {
-			Point P1 = ray.getP0().add(ray.getDir().scale(t1));
-			Intersection.add(P1);
-        }
-		if(t2>0) {
-			Point P2 = ray.getP0().add(ray.getDir().scale(t1));
-			Intersection.add(P2);
+		double distance = Math.sqrt(u.dotProduct(u)-tm*tm);
+		if (distance >= this.radius) return null; 
+		else {
+			double th = Math.sqrt(this.radius*this.radius - distance*distance);
+			double t1 = tm + th;
+			double t2 = tm - th;
+			
+			List<Point> Intersection = new ArrayList<>();
+			
+			if (t1>0) {
+				Point P1 = ray.getP0().add(ray.getDir().scale(t1));
+				Intersection.add(P1);
+	        }
+			if(t2>0) {
+				Point P2 = ray.getP0().add(ray.getDir().scale(t2));
+				Intersection.add(P2);
+			}
+			return Intersection;
 		}
-		return Intersection;
 	}
 }

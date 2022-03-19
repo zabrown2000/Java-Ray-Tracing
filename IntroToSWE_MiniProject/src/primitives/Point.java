@@ -117,8 +117,7 @@ public class Point {
 	/**
 	 * the distance of two points
 	 * 
-	 * @param p1 first Point value
-	 * @param p2 second Point value
+	 * @param ppoin second point Point value
 	 * @return the distance between these two points squared 
 	 */
 	public double distance(Point point) {
