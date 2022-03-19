@@ -73,11 +73,15 @@ public class Sphere implements Geometry {
 		Vector u = this.point.subtract(ray.getP0()); //note that at the moment my vector is not normalized after a subtraction  
 		double tm = ray.getDir().dotProduct(u);
 		double distance = Math.sqrt(u.dotProduct(u)-tm*tm);
-		if (distance >= this.radius) return null; 
+		
+		if (distance > this.radius || distance == radius) return null; 
+		
 		else {
 			double th = Math.sqrt(this.radius*this.radius - distance*distance);
 			double t1 = tm + th;
 			double t2 = tm - th;
+			
+			if(t1<0 && t2<0) return null;
 			
 			List<Point> Intersection = new ArrayList<>();
 			
