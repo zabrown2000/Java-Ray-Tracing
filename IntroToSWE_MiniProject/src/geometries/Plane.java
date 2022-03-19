@@ -1,7 +1,7 @@
 package geometries;
 
 import java.util.List;
-
+import java.util.ArrayList;
 /**
  * Class Plane is the basic class representing a plane of Euclidean geometry in Cartesian
  * 3-Dimensional coordinate system.
@@ -73,8 +73,13 @@ public class Plane implements Geometry {
 	public List<Point> findIntsersections(Ray ray) {
 		// TODO Auto-generated method stub
 		double t = (normal.dotProduct(q0.subtract(ray.getP0())))/(normal.dotProduct(ray.getDir()));
-		Point P = ray.getP0().add( ray.getDir().scale(t));
-		return (List<Point>) P;
+		if (t<0) return null;
+		else{
+			Point P = ray.getP0().add( ray.getDir().scale(t));
+		    List<Point> intersectable = new ArrayList<>();
+		    intersectable.add(P);
+		    return intersectable;
+		}
 	}
 	
 	

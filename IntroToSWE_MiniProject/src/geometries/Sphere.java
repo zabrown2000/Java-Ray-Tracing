@@ -1,5 +1,9 @@
 package geometries;
 
+import java.util.List;
+import java.util.ArrayList;
+
+
 /**
  * Class Sphere is the basic class representing a sphere of Euclidean geometry in Cartesian
  * 3-Dimensional coordinate system.
@@ -8,7 +12,6 @@ package geometries;
  */
 
 import primitives.*;
-import primitives.Point;
 
 public class Sphere implements Geometry {
 
@@ -58,13 +61,27 @@ public class Sphere implements Geometry {
 	}
 	
 
+
 	@Override
-	public String toString() {
-		return "Sphere [radius=" + radius + "]";
-	}
-	
-	public Point findIntersection(Ray ray) {
+	public List<Point> findIntsersections(Ray ray) {
+		Vector u = this.point.subtract(ray.getP0());
+		double tm = ray.getDir().dotProduct(u);
+		double distance = u.distance(ray.getDir());
+		if (distance>= this.radius) return null;
+		double th = Math.sqrt(this.radius*this.radius - distance*distance);
+		double t1 = tm + th;
+		double t2 = tm - th;
 		
+		List<Point> Intersection = new ArrayList<>();
 		
+		if (t1>0) {
+			Point P1 = ray.getP0().add(ray.getDir().scale(t1));
+			Intersection.add(P1);
+        }
+		if(t2>0) {
+			Point P2 = ray.getP0().add(ray.getDir().scale(t1));
+			Intersection.add(P2);
+		}
+		return Intersection;
 	}
 }
