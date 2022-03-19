@@ -38,6 +38,7 @@ public class Triangle extends Polygon {
      */
 	@Override
 	public List<Point> findIntsersections(Ray ray) {
+		
 		 Vector v1 = this.getP1().subtract(ray.getP0());
 		 Vector v2 = this.getP2().subtract(ray.getP0());
 		 Vector v3 = this.getP3().subtract(ray.getP0());
@@ -53,7 +54,6 @@ public class Triangle extends Polygon {
 		 if(ans1>0 && ans2>0 && ans3>0 || ans1<0 && ans2<0 && ans3<0) {
 			 return this.plane.findIntsersections(ray);
 		 }
-		 
 		 else return null;
 		 
 	}
