@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,10 +30,24 @@ public class Triangle extends Polygon {
 	}
 	
 	public List<Point> findIntersections(Ray ray) {
-		Vector v1;
-		Vector v2;
-		Vector v3; 
-		return null;
+		 Vector v1 = this.getP1().subtract(ray.getP0());
+		 Vector v2 = this.getP2().subtract(ray.getP0());
+		 Vector v3 = this.getP3().subtract(ray.getP0());
+		 
+		 Vector n1 = v1.crossProduct(v2).normalize();
+		 Vector n2 = v2.crossProduct(v3).normalize();
+		 Vector n3 = v3.crossProduct(v1).normalize();
+		 
+		 double ans1 = v1.dotProduct(n1);
+		 double ans2 = v2.dotProduct(n2);
+		 double ans3 = v3.dotProduct(n3);
+		 
+		 if(ans1>0 && ans2>0 && ans3>0 || ans1<0 && ans2<0 && ans3<0) {
+			 return this.plane.findIntsersections(ray);
+		 }
+		 
+		 else return null;
+		 
 	}
 	
 	
