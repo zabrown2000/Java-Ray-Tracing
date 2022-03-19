@@ -29,7 +29,15 @@ public class Triangle extends Polygon {
 		return "Triangle [vertices=" + vertices + ", plane=" + plane + "]"; //need to iterate through list?
 	}
 	
-	public List<Point> findIntersections(Ray ray) {
+	
+	/**
+     * Method to calculate the intersection points between the ray shot and the triangle
+     * 
+     * @param ray the Ray shot by the camera
+     * @return the intersection Point to the list of intersections
+     */
+	@Override
+	public List<Point> findIntsersections(Ray ray) {
 		 Vector v1 = this.getP1().subtract(ray.getP0());
 		 Vector v2 = this.getP2().subtract(ray.getP0());
 		 Vector v3 = this.getP3().subtract(ray.getP0());
