@@ -38,7 +38,9 @@ class PlaneTests {
 				"ERROR: Plane with a zero normal vector doesn't throw an exception");
 	}
 	
-	
+	/**
+	 * Test method for {@link geometries.Plane#findIntsersections(primitives.Ray)}.
+	 */
 	@Test
 	void testFindIntersection() {
 		

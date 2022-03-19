@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 /**
  * Class Triangle is the basic class representing a triangle of Euclidean geometry in Cartesian
  * 3-Dimensional coordinate system.
@@ -26,11 +28,11 @@ public class Triangle extends Polygon {
 		return "Triangle [vertices=" + vertices + ", plane=" + plane + "]"; //need to iterate through list?
 	}
 	
-	public Point findIntersections(Ray ray) {
+	public List<Point> findIntersections(Ray ray) {
 		Vector v1;
 		Vector v2;
 		Vector v3; 
-		
+		return null;
 	}
 	
 	
