@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 /**
  * Class Tube is the basic class representing a tube of Euclidean geometry in Cartesian
  * 3-Dimensional coordinate system.
@@ -61,5 +63,11 @@ public class Tube implements Geometry {
 	@Override
 	public String toString() {
 		return "Tube [radius=" + radius + "]";
+	}
+
+	@Override
+	public List<Point> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
