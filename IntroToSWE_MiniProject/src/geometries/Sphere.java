@@ -74,9 +74,9 @@ public class Sphere implements Geometry {
 		double tm = ray.getDir().dotProduct(u);
 		double distance = Math.sqrt(u.dotProduct(u)-tm*tm);
 		
-		if (distance > this.radius || distance == radius) return null; 
-		
-		else {
+		if (distance > this.radius || distance == radius) {
+			return null; 
+		} else {
 			double th = Math.sqrt(this.radius*this.radius - distance*distance);
 			double t1 = tm + th;
 			double t2 = tm - th;

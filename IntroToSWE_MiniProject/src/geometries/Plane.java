@@ -73,8 +73,9 @@ public class Plane implements Geometry {
 	public List<Point> findIntsersections(Ray ray) {
 		// TODO Auto-generated method stub
 		double t = (normal.dotProduct(q0.subtract(ray.getP0())))/(normal.dotProduct(ray.getDir()));
-		if (t<0) return null;
-		else{
+		if (t<0) {
+			return null;
+		} else {
 			Point P = ray.getP0().add( ray.getDir().scale(t));
 		    List<Point> intersectable = new ArrayList<>();
 		    intersectable.add(P);
