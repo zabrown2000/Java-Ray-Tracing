@@ -54,7 +54,9 @@ public class Triangle extends Polygon {
 		 if(ans1>0 && ans2>0 && ans3>0 || ans1<0 && ans2<0 && ans3<0) {
 			 return this.plane.findIntsersections(ray);
 		 }
-		 else return null;
+		 else {
+			 return null;
+		 }
 		 
 	}
 	
