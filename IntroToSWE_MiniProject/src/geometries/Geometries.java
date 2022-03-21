@@ -53,6 +53,7 @@ public class Geometries implements Intersectable { //look up composite design pa
 		
 		for (Intersectable shape : this.groupGeometries) {
 			List<Point> temp = shape.findIntsersections(ray); //will call each shape's own function
+			if (temp == null) continue;
 			if (temp.size() == 1) { //1 intersection point for shape
 				p.add(temp.get(0));
 			} else if (temp.size() == 2) { //2 intersection points for shape
@@ -61,7 +62,12 @@ public class Geometries implements Intersectable { //look up composite design pa
 			}
 			
 		}
-		return (p.size() == 0) ? null : p; //returns null if no intersection points
+		//return (p.size() == 0) ? null : p; //returns null if no intersection points
+		if (p.size() == 0) {
+			return null;
+		} else {
+			return p;
+		}
 	}
 
 }
