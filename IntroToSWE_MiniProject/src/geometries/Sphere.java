@@ -74,15 +74,9 @@ public class Sphere implements Geometry {
 		double tm = ray.getDir().dotProduct(u);
 		double distance = Math.sqrt(u.dotProduct(u)-tm*tm);
 		
-<<<<<<< HEAD
-		if (distance >= this.radius ) return null; 
-		
-		else {
-=======
 		if (distance > this.radius || distance == radius) {
 			return null; 
 		} else {
->>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
 			double th = Math.sqrt(this.radius*this.radius - distance*distance);
 			double t1 = tm + th;
 			double t2 = tm - th;
