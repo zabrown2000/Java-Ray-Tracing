@@ -85,17 +85,6 @@ public class Polygon implements Geometry {
 		size = vertices.length;
 	}
 	
-	public Point getP1() {
-		return vertices.get(0);
-	}
-	
-	public Point getP2() {
-		return vertices.get(1);
-	}
-	
-	public Point getP3() {
-		return vertices.get(2);
-	}
 
 	@Override
 	public Vector getNormal(Point point) {

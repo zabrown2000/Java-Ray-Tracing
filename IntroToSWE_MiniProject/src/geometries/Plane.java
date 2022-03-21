@@ -76,7 +76,8 @@ public class Plane implements Geometry {
 		if (t<0) {
 			return null;
 		} else {
-			Point P = ray.getP0().add( ray.getDir().scale(t));
+			//Point P = ray.getP0().add( ray.getDir().scale(t));
+			Point P = ray.getPoint(t);
 		    List<Point> intersectable = new ArrayList<>();
 		    intersectable.add(P);
 		    return intersectable;

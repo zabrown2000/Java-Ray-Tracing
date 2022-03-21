@@ -24,6 +24,18 @@ public class Triangle extends Polygon {
 		super(p1, p2, p3); //calls polygon
 	}
 
+	public Point getP1() {
+		return vertices.get(0);
+	}
+	
+	public Point getP2() {
+		return vertices.get(1);
+	}
+	
+	public Point getP3() {
+		return vertices.get(2);
+	}
+	
 	@Override
 	public String toString() {
 		return "Triangle [vertices=" + vertices + ", plane=" + plane + "]"; //need to iterate through list?

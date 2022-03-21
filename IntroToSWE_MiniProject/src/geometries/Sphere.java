@@ -86,11 +86,13 @@ public class Sphere implements Geometry {
 			List<Point> Intersection = new ArrayList<>();
 			
 			if (t1>0) {
-				Point P1 = ray.getP0().add(ray.getDir().scale(t1));
+				//Point P1 = ray.getP0().add(ray.getDir().scale(t1));
+				Point P1 = ray.getPoint(t1);
 				Intersection.add(P1);
 	        }
 			if(t2>0) {
-				Point P2 = ray.getP0().add(ray.getDir().scale(t2));
+				//Point P2 = ray.getP0().add(ray.getDir().scale(t2));
+				Point P2 = ray.getPoint(t2);
 				Intersection.add(P2);
 			}
 			return Intersection;
