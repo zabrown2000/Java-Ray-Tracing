@@ -1,3 +1,9 @@
+/*
+Tests TC01 and TC14 have issues (intersecting plane and triangle simultaneously). We emailed Joyce Vogel but have not yet 
+heard back in time for the due date. We took note of the issues and will keep working on trying to fix it. All other tests
+and functions work perfectly.
+*/
+
 package unittest;
 
 import static org.junit.jupiter.api.Assertions.*;
