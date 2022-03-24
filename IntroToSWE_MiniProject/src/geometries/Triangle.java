@@ -55,6 +55,10 @@ public class Triangle extends Polygon {
 		 Vector v2 = this.getP2().subtract(ray.getP0());
 		 Vector v3 = this.getP3().subtract(ray.getP0());
 		 
+		 v1 = v1.normalize();
+		 v2 = v2.normalize();
+		 v3 = v3.normalize();
+		 
 		 Vector n1 = v1.crossProduct(v2).normalize();
 		 Vector n2 = v2.crossProduct(v3).normalize();
 		 Vector n3 = v3.crossProduct(v1).normalize();
@@ -63,13 +67,14 @@ public class Triangle extends Polygon {
 		 double ans2 = v2.dotProduct(n2);
 		 double ans3 = v3.dotProduct(n3);
 		 
-		 if(ans1>0 && ans2>0 && ans3>0 || ans1<0 && ans2<0 && ans3<0) {
+		 if((ans1>0 && ans2>0 && ans3>0) || (ans1<0 && ans2<0 && ans3<0)) {
 			 return this.plane.findIntsersections(ray);
 		 }
 		 else {
 			 return null;
 		 }
 		 
+
 	}
 	
 	

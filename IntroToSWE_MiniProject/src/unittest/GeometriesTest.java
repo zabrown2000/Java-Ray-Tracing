@@ -25,6 +25,7 @@ class GeometriesTest {
 		Sphere s = new Sphere(new Point(0,0,1), 1);
 		
 		Geometries group = new Geometries(p, t, s); 
+		//Geometries group = new Geometries(t); 
 		
 		// ============ Equivalence Partitions Tests ==============
 		//TC01: Some shapes but not all intersect
@@ -32,7 +33,7 @@ class GeometriesTest {
 		//Ray r1 = new Ray(new Point(0.5,1,-1), new Vector(-0.5,-3,1));
 		Ray r1 = new Ray(new Point(0.15,0.29,2.53), new Vector(-0.07,-1.23,-0.66));
 		//Ray r1 = new Ray(new Point(-6.43,-3.51,4), new Vector(4.45,6.5,-2.23)); //for commented out plane and triangle
-		assertEquals(2d, group.findIntsersections(r1).size(), "ERROR with some shapes intersecting");
+		assertEquals(1d, group.findIntsersections(r1).size(), "ERROR with some shapes intersecting");
 		
 		// =============== Boundary Values Tests ==================
 		//TC11: Empty collection of shapes
@@ -58,6 +59,7 @@ class GeometriesTest {
 		//Ray r4 = new Ray(new Point(0.5,1,-1), new Vector(-1.3,-2.35,3.7)); //for commented out plane and triangle
 		Ray r4 = new Ray(new Point(-1.88,1.45,1.5), new Vector(2.04,-2.41,-0.29)); 
 		assertEquals(4d, group.findIntsersections(r4).size(), "ERROR with all shapes intersecting");
+		
 	}
 
 }
