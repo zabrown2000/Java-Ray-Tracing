@@ -29,16 +29,9 @@ class GeometriesTest {
 		
 		// ============ Equivalence Partitions Tests ==============
 		//TC01: Some shapes but not all intersect
-		//ray will intersect triangle and plane only -> 2 points
-
-		Ray r1 = new Ray(new Point(0.5,1,-1), new Vector(-0.5,-3,1));
-		//Ray r1 = new Ray(new Point(-6.43,-3.51,4), new Vector(4.45,6.5,-2.23));
-		//assertEquals(2d, group.findIntsersections(r1).size(), "ERROR with some shapes intersecting");
-
-		//Ray r1 = new Ray(new Point(0.5,1,-1), new Vector(-0.5,-3,1));
-		//Ray r1 = new Ray(new Point(0.15,0.29,2.53), new Vector(-0.07,-1.23,-0.66));
+		Ray r1 = new Ray(new Point(0.15,0.29,2.53), new Vector(-0.07,-1.23,-0.66));
 		//Ray r1 = new Ray(new Point(-6.43,-3.51,4), new Vector(4.45,6.5,-2.23)); //for commented out plane and triangle
-		assertEquals(1d, group.findIntsersections(r1).size(), "ERROR with some shapes intersecting");
+		assertEquals(2d, group.findIntsersections(r1).size(), "ERROR with some shapes intersecting");
 		
 		// =============== Boundary Values Tests ==================
 		//TC11: Empty collection of shapes

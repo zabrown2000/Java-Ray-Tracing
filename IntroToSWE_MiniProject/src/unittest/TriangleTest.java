@@ -44,11 +44,11 @@ class TriangleTest {
 		//TC11: On the side of a triangle
 		Point p7 = new Point(1.53,0.53,0);
 		Ray r2 = new Ray(new Point(1.53,0.53,2), new Vector(0,0,-2));
-		//assertEquals(p7, t1.findIntsersections(r2).get(0), "ERROR: Not intersect side of triangle");
+		assertEquals(p7, t1.findIntsersections(r2).get(0), "ERROR: Not intersect side of triangle");
 		
 		//TC12: On the corner of a triangle
 		Ray r3 = new Ray(new Point(1.53,0.53,2), new Vector(0.47,0.47,-2));
-		//assertEquals(p3, t1.findIntsersections(r3).get(0), "ERROR: Not intersect corner of triangle");
+		assertEquals(p3, t1.findIntsersections(r3).get(0), "ERROR: Not intersect corner of triangle");
 		
 		//TC13: Extension of the line of a triangle
 		Point p8 = new Point(3.55,0,0); //point on line of triangle
