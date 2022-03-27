@@ -12,7 +12,7 @@ public class Camera {
 	//view plane fields
 	double width;
 	double height;
-	Vector direction;
+	double distance;
 	
 	
 	public Point getP0() {
@@ -41,16 +41,24 @@ public class Camera {
 		
 		this.Vto = Vto.normalize();
 		this.Vup = Vup.normalize();
-		this.Vright = (Vto.crossProduct(Vup)).normalize();
-		
-		
+		this.Vright = (Vto.crossProduct(Vup)).normalize();	
 	}
 	
-	public Camera setVPSize(double width, double height) {}
+	public Camera setVPSize(double width, double height) {
+		this.width = width;
+		this.height = height;
+		return this;
+	}
 	
-	public Camera setVPDistance(double distance) {}
+	public Camera setVPDistance(double distance) {
+		this.distance = distance;
+		return this;
+	}
 	
-	public Ray constructRay(int nX, int nY, int j, int i)
+	
+	public Ray constructRay(int nX, int nY, int j, int i) {
+		return null;
+	}
 	
 
 }
