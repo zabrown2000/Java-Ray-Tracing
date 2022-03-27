@@ -14,23 +14,47 @@ public class Camera {
 	double height;
 	double distance;
 	
-	
+	/**
+	 * 
+	 * @return the position p0 of the camera
+	 */
 	public Point getP0() {
 		return p0;
 	}
-
-	public Vector getVto() {
+	
+	/**
+	 * 
+	 * @return the toward vector (Vto) of the camera 
+	 */
+    public Vector getVto() {
 		return Vto;
 	}
 
+    /**
+     * 
+     * @return the upwards vector (Vup) of the camera 
+     */
 	public Vector getVup() {
 		return Vup;
 	}
 
+	/**
+	 * 
+	 * @return the right vector (Vright) of the camera 
+	 */
 	public Vector getVright() {
 		return Vright;
 	}
 
+	/**
+	 * sets p0
+	 * checks that the two vectors are orthogonal and sets then to Vto and Vup
+	 * Calculates Vright and sets it
+	 * 
+	 * @param p0 the position point of the camera
+	 * @param Vup the upward vector of the camera
+	 * @param Vto the forward vector of the camera 
+	 */
 	public Camera(Point p0, Vector Vup, Vector Vto) {
 		this.p0 = p0;
 		
@@ -44,20 +68,41 @@ public class Camera {
 		this.Vright = (Vto.crossProduct(Vup)).normalize();	
 	}
 	
+	/**
+	 * sets the width and height of the view plane and returns the vector
+	 * 
+	 * @param width of the view plane
+	 * @param height of the view plane
+	 * @return the camera 
+	 */
 	public Camera setVPSize(double width, double height) {
 		this.width = width;
 		this.height = height;
 		return this;
 	}
 	
+	/**
+	 * sets the distance from the camera to the view plane and return the camera 
+	 * @param distance between the view plane and the camera 
+	 * @return the camra 
+	 */
 	public Camera setVPDistance(double distance) {
 		this.distance = distance;
 		return this;
 	}
 	
-	
+	/**
+	 * shoots a ray from the camera through the view plane 
+	 * 
+	 * @param nX number of pixels in the horizontal direction
+	 * @param nY number of pixels in the vertical direction
+	 * @param j position in the column 
+	 * @param i position in the row 
+	 * @return 
+	 */
 	public Ray constructRay(int nX, int nY, int j, int i) {
 		return null;
+		
 	}
 	
 
