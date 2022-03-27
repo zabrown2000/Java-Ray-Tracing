@@ -9,7 +9,7 @@ public class Camera {
 	private Vector Vup;
 	private Vector Vright;
 	
-	//veiw plane fields
+	//view plane fields
 	double width;
 	double height;
 	Vector direction;
@@ -31,7 +31,20 @@ public class Camera {
 		return Vright;
 	}
 
-	public Camera(Point p0, Vector Vup, Vector Vto) {}
+	public Camera(Point p0, Vector Vup, Vector Vto) {
+		this.p0 = p0;
+		
+		//check perpendicular
+		if(Vup.dotProduct(Vto) != 0) {
+			throw new IllegalArgumentException("Error: Vto and Vup are not perpedicular");
+		}
+		
+		this.Vto = Vto.normalize();
+		this.Vup = Vup.normalize();
+		this.Vright = (Vto.crossProduct(Vup)).normalize();
+		
+		
+	}
 	
 	public Camera setVPSize(double width, double height) {}
 	
