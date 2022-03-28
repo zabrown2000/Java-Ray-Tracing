@@ -42,14 +42,12 @@ class TriangleTest {
 		
 		// =============== Boundary Values Tests ==================
 		//TC11: On the side of a triangle
-		//Point p7 = new Point(1.53,0.53,0);
-		//Point p7 = new Point(0,0.5,0);
-		Ray r2 = new Ray(new Point(2,0,1), new Vector(0,0,-1));
-		assertEquals(null, t1.findIntsersections(r2).get(0), "ERROR: Not intersect side of triangle");
+		Ray r2 = new Ray(new Point(1.53,0.53,2), new Vector(0,0,-2));
+		assertEquals(null, t1.findIntsersections(r2), "ERROR: Not intersect side of triangle");
 		
 		//TC12: On the corner of a triangle
-		Ray r3 = new Ray(new Point(0, 1, 0), new Vector(2,1,0));
-		assertEquals(null, t1.findIntsersections(r3).get(0), "ERROR: Not intersect corner of triangle");
+		Ray r3 = new Ray(new Point(1.53,0.53,2), new Vector(0.47,0.47,-2));
+		assertEquals(null, t1.findIntsersections(r3), "ERROR: Not intersect corner of triangle");
 		
 		//TC13: Extension of the line of a triangle
 		Point p8 = new Point(3.55,0,0); //point on line of triangle
