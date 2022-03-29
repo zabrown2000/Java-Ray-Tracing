@@ -101,7 +101,26 @@ public class Camera {
 	 * @return 
 	 */
 	public Ray constructRay(int nX, int nY, int j, int i) {
-		return null;
+		//image center 
+		Point Pc = this.p0.add(Vto.scale(distance));
+				
+		//ratio
+		double Ry = height/nY;
+		double Rx = width/nX;
+				
+		//if xj and yi equal zero we will get in error 
+		//therefore we want to work around this as it is not incorrect 
+		double yI = -(i-((nY-1)/2))*Ry;
+		double xJ = (j-((nX-1)/2))*Rx;
+				
+		Point Pij = Pc;
+		if (xJ != 0) Pij = Pij.add(Vright.scale(xJ));
+		if (yI != 0) Pij = Pij.add(Vup.scale(yI));
+				
+		Vector Vij = Pij.subtract(p0);
+		Ray ray = new Ray(p0,Vij);
+			    
+		return ray;
 		
 	}
 	
