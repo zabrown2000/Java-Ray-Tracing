@@ -72,7 +72,7 @@ class SphereTests {
         assertEquals(new Point(1.0,1.0,0.0), sphere.findIntsersections(new Ray(new Point (1,1,0), new Vector(1, 0.5 ,0))).get(0), "Ray starts at sphere and goes inside");
         
         // TC12: Ray starts at sphere and goes outside (0 points)
-        //assertNull(sphere.findIntsersections(new Ray(new Point(2,0,0), new Vector(2,0,1) )),"Ray starts at sphere and goes outside"); //double check might not work
+        assertNull(sphere.findIntsersections(new Ray(new Point(2,0,0), new Vector(2,0,1) )),"Ray starts at sphere and goes outside"); //double check might not work
 		
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts before the sphere (2 points)
@@ -91,21 +91,23 @@ class SphereTests {
         assertEquals(new Point(1.1937129433613967,0.6937129433613968,0.6937129433613968), sphere.findIntsersections(new Ray( new Point(0.5,0,0), new Vector(1,1,1) )).get(0)," Ray starts inside ");
         
         // TC16: Ray starts at the center (1 points)
-        //how is this possible to return a point as we produce a zero vector in the first step
-        //assertEquals(new Point(2.0,0.0,0.0), sphere.findIntsersections(new Ray(new Point (1,0,0), new Vector(2, 0 ,0))).get(0), "Ray starts at sphere and goes inside");
+        //?? how is this possible to return a point as we produce a zero vector in the first step
+        Ray r16 = new Ray(new Point (1,0,0), new Vector(2, 0 ,0));
+        assertThrows(IllegalArgumentException.class, ()->sphere.findIntsersections(r16) ,"Ray starts at sphere and goes inside");
+        
         
         // TC17: Ray starts at sphere and goes outside (0 points)
-        //assertNull(sphere.findIntsersections(new Ray(new Point(1,1,0), new Vector(0,1,0) )), "Ray starts at sphere and goes outside");
+        assertNull(sphere.findIntsersections(new Ray(new Point(1,1,0), new Vector(0,1,0) )), "Ray starts at sphere and goes outside");
         
         // TC18: Ray starts after sphere (0 points)
-        // assertNull(sphere.findIntsersections(new Ray(new Point(2,5,0), new Vector(1,5,0)))," Ray starts at sphere and goes outside");
+        assertNull(sphere.findIntsersections(new Ray(new Point(2,5,0), new Vector(1,5,0)))," Ray starts at sphere and goes outside");
         
         // **** Group: Ray's line is tangent to the sphere (all tests 0 points)
         // TC19: Ray starts before the tangent point
         assertNull(sphere.findIntsersections(new Ray(new Point(3,0,1), new Vector(-1,0,1))),"Ray starts before the tangent point");
         
         // TC20: Ray starts at the tangent point
-        //assertNull(sphere.findIntsersections(new Ray(new Point(1,0,1), new Vector(0,0,1))),"Ray starts at the tangent point");
+        assertNull(sphere.findIntsersections(new Ray(new Point(1,0,1), new Vector(0,0,1))),"Ray starts at the tangent point");
         
         // TC21: Ray starts after the tangent point
         assertNull(sphere.findIntsersections(new Ray(new Point(0.5,0,1), new Vector(0,0,1))),"Ray starts at the tangent point");

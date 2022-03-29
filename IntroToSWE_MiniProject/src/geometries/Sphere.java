@@ -95,6 +95,9 @@ public class Sphere implements Geometry {
 				Point P2 = ray.getPoint(t2);
 				Intersection.add(P2);
 			}
+			
+			if(Intersection.isEmpty()) return null;
+			
 			return Intersection;
 		}
 	}
