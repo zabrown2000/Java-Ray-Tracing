@@ -107,7 +107,7 @@ class GeoCameraIntegrationTests {
 		checkIntersections(c, p3, 6, "ERROR Plane TC03: Expected 6 points");
 		
 		//TC04: Plane behind view plane - 0 points
-		Plane p4 = new Plane(new Point(0,0,5), new Vector(0,1,1));
+		Plane p4 = new Plane(new Point(1,1,2), new Point(-1,1,2), new Point(0,-10,2));
 		checkIntersections(c, p4, 0, "ERROR Plane TC04: Expected 0 points");
 		
 	}
