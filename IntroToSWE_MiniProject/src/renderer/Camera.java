@@ -84,7 +84,7 @@ public class Camera {
 	/**
 	 * sets the distance from the camera to the view plane and return the camera 
 	 * @param distance between the view plane and the camera 
-	 * @return the camra 
+	 * @return the camera 
 	 */
 	public Camera setVPDistance(double distance) {
 		this.distance = distance;
@@ -110,19 +110,25 @@ public class Camera {
 				
 		//if xj and yi equal zero we will get in error 
 		//therefore we want to work around this as it is not incorrect 
-		double yI = -(i-((nY-1)/2))*Ry;
-		double xJ = (j-((nX-1)/2))*Rx;
+		double yI = ((nY - 1)/2d - i)*Ry;
+		double xJ = (-(nX - 1)/2d + j)*Rx;
 				
 		Point Pij = Pc;
+		
 		if (xJ != 0) Pij = Pij.add(Vright.scale(xJ));
 		if (yI != 0) Pij = Pij.add(Vup.scale(yI));
+		
+		else Pij = Pij.add(Vright.scale(xJ).normalize()).add(Vright.scale(yI).normalize());
 				
-		Vector Vij = Pij.subtract(p0);
+		
+				
+		Vector Vij = Pij.subtract(p0).normalize();
 		Ray ray = new Ray(p0,Vij);
 			    
 		return ray;
+    }
 		
-	}
+}
 	
 
-}
+
