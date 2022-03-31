@@ -113,12 +113,8 @@ public class Camera {
 		double yI = ((nY - 1)/2d - i)*Ry;
 		double xJ = (-(nX - 1)/2d + j)*Rx;
 				
-<<<<<<< HEAD
-		Point Pij = Pc;
-		
-=======
+
 		Point Pij = Pc; 
->>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
 		if (xJ != 0) Pij = Pij.add(Vright.scale(xJ));
 		if (yI != 0) Pij = Pij.add(Vup.scale(yI));
 		
