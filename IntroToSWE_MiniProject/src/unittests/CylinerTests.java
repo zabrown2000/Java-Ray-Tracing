@@ -1,4 +1,4 @@
-package unittest;
+package unittests;
 
 import static org.junit.jupiter.api.Assertions.*;
 

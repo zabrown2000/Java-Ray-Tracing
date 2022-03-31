@@ -113,7 +113,7 @@ public class Camera {
 		double yI = -(i-((nY-1)/2))*Ry;
 		double xJ = (j-((nX-1)/2))*Rx;
 				
-		Point Pij = Pc;
+		Point Pij = Pc; 
 		if (xJ != 0) Pij = Pij.add(Vright.scale(xJ));
 		if (yI != 0) Pij = Pij.add(Vup.scale(yI));
 				
