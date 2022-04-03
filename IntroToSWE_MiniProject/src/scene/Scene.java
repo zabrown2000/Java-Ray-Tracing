@@ -1,7 +1,7 @@
 package scene;
 
 import java.awt.Color;
-import elements.*;
+import elements.AmbientLight;
 import geometries.*;
 import primitives.*;
 
@@ -30,7 +30,7 @@ public class Scene {
 	 * @return the scene 
 	 */
 	public Scene setAmbientLight(Color IA, Double3 kA) {
-		AmbientLight ambientLight = new AmbientLight(IA, kA); //check that the double3 should be a parameter
+		AmbientLight ambientLight = new AmbientLight(IA, kA); 
 		this.ambientLight = ambientLight;
 		return this;
 	}
