@@ -35,4 +35,12 @@ class PointTests {
  		assertEquals(v2, p3.subtract(p1), "ERROR: Point - Point does not work correctly");
 
     }
+    
+    @Test
+    public void testDistance() {
+    	Point p1 = new Point(1,2,1);
+    	Point p2 = new Point(2,3,4);
+    	double result = Math.sqrt(11);
+    	assertEquals(result, p2.distance(p1), 0.0001, "ERROR: point distance function not working correctly");
+    }
 }

@@ -92,12 +92,23 @@ public class Point {
 	 * @param p2 second Point value
 	 * @return the distance between these two points squared 
 	 */
-	public double distanceSquared(Point p1, Point p2) {
-		double distanceSqr = (p1.xyz.d1-p2.xyz.d1)*(p1.xyz.d1-p2.xyz.d1) + (p1.xyz.d2 -p2.xyz.d2)*(p1.xyz.d1-p2.xyz.d1) 
-				+ (p1.xyz.d3 - p2.xyz.d3)*(p1.xyz.d1-p2.xyz.d1);
+	public double distanceSquared(Point p1, Point p2) { 
+		double distanceSqr = (p1.xyz.d1-p2.xyz.d1)*(p1.xyz.d1-p2.xyz.d1) + (p1.xyz.d2 -p2.xyz.d2)*(p1.xyz.d2-p2.xyz.d2) 
+				+ (p1.xyz.d3 - p2.xyz.d3)*(p1.xyz.d3-p2.xyz.d3);
 		return distanceSqr;
 	}
 
+	/**
+	 * the distance of two points
+	 * 
+	 * @param ppoin second point Point value
+	 * @return the distance between these two points squared 
+	 */
+	public double distance(Point point) {
+		double distance = distanceSquared(this,point);
+		distance = Math.sqrt(distance);
+		return distance;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -114,16 +125,5 @@ public class Point {
 	return this.xyz.toString();
 	}
 	
-	/**
-	 * the distance of two points
-	 * 
-	 * @param ppoin second point Point value
-	 * @return the distance between these two points squared 
-	 */
-	public double distance(Point point) {
-		double distance = distanceSquared(this,point);
-		distance = Math.sqrt(distance);
-		return distance;
-	}
 	
 }
