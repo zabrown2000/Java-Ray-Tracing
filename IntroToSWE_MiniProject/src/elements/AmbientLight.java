@@ -24,7 +24,7 @@ public class AmbientLight {
 	 */
 	public AmbientLight(java.awt.Color iA, Double3 kA) {
 		Color color = new Color(iA);
-		this.intensity =  color.scale(kA);
+		this.intensity =  iA.scale(kA);
 	}
 
 	/**
