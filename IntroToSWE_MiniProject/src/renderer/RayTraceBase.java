@@ -1,5 +1,29 @@
 package renderer;
+import java.awt.Color;
+import elements.AmbientLight;
+import geometries.*;
+import primitives.*;
+import scene.*;
 
 public abstract class RayTraceBase {
+	
+	protected Scene scene;
+	
+	/**
+	 * a constructor that receives a scene as a parameter 
+	 * @param scene Scene
+	 */
+	public RayTraceBase(Scene scene) {
+		this.scene = scene;
+	}
+	
+	/**
+	 * 
+	 * @param ray Ray being shot
+	 * @return the Color on the point that the ray hit
+	 */
+	public abstract Color traceRay(Ray ray);
+		
+	
 
 }
