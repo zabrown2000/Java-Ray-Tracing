@@ -5,13 +5,13 @@ import geometries.*;
 import primitives.*;
 import scene.*;
 
-public class rayTracerBasic extends RayTraceBase {
+public class RayTracerBasic extends RayTraceBase {
 	
 	/**
 	 * constructor 
 	 * @param scene Scene
 	 */
-	public rayTracerBasic(Scene scene) { super(scene);}
+	public RayTracerBasic(Scene scene) { super(scene);}
 	
 	/**
 	 * override traceRay
