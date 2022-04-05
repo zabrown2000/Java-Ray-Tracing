@@ -2,18 +2,111 @@ package renderer;
 
 import primitives.*;
 import geometries.*;
+import renderer.*;
 
 public class Camera {
 	private Point p0;
 	private Vector Vto;
 	private Vector Vup;
 	private Vector Vright;
+	private ImageWriter imageWriter;
+	private RayTraceBase rayTracer;
 	
 	//view plane fields
 	double width;
 	double height;
 	double distance;
 	
+	/**
+	 * 
+	 * @param imageWriter
+	 * @return The camera
+	 */
+	public Camera setImageWriter(ImageWriter imageWriter) {
+		this.imageWriter = imageWriter;
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param rayTracer
+	 * @return The camera
+	 */
+	public Camera setRayTracer(RayTraceBase rayTracer) {
+		this.rayTracer = rayTracer;
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param width
+	 * @return The camera
+	 */
+	public Camera setWidth(double width) {
+		this.width = width;
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param height
+	 * @return The camera
+	 */
+	public Camera setHeight(double height) {
+		this.height = height;
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param distance
+	 * @return The camera
+	 */
+	public Camera setDistance(double distance) {
+		this.distance = distance;
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param p0
+	 * @return The camera
+	 */
+	public Camera setP0(Point p0) {
+		this.p0 = p0;
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param vto
+	 * @return The camera
+	 */
+	public Camera setVto(Vector vto) {
+		Vto = vto;
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param vup
+	 * @return The camera
+	 */
+	public Camera setVup(Vector vup) {
+		Vup = vup;
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param vright
+	 * @return The camera
+	 */
+	public Camera setVright(Vector vright) {
+		Vright = vright;
+		return this;
+	}
+
 	/**
 	 * 
 	 * @return the position p0 of the camera
