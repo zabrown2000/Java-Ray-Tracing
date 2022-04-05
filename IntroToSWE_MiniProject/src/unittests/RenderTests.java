@@ -22,7 +22,7 @@ public class RenderTests {
 	@Test
 	public void basicRenderTwoColorTest() {
 		Scene scene = new Scene("Test scene")//
-				.setAmbientLight(new AmbientLight(new java.awt.Color(255, 191, 191), new Double3(1d,1d,1d))) //
+				.setAmbientLight(new AmbientLight(new Color(255, 191, 191), new Double3(1d,1d,1d))) 
 				.setBackground(new Color(75, 127, 90));
 
 		scene.geometries.add(new Sphere(new Point(0, 0, -100), 50),

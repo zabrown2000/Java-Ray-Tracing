@@ -4,11 +4,13 @@ import primitives.*;
 
 public class AmbientLight {
 
-	private Color intensity;
+	private primitives.Color intensity;
 	
 	
 	/**
 	 * default constructor that sets the intensity to black
+	 * @param double3 
+	 * @param color 
 	 */
 	public AmbientLight(){
 		this.intensity = Color.BLACK;
@@ -22,9 +24,8 @@ public class AmbientLight {
 	 * @param iA  A parameter of type Color – It will be the original color of the light 
 	 * @param kA  A parameter of type Double3 which will contain the attenuation factor of the original light 
 	 */
-	public AmbientLight(java.awt.Color iA, Double3 kA) {
-		Color color = new Color(iA);
-		this.intensity =  color.scale(kA);
+	public AmbientLight(Color iA, Double3 kA) {
+		this.intensity =  iA.scale(kA);
 	}
 
 	/**

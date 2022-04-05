@@ -8,7 +8,7 @@ import primitives.*;
 public class Scene {
 	
 	public String name;
-	public Color background = Color.BLACK;
+	public primitives.Color background = primitives.Color.BLACK ;
 	public AmbientLight ambientLight;
 	public Geometries geometries;
 	
@@ -29,9 +29,8 @@ public class Scene {
 	 * @param kA the Doubel3 scale factor
 	 * @return the scene 
 	 */
-	public Scene setAmbientLight(Color IA, Double3 kA) {
-		AmbientLight ambientLight = new AmbientLight(IA, kA); 
-		this.ambientLight = ambientLight;
+	public Scene setAmbientLight(AmbientLight ambient) {
+		this.ambientLight = ambient;
 		return this;
 	}
 	
@@ -41,7 +40,7 @@ public class Scene {
 	 * @param color Color of the background
 	 * @return the scene 
 	 */
-	public Scene setBackground(Color color) {
+	public Scene setBackground(primitives.Color color) {
 		background = color;
 		return this;
 	}
@@ -56,6 +55,7 @@ public class Scene {
 		geometries.add(geometry);
 		return this;
 	}
+
 	
 	
 
