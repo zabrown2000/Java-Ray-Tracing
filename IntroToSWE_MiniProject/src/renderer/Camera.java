@@ -220,6 +220,38 @@ public class Camera {
 			    
 		return ray;
     }
+	
+	
+	public void renderImage() {
+		if(p0 == null || Vto == null || Vup == null|| Vright == null || imageWriter == null || rayTracer == null ) {
+			throw new IllegalArgumentException("MissingResourcesException");
+		}
+	}
+	
+	/**
+	 * prints a grid in the color 
+	 * @param interval how the grid is spaced out 
+	 * @param color
+	 */
+	public void printGrid(int interval, Color color) {
+		if(imageWriter == null) {
+			throw new IllegalArgumentException("MissingResourcesException");
+		}
+		for (int i = 0; i < imageWriter.getNy(); i++) {
+			for (int j = 0; j < imageWriter.getNx(); j++) {
+				if (((i % (imageWriter.getNy()/interval)) == 0) || ((j % (imageWriter.getNx()/interval)) == 0)) { //grid lines
+					imageWriter.writePixel(j, i, color);
+				}
+			}
+		}
+	}
+	
+	public void writeToImage() {
+		if(imageWriter == null) {
+			throw new IllegalArgumentException("MissingResourcesException");
+		}
+		imageWriter.writeToImage();
+	}
 		
 }
 	
