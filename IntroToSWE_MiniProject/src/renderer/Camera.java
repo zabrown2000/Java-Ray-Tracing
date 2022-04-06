@@ -221,10 +221,20 @@ public class Camera {
 		return ray;
     }
 	
-	
+	/**
+	 * Function to render an image and set everything up
+	 */
 	public void renderImage() {
 		if(p0 == null || Vto == null || Vup == null|| Vright == null || imageWriter == null || rayTracer == null ) {
 			throw new IllegalArgumentException("MissingResourcesException");
+			//throw new IllegalArgumentException("UnsupportedOperationException");
+		}
+		for (int i = 0; i < imageWriter.getNy(); i++) {
+			for (int j = 0; j < imageWriter.getNx(); j++) {
+				Ray r = this.constructRay(imageWriter.getNx(), imageWriter.getNx(), j, i); //construct ray through pixel
+				primitives.Color c = this.rayTracer.traceRay(r); //color at point intersected by ray
+				this.imageWriter.writePixel(j, i, c); //coloring that pixel
+			}
 		}
 	}
 	
@@ -240,12 +250,16 @@ public class Camera {
 		for (int i = 0; i < imageWriter.getNy(); i++) {
 			for (int j = 0; j < imageWriter.getNx(); j++) {
 				if (((i % (imageWriter.getNy()/interval)) == 0) || ((j % (imageWriter.getNx()/interval)) == 0)) { //grid lines
+					//need another check here to not overwrite picture
 					imageWriter.writePixel(j, i, color);
 				}
 			}
 		}
 	}
 	
+	/**
+	 * Wrapper function for imageWriter's function inside camera
+	 */
 	public void writeToImage() {
 		if(imageWriter == null) {
 			throw new IllegalArgumentException("MissingResourcesException");

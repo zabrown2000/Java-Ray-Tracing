@@ -22,7 +22,7 @@ public abstract class RayTraceBase {
 	 * @param ray Ray being shot
 	 * @return the Color on the point that the ray hit
 	 */
-	public abstract Color traceRay(Ray ray);
+	public abstract primitives.Color traceRay(Ray ray);
 		
 	
 

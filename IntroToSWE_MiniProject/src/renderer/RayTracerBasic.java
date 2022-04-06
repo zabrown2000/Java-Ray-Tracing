@@ -17,7 +17,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 * override traceRay
 	 */
 	@Override
-	public Color traceRay(Ray ray) {
+	public primitives.Color traceRay(Ray ray) {
 		return null;
 	}
 
