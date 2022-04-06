@@ -191,7 +191,7 @@ public class Camera {
 	 * @param nY number of pixels in the vertical direction
 	 * @param j position in the column 
 	 * @param i position in the row 
-	 * @return 
+	 * @return the new ray
 	 */
 	public Ray constructRay(int nX, int nY, int j, int i) {
 		//image center 
