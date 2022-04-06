@@ -231,6 +231,7 @@ public class Camera {
 		}
 		for (int i = 0; i < imageWriter.getNy(); i++) {
 			for (int j = 0; j < imageWriter.getNx(); j++) {
+				
 				Ray r = this.constructRay(imageWriter.getNx(), imageWriter.getNx(), j, i); //construct ray through pixel
 				primitives.Color c = this.rayTracer.traceRay(r); //color at point intersected by ray
 				this.imageWriter.writePixel(j, i, c); //coloring that pixel
@@ -241,7 +242,7 @@ public class Camera {
 	/**
 	 * prints a grid in the color 
 	 * @param interval how the grid is spaced out 
-	 * @param color
+	 * @param color color of grid lines
 	 */
 	public void printGrid(int interval, Color color) {
 		if(imageWriter == null) {
@@ -249,7 +250,7 @@ public class Camera {
 		}
 		for (int i = 0; i < imageWriter.getNy(); i++) {
 			for (int j = 0; j < imageWriter.getNx(); j++) {
-				if (((i % (imageWriter.getNy()/interval)) == 0) || ((j % (imageWriter.getNx()/interval)) == 0)) { //grid lines
+				if (((i % interval) == 0) || ((j % interval) == 0)) { //grid lines - need to add if so no grid on shape
 					//need another check here to not overwrite picture
 					imageWriter.writePixel(j, i, color);
 				}

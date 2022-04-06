@@ -51,8 +51,13 @@ public class Scene {
 	 * @param geometry the Geometry you want to add to the scene
 	 * @return the scene 
 	 */
-	public Scene setGeometries(Geometries geometry) {
-		geometries.add(geometry);
+	public Scene setGeometries(Geometries... geometries) {
+		for (Intersectable g : geometries) {
+			this.geometries.add(g);
+		}
+		
+		
+		//geometries.add(geometry);
 		return this;
 	}
 
