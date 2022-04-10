@@ -7,7 +7,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-public class Geometries implements Intersectable { //look up composite design patterns, testing number of points
+public class Geometries extends Intersectable { //look up composite design patterns, testing number of points
 	
 	private List<Intersectable> groupGeometries;
 
@@ -43,6 +43,7 @@ public class Geometries implements Intersectable { //look up composite design pa
 		}
 	}
 	
+	@Override
 	public List<Point> findIntsersections(Ray ray) {
 		//no shapes in collection
 		if (this.groupGeometries.size() == 0) {

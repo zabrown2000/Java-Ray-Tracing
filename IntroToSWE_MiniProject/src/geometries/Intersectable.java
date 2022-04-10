@@ -4,7 +4,7 @@ import java.util.List;
 
 import primitives.*;
 
-public interface Intersectable {
+public abstract class Intersectable {
 	
-	List<Point> findIntsersections(Ray ray);
+	public abstract List<Point> findIntsersections(Ray ray);
 }
