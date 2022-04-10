@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import primitives.*;
 
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
 	private Point point;
 	private double radius;

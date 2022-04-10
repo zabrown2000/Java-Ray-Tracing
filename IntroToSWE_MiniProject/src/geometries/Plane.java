@@ -13,7 +13,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 	
 	public Point q0;
 	public Vector normal;

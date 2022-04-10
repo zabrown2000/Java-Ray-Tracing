@@ -11,7 +11,7 @@ import java.util.List;
 
 import primitives.*;
 
-public class Tube implements Geometry {
+public class Tube extends Geometry {
 	
 	private double radius;
 	private Ray ray;
