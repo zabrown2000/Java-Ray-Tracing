@@ -12,7 +12,7 @@ public abstract class Geometry extends Intersectable {
 	 * Function to get the emission color of a geometry
 	 * @return the emission color
 	 */
-	public primitives.Color getColor() {
+	public primitives.Color getEmission() {
 		return this.emission;
 	}
 	
@@ -20,7 +20,7 @@ public abstract class Geometry extends Intersectable {
 	 * Function to set the emission color of a geometry
 	 * @return the emission color
 	 */
-	public void setColor(primitives.Color c) {
+	public void setEmission(primitives.Color c) {
 		this.emission = c;
 	}
 
