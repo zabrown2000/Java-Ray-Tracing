@@ -2,8 +2,8 @@ package renderer;
 import java.awt.Color;
 import java.util.List;
 
-import elements.AmbientLight;
 import geometries.*;
+import lighting.AmbientLight;
 import primitives.*;
 import scene.*;
 

@@ -1,8 +1,9 @@
 package scene;
 
 import java.awt.Color;
-import elements.AmbientLight;
+
 import geometries.*;
+import lighting.AmbientLight;
 import primitives.*;
 
 public class Scene {
