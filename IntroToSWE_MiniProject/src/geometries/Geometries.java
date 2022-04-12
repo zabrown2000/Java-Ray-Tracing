@@ -71,6 +71,12 @@ public class Geometries extends Intersectable { //look up composite design patte
 		}
 	}
 
+	/**
+     * Method to calculate the intersection points between the ray and the scene
+     * 
+     * @param ray the Ray shot by the camera
+     * @return a list of GeoPoints that intersect the scene 
+     */
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		//no shapes in collection
