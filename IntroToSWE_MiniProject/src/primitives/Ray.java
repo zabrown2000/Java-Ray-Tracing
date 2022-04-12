@@ -86,9 +86,16 @@ public class Ray {
 		return this.p0.equals(other.p0) && this.dir.equals(other.dir); 
 	}
 	
+	
 	@Override
 	public String toString() {return p0.toString() + "->" + dir.toString(); }
 	
+	
+	/**
+	 * Function to find the GeoPoint closest to the ray's head
+	 * @param list of GeoPoints to check
+	 * @return the GeoPoint closest to ray head
+	 */
 	public GeoPoint findClosestGeoPoint(List<GeoPoint> intersection) {
         if (intersection.isEmpty()) return null;
 		
