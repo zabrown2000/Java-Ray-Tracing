@@ -2,7 +2,7 @@ package unittests;
 
 import org.junit.jupiter.api.Test;
 
-import elements.AmbientLight;
+import lighting.AmbientLight;
 import geometries.*;
 import primitives.*;
 import renderer.*;
