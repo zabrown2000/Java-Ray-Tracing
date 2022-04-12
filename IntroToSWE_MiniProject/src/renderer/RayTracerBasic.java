@@ -2,7 +2,7 @@ package renderer;
 import java.awt.Color;
 import java.util.List;
 
-import elements.AmbientLight;
+import lighting.AmbientLight;
 import geometries.*;
 import geometries.Intersectable.GeoPoint;
 import primitives.*;

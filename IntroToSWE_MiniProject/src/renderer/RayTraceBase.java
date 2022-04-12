@@ -1,6 +1,6 @@
 package renderer;
 import java.awt.Color;
-import elements.AmbientLight;
+import lighting.AmbientLight;
 import geometries.*;
 import primitives.*;
 import scene.*;
