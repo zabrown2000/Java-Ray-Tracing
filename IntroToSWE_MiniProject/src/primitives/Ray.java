@@ -46,26 +46,9 @@ public class Ray {
 	 * @param points list of points to check
 	 * @return the point closest to ray head
 	 */
-	public Point findClosestPoint(List<Point> intersections) {
-
-		/*if (points.isEmpty()) return null;
-		
-		double minDistance = Double.MAX_VALUE;
-		Point closest = null;
-		
-		for (Point p : points) {
-			double result  = this.p0.distance(p);
-			if (result < minDistance) {
-				minDistance = result;
-				closest = p;
-			}
-		}
-		return closest;*/
-		//check this makes sense i don't understand what stream and map does 
-		return intersections == null?null
-				:findClosestGeoPoint(intersections.stream().map(p->new GeoPoint(null,p)).toList()).point;
-		
-		
+	public Point findClosestPoint(List<Point> points) {
+	    return points == null || points.isEmpty() ? null
+	            : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
 	}
 
 	/**

@@ -48,44 +48,6 @@ public class Triangle extends Polygon {
      * Method to calculate the intersection points between the ray shot and the triangle
      * 
      * @param ray the Ray shot by the camera
-     * @return the intersection Point to the list of intersections
-     */
-	@Override
-	public List<Point> findIntsersections(Ray ray) {
-		
-		if(this.plane.findIntsersections(ray) == null) {
-		     return null;
-		     
-		}else {
-			 Vector v1 = this.getP1().subtract(ray.getP0());
-			 Vector v2 = this.getP2().subtract(ray.getP0());
-			 Vector v3 = this.getP3().subtract(ray.getP0());
-			 
-			 v1 = v1.normalize();
-			 v2 = v2.normalize();
-			 v3 = v3.normalize();
-			 
-			 Vector n1 = v1.crossProduct(v2).normalize();
-			 Vector n2 = v2.crossProduct(v3).normalize();
-			 Vector n3 = v3.crossProduct(v1).normalize();
-			 
-			 double ans1 = ray.getDir().dotProduct(n1);
-			 double ans2 = ray.getDir().dotProduct(n2);
-			 double ans3 = ray.getDir().dotProduct(n3);
-			 
-			 if((ans1>0 && ans2>0 && ans3>0) || (ans1<0 && ans2<0 && ans3<0)) {
-				 return this.plane.findIntsersections(ray);
-			 }
-			 else {
-				 return null;
-			 }
-		}
-	}
-	
-	/**
-     * Method to calculate the intersection points between the ray shot and the triangle
-     * 
-     * @param ray the Ray shot by the camera
      * @return list of GeoPoints that intersected the geometry 
      */
 	@Override

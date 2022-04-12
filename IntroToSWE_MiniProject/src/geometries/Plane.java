@@ -66,25 +66,6 @@ public class Plane extends Geometry {
 		return "Plane [q0=" + q0.toString() + ", normal=" + normal.toString() + "]";
 	}
 	
-	/**
-     * Method to calculate the intersection points between the ray shot and the plane
-     * 
-     * @param ray the Ray shot by the camera
-     * @return the intersection Point to the list of intersections
-     */
-	@Override
-	public List<Point> findIntsersections(Ray ray) {
-		double t = (normal.dotProduct(q0.subtract(ray.getP0())))/(normal.dotProduct(ray.getDir()));
-		if (t<0) {
-			return null;
-		} else {
-			//Point P = ray.getP0().add( ray.getDir().scale(t));
-			Point P = ray.getPoint(t);
-		    List<Point> intersectable = new ArrayList<>();
-		    intersectable.add(P);
-		    return intersectable;
-		}
-	}
 	
 	/**
      * Method to calculate the intersection points between the ray shot and the plane
