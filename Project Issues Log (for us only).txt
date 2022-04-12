@@ -3,3 +3,5 @@
 2. Camera tests don't all work correctly
 3. RenderTests doesn't make correct picture
 
+--we emailed Joyce about our issues and have not heard back so we are submitting as is
+
