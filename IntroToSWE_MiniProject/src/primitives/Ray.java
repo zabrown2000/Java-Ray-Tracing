@@ -1,6 +1,7 @@
 package primitives;
 
 import java.util.List;
+import geometries.Intersectable.GeoPoint;
 
 /**
  * Class Ray is the basic class representing a ray of Euclidean geometry in Cartesian
@@ -45,9 +46,9 @@ public class Ray {
 	 * @param points list of points to check
 	 * @return the point closest to ray head
 	 */
-	public Point findClosestPoint(List<Point> points) {
+	public Point findClosestPoint(List<Point> intersections) {
 
-		if (points.isEmpty()) return null;
+		/*if (points.isEmpty()) return null;
 		
 		double minDistance = Double.MAX_VALUE;
 		Point closest = null;
@@ -59,7 +60,12 @@ public class Ray {
 				closest = p;
 			}
 		}
-		return closest;
+		return closest;*/
+		//check this makes sense i don't understand what stream and map does 
+		return intersections == null?null
+				:findClosestGeoPoint(intersections.stream().map(p->new GeoPoint(null,p)).toList()).point;
+		
+		
 	}
 
 	/**
@@ -83,4 +89,20 @@ public class Ray {
 	@Override
 	public String toString() {return p0.toString() + "->" + dir.toString(); }
 	
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> intersection) {
+        if (intersection.isEmpty()) return null;
+		
+		double minDistance = Double.MAX_VALUE;
+		GeoPoint closest = null;
+		
+		for (GeoPoint p : intersection) {
+			double result  = this.p0.distance(p.point);
+			if (result < minDistance) {
+				minDistance = result;
+				closest = p;
+			}
+		}
+		return closest;
+		
+	}
 }
