@@ -23,5 +23,6 @@ public abstract class Geometry extends Intersectable {
 	public void setEmission(primitives.Color c) {
 		this.emission = c;
 	}
-
+	
+	
 }

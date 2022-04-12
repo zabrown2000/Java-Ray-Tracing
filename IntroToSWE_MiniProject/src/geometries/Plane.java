@@ -1,6 +1,9 @@
 package geometries;
 
 import java.util.List;
+
+import geometries.Intersectable.GeoPoint;
+
 import java.util.ArrayList;
 /**
  * Class Plane is the basic class representing a plane of Euclidean geometry in Cartesian
@@ -71,7 +74,6 @@ public class Plane extends Geometry {
      */
 	@Override
 	public List<Point> findIntsersections(Ray ray) {
-		// TODO Auto-generated method stub
 		double t = (normal.dotProduct(q0.subtract(ray.getP0())))/(normal.dotProduct(ray.getDir()));
 		if (t<0) {
 			return null;
@@ -80,6 +82,26 @@ public class Plane extends Geometry {
 			Point P = ray.getPoint(t);
 		    List<Point> intersectable = new ArrayList<>();
 		    intersectable.add(P);
+		    return intersectable;
+		}
+	}
+	
+	/**
+     * Method to calculate the intersection points between the ray shot and the plane
+     * 
+     * @param ray the Ray shot by the camera
+     * @return a list of GeoPoints that the ray intersects on the plane
+     */
+	@Override
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+		double t = (normal.dotProduct(q0.subtract(ray.getP0())))/(normal.dotProduct(ray.getDir()));
+		if (t<0) {
+			return null;
+		} else {
+			//Point P = ray.getP0().add( ray.getDir().scale(t));
+			Point P = ray.getPoint(t);
+		    List<GeoPoint> intersectable = new ArrayList<>();
+		    intersectable.add(new GeoPoint(this, P));
 		    return intersectable;
 		}
 	}
