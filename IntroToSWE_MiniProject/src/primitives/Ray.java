@@ -47,10 +47,9 @@ public class Ray {
 	 * @return the point closest to ray head
 	 */
 	public Point findClosestPoint(List<Point> points) {
-	    return points == null || points.isEmpty() ? null
-	            : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+		    return points == null || points.isEmpty() ? null
+		           : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
 	}
-
 	/**
 	 * refactored getter method for point on ray
 	 * @param t scalar for ray vector
