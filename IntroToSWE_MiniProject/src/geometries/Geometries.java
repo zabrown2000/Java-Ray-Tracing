@@ -43,33 +43,6 @@ public class Geometries extends Intersectable { //look up composite design patte
 		}
 	}
 	
-	@Override
-	public List<Point> findIntsersections(Ray ray) {
-		//no shapes in collection
-		if (this.groupGeometries.size() == 0) {
-			return null;
-		}
-		
-		List<Point> p = new ArrayList<Point>(); //array list because need to index
-		
-		for (Intersectable shape : this.groupGeometries) {
-			List<Point> temp = shape.findIntsersections(ray); //will call each shape's own function
-			if (temp == null) continue;
-			if (temp.size() == 1) { //1 intersection point for shape
-				p.add(temp.get(0));
-			} else if (temp.size() == 2) { //2 intersection points for shape
-				p.add(temp.get(0));
-				p.add(temp.get(1));
-			}
-			
-		}
-		//return (p.size() == 0) ? null : p; //returns null if no intersection points
-		if (p.size() == 0) {
-			return null;
-		} else {
-			return p;
-		}
-	}
 
 	/**
      * Method to calculate the intersection points between the ray and the scene
