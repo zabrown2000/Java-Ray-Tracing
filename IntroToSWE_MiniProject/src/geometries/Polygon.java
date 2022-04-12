@@ -91,12 +91,6 @@ public class Polygon extends Geometry {
 		return plane.getNormal();
 	}
 
-	@Override
-	public List<Point> findIntsersections(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {

@@ -65,12 +65,7 @@ public class Tube extends Geometry {
 		return "Tube [radius=" + radius + "]";
 	}
 
-	@Override
-	public List<Point> findIntsersections(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		// TODO Auto-generated method stub

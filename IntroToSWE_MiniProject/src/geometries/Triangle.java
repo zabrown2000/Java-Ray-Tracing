@@ -52,7 +52,7 @@ public class Triangle extends Polygon {
      */
 	@Override
 	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
-		if(this.plane.findIntsersections(ray) == null) {
+		if(this.plane.findGeoIntersections(ray) == null) {
 		     return null;
 		     
 		}else {
