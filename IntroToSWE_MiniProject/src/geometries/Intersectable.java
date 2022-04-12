@@ -46,8 +46,9 @@ public abstract class Intersectable {
 	}
 
 	
-	public abstract List<Point> findIntsersections(Ray ray){}
+	public abstract List<Point> findIntsersections(Ray ray);
 	
+	protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);	
 	/**
 	 * Function to find the geo intersection points, using NVI pattern
 	 * @param ray ray to intersect geometries
