@@ -24,8 +24,8 @@ class GeoCameraIntegrationTests {
 		for (int i = 0; i < 3; i++) { //y coord
 			for (int j = 0; j < 3; j++) { //x coord
 				Ray r = c.constructRay(3, 3, j, i);
-				if (g.findIntsersections(r) != null) {
-					count += g.findIntsersections(r).size();
+				if (g.findGeoIntersections(r) != null) {
+					count += g.findGeoIntersections(r).size();
 				}
 			}
 		}
