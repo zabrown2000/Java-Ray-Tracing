@@ -148,7 +148,7 @@ public class Camera {
 	 * @param Vup the upward vector of the camera
 	 * @param Vto the forward vector of the camera 
 	 */
-	public Camera(Point p0, Vector Vup, Vector Vto) {
+	public Camera(Point p0, Vector Vto, Vector Vup) {
 		this.p0 = p0;
 		
 		//check perpendicular
@@ -211,7 +211,7 @@ public class Camera {
 		if (xJ != 0) Pij = Pij.add(Vright.scale(xJ));
 		if (yI != 0) Pij = Pij.add(Vup.scale(yI));
 		
-		else Pij = Pij.add(Vright.scale(xJ).normalize()).add(Vright.scale(yI).normalize());
+		//else Pij = Pij.add(Vright.scale(xJ).normalize()).add(Vright.scale(yI).normalize());
 				
 		
 				
