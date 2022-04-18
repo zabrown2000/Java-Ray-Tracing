@@ -31,25 +31,25 @@ class GeometriesTest {
 		//TC01: Some shapes but not all intersect
 		Ray r1 = new Ray(new Point(0.15,0.29,2.53), new Vector(-0.07,-1.23,-0.66));
 		//Ray r1 = new Ray(new Point(-6.43,-3.51,4), new Vector(4.45,6.5,-2.23)); //for commented out plane and triangle
-		assertEquals(2d, group.findIntsersections(r1).size(), "ERROR with some shapes intersecting");
+		assertEquals(2d, group.findGeoIntersections(r1).size(), "ERROR with some shapes intersecting");
 		
 		// =============== Boundary Values Tests ==================
 		//TC11: Empty collection of shapes
 		//the geos list is empty - create new Geometry with default ctor and just use r1
 		Geometries emptyGroup = new Geometries();
-		assertEquals(null, emptyGroup.findIntsersections(r1), "ERROR with empty collection of shapes");
+		assertEquals(null, emptyGroup.findGeoIntersections(r1), "ERROR with empty collection of shapes");
 		
 		
 		
 		//TC12: No shape intersects with a body
 		Ray r2 = new Ray(new Point(0.5,1,-1), new Vector(-0.5,1.17,1));
-		assertEquals(null, group.findIntsersections(r2), "ERROR with no shapes intersecting");
+		assertEquals(null, group.findGeoIntersections(r2), "ERROR with no shapes intersecting");
 		
 		//TC13: Only 1 shape intersects
 		//all but 1 geo returns null
 		//ray intersects with sphere only -> 2 points
 		Ray r3 = new Ray(new Point(0.5,1,-1), new Vector(-0.5,-1,5));
-		assertEquals(2d, group.findIntsersections(r3).size(), "ERROR with one shape intersecting");
+		assertEquals(2d, group.findGeoIntersections(r3).size(), "ERROR with one shape intersecting");
 		
 		
 		//TC14: All shapes intersect
@@ -59,7 +59,7 @@ class GeometriesTest {
 
 		//Ray r4 = new Ray(new Point(0.5,1,-1), new Vector(-1.3,-2.35,3.7)); //for commented out plane and triangle
 		Ray r4 = new Ray(new Point(-1.88,1.45,1.5), new Vector(2.04,-2.41,-0.29)); 
-		assertEquals(4d, group.findIntsersections(r4).size(), "ERROR with all shapes intersecting");
+		assertEquals(4d, group.findGeoIntersections(r4).size(), "ERROR with all shapes intersecting");
 		
 
 	}

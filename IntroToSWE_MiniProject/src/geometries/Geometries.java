@@ -7,7 +7,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-public class Geometries implements Intersectable { //look up composite design patterns, testing number of points
+public class Geometries extends Intersectable { //look up composite design patterns, testing number of points
 	
 	private List<Intersectable> groupGeometries;
 
@@ -43,16 +43,24 @@ public class Geometries implements Intersectable { //look up composite design pa
 		}
 	}
 	
-	public List<Point> findIntsersections(Ray ray) {
+
+	/**
+     * Method to calculate the intersection points between the ray and the scene
+     * 
+     * @param ray the Ray shot by the camera
+     * @return a list of GeoPoints that intersect the scene 
+     */
+	@Override
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		//no shapes in collection
-		if (this.groupGeometries.size() == 0) {
+	    if (this.groupGeometries.size() == 0) {
 			return null;
 		}
-		
-		List<Point> p = new ArrayList<Point>(); //array list because need to index
-		
+				
+		List<GeoPoint> p = new ArrayList<GeoPoint>(); //array list because need to index
+				
 		for (Intersectable shape : this.groupGeometries) {
-			List<Point> temp = shape.findIntsersections(ray); //will call each shape's own function
+			List<GeoPoint> temp = shape.findGeoIntersections(ray); //will call each shape's own function
 			if (temp == null) continue;
 			if (temp.size() == 1) { //1 intersection point for shape
 				p.add(temp.get(0));
@@ -60,7 +68,7 @@ public class Geometries implements Intersectable { //look up composite design pa
 				p.add(temp.get(0));
 				p.add(temp.get(1));
 			}
-			
+					
 		}
 		//return (p.size() == 0) ? null : p; //returns null if no intersection points
 		if (p.size() == 0) {
@@ -69,5 +77,6 @@ public class Geometries implements Intersectable { //look up composite design pa
 			return p;
 		}
 	}
-
+	
+	
 }

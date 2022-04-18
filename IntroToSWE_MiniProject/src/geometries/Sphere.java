@@ -1,6 +1,9 @@
 package geometries;
 
 import java.util.List;
+
+import geometries.Intersectable.GeoPoint;
+
 import java.util.ArrayList;
 
 
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 
 import primitives.*;
 
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
 	private Point point;
 	private double radius;
@@ -60,16 +63,15 @@ public class Sphere implements Geometry {
 		return normal;
 	}
 	
-
-
+	
 	/**
      * Method to calculate the intersection points between the ray shot and the sphere
      * 
      * @param ray the Ray shot by the camera
-     * @return the intersection Point to the list of intersections
+     * @return the GeoPoint list of intersections
      */
 	@Override
-	public List<Point> findIntsersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
 		Vector u = this.point.subtract(ray.getP0()); //note that at the moment my vector is not normalized after a subtraction  
 		double tm = ray.getDir().dotProduct(u);
 		double distance = Math.sqrt(u.dotProduct(u)-tm*tm);
@@ -83,17 +85,17 @@ public class Sphere implements Geometry {
 			
 			if(t1<0 && t2<0) return null;
 			
-			List<Point> Intersection = new ArrayList<>();
+			List<GeoPoint> Intersection = new ArrayList<>();
 			
 			if (t1>0) {
 				//Point P1 = ray.getP0().add(ray.getDir().scale(t1));
 				Point P1 = ray.getPoint(t1);
-				Intersection.add(P1);
+				Intersection.add(new GeoPoint(this,P1));
 	        }
 			if(t2>0) {
 				//Point P2 = ray.getP0().add(ray.getDir().scale(t2));
 				Point P2 = ray.getPoint(t2);
-				Intersection.add(P2);
+				Intersection.add(new GeoPoint(this,P2));
 			}
 			
 			if(Intersection.isEmpty()) return null;

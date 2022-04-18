@@ -11,7 +11,7 @@ import java.util.List;
 
 import primitives.*;
 
-public class Tube implements Geometry {
+public class Tube extends Geometry {
 	
 	private double radius;
 	private Ray ray;
@@ -65,8 +65,9 @@ public class Tube implements Geometry {
 		return "Tube [radius=" + radius + "]";
 	}
 
+	
 	@Override
-	public List<Point> findIntsersections(Ray ray) {
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		// TODO Auto-generated method stub
 		return null;
 	}
