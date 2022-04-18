@@ -1,4 +1,7 @@
 1. LoD, in cross and dot, accessing the ds from Double3
 	  -possible fix: adding getters to double3, need go ahead for that
 2. Camera tests don't all work correctly
+3. RenderTests doesn't make correct picture
+
+--we emailed Joyce about our issues and have not heard back so we are submitting as is
 
