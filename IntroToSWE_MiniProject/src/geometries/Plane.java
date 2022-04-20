@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author Zahava Brown and Gabriella Bondi
  *
  */
+import java.util.LinkedList;
 
 import primitives.Point;
 import primitives.Ray;
@@ -81,7 +82,7 @@ public class Plane extends Geometry {
 		} else {
 			//Point P = ray.getP0().add( ray.getDir().scale(t));
 			Point P = ray.getPoint(t);
-		    List<GeoPoint> intersectable = new ArrayList<>();
+		    List<GeoPoint> intersectable = new LinkedList<>(); //will be adding so making it a linked list
 		    intersectable.add(new GeoPoint(this, P));
 		    return intersectable;
 		}

@@ -5,7 +5,7 @@ import java.util.List;
 import geometries.Intersectable.GeoPoint;
 
 import java.util.ArrayList;
-
+import java.util.LinkedList;
 
 /**
  * Class Sphere is the basic class representing a sphere of Euclidean geometry in Cartesian
@@ -85,7 +85,7 @@ public class Sphere extends Geometry {
 			
 			if(t1<0 && t2<0) return null;
 			
-			List<GeoPoint> Intersection = new ArrayList<>();
+			List<GeoPoint> Intersection = new LinkedList<>(); //will be adding to it a lot more than traversing
 			
 			if (t1>0) {
 				//Point P1 = ray.getP0().add(ray.getDir().scale(t1));
