@@ -12,7 +12,7 @@ import primitives.*;
  * 
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
 	/**
 	 * List of polygon's vertices
 	 */
@@ -91,9 +91,13 @@ public class Polygon implements Geometry {
 		return plane.getNormal();
 	}
 
+
 	@Override
-	public List<Point> findIntsersections(Ray ray) {
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	
 }

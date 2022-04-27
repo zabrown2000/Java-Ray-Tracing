@@ -24,8 +24,8 @@ class GeoCameraIntegrationTests {
 		for (int i = 0; i < 3; i++) { //y coord
 			for (int j = 0; j < 3; j++) { //x coord
 				Ray r = c.constructRay(3, 3, j, i);
-				if (g.findIntsersections(r) != null) {
-					count += g.findIntsersections(r).size();
+				if (g.findGeoIntersections(r) != null) {
+					count += g.findGeoIntersections(r).size();
 				}
 			}
 		}
@@ -40,13 +40,13 @@ class GeoCameraIntegrationTests {
 	void testSphereCamera() {
 													
 		//TC01: Unit sphere in center of view plane- 2 points                                             
-		Camera c1 = new Camera(ZERO_POINT, new Vector(0,-1,0), new Vector(0,0,-1)); 
+		Camera c1 = new Camera(ZERO_POINT, new Vector(0,0,-1), new Vector(0,-1,0)); 
 		//Camera c1 = new Camera(ZERO_POINT, new Vector(0,-1,0), new Vector(0,0,1)));
 		Sphere s1 = new Sphere(new Point(0,0,-3), 1);
 		checkIntersections(c1, s1, 2, "ERROR Sphere TC01: Expected 2 points");
 		
 		//TC02: Sphere larger than view plane - 18 points
-		Camera c2 = new Camera(new Point(0,0,0.5), new Vector(0,-1,0), new Vector(0,0,-1)); //need to change?
+		Camera c2 = new Camera(new Point(0,0,0.5), new Vector(0,0,-1), new Vector(0,-1,0)); 
 		//Camera c2 = new Camera(new Point(0,0,-0.5), new Vector(0,-1,0), new Vector(0,0,1)));
 		Sphere s2 = new Sphere(new Point(0,0,-2.5), 2.5);
 		checkIntersections(c2, s2, 18, "ERROR Sphere TC02: Expected 18 points");
@@ -70,7 +70,7 @@ class GeoCameraIntegrationTests {
      */
 	@Test
 	void testTrangleCamera() {
-		Camera c = new Camera(ZERO_POINT, new Vector(0,-1,0), new Vector(0,0,-1));
+		Camera c = new Camera(ZERO_POINT, new Vector(0,0,-1), new Vector(0,-1,0));
 		
 		//TC01: small triangle in front of view plane - 1 point
 		Triangle t1 = new Triangle(new Point(1,1,-2), new Point(-1,1,-2), new Point(0,-1,-2));
@@ -92,7 +92,7 @@ class GeoCameraIntegrationTests {
      */
 	@Test
 	void testPlaneCamera() {
-		Camera c = new Camera(ZERO_POINT, new Vector(0,-1,0), new Vector(0,0,-1));
+		Camera c = new Camera(ZERO_POINT, new Vector(0,0,-1), new Vector(0,-1,0));
 		
 		//TC01: Plane parallel to view plane - 9 points
 		Plane p1 = new Plane(new Point(0,0,-5), new Vector(0,0,1));

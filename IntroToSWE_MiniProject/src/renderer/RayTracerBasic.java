@@ -2,8 +2,11 @@ package renderer;
 import java.awt.Color;
 import java.util.List;
 
+
+import lighting.AmbientLight;
 import geometries.*;
 import lighting.AmbientLight;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import scene.*;
 
@@ -23,11 +26,11 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return the color
 	 */
 	public primitives.Color traceRay(Ray ray) {
-		List<Point> intersections = this.scene.geometries.findIntsersections(ray);
+		List<GeoPoint> intersections = this.scene.geometries.findGeoIntersections(ray);
 		if (intersections == null) {
 			return this.scene.background;
 		} else {
-			Point closestPoint = ray.findClosestPoint(intersections);
+			GeoPoint closestPoint = ray.findClosestGeoPoint(intersections);
 			return this.calcColor(closestPoint);
 		}
 	}
@@ -37,8 +40,9 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @param point point to get color of
 	 * @return the color of the point
 	 */
-	public primitives.Color calcColor(Point point) {
-		return scene.ambientLight.getIntensity();
+	private primitives.Color calcColor(GeoPoint gp) {
+		return scene.ambientLight.getIntensity()
+				.add(gp.geometry.getEmission());
 	}
 	
 }

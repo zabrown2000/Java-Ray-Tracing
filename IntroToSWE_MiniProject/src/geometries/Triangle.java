@@ -3,6 +3,8 @@ package geometries;
 import java.util.ArrayList;
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
+
 /**
  * Class Triangle is the basic class representing a triangle of Euclidean geometry in Cartesian
  * 3-Dimensional coordinate system.
@@ -46,12 +48,11 @@ public class Triangle extends Polygon {
      * Method to calculate the intersection points between the ray shot and the triangle
      * 
      * @param ray the Ray shot by the camera
-     * @return the intersection Point to the list of intersections
+     * @return list of GeoPoints that intersected the geometry 
      */
 	@Override
-	public List<Point> findIntsersections(Ray ray) {
-		
-		if(this.plane.findIntsersections(ray) == null) {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+		if(this.plane.findGeoIntersections(ray) == null) {
 		     return null;
 		     
 		}else {
@@ -72,7 +73,7 @@ public class Triangle extends Polygon {
 			 double ans3 = ray.getDir().dotProduct(n3);
 			 
 			 if((ans1>0 && ans2>0 && ans3>0) || (ans1<0 && ans2<0 && ans3<0)) {
-				 return this.plane.findIntsersections(ray);
+				 return this.plane.findGeoIntersectionsHelper(ray);
 			 }
 			 else {
 				 return null;

@@ -1,6 +1,7 @@
 package primitives;
 
 import java.util.List;
+import geometries.Intersectable.GeoPoint;
 
 /**
  * Class Ray is the basic class representing a ray of Euclidean geometry in Cartesian
@@ -46,22 +47,11 @@ public class Ray {
 	 * @return the point closest to ray head
 	 */
 	public Point findClosestPoint(List<Point> points) {
-
-		if (points.isEmpty()) return null;
-		
-		double minDistance = Double.MAX_VALUE;
-		Point closest = null;
-		
-		for (Point p : points) {
-			double result  = this.p0.distance(p);
-			if (result < minDistance) {
-				minDistance = result;
-				closest = p;
-			}
-		}
-		return closest;
+		    return points == null || points.isEmpty() ? null
+		           : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
 	}
-
+	
+	
 	/**
 	 * refactored getter method for point on ray
 	 * @param t scalar for ray vector
@@ -80,7 +70,30 @@ public class Ray {
 		return this.p0.equals(other.p0) && this.dir.equals(other.dir); 
 	}
 	
+	
 	@Override
 	public String toString() {return p0.toString() + "->" + dir.toString(); }
 	
+	
+	/**
+	 * Function to find the GeoPoint closest to the ray's head
+	 * @param list of GeoPoints to check
+	 * @return the GeoPoint closest to ray head
+	 */
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> intersection) {
+        if (intersection.isEmpty()) return null;
+		
+		double minDistance = Double.MAX_VALUE;
+		GeoPoint closest = null;
+		
+		for (GeoPoint p : intersection) {
+			double result  = this.p0.distance(p.point);
+			if (result < minDistance) {
+				minDistance = result;
+				closest = p;
+			}
+		}
+		return closest;
+		
+	}
 }
