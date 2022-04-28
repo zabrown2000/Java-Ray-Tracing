@@ -1,4 +1,4 @@
-package unittests.renderer;
+package unittests;
 
 import org.junit.jupiter.api.Test;
 
