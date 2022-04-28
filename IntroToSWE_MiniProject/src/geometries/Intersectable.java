@@ -60,7 +60,7 @@ public abstract class Intersectable {
 	 * @return list of geo points
 	 */
 	public List<GeoPoint> findGeoIntersections(Ray ray) {
-		return findGeoIntersectionsHelper(ray);
+		return this.findGeoIntersectionsHelper(ray);
 	}
 	
 	
