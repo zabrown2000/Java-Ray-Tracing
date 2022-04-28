@@ -88,20 +88,11 @@ public class Color {
 		double rb = rgb.d3;
 		for (Color c : colors) {
 			rr += c.rgb.d1;
-<<<<<<< HEAD
 			//rr = (rr > 255) ? 255 : rr;
-=======
->>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 			rg += c.rgb.d2;
-<<<<<<< HEAD
 			//rg = (rg > 255) ? 255 : rg;
-=======
->>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 			rb += c.rgb.d3;
-<<<<<<< HEAD
 			//rb = (rb > 255) ? 255 : rb;
-=======
->>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 		}
 		return new Color(rr, rg, rb);
 	}
