@@ -7,6 +7,7 @@ import lighting.AmbientLight;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
+import static java.awt.Color.*;
 
 /**
  * Test rendering a basic image
@@ -14,6 +15,7 @@ import scene.Scene;
  * @author Dan
  */
 public class RenderTests {
+
 
 	/**
 	 * Produce a scene with basic 3D model and render it into a png image with a
