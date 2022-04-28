@@ -52,13 +52,13 @@ public class RenderTests {
 				new Sphere(new Point(0, 0, -100), 50),
 				// up left
 				new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
-						.setEmission(new Color(java.awt.Color.GREEN)),
+						.setEmission(new Color(GREEN)),
 				// down left
 				new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100))
-						.setEmission(new Color(java.awt.Color.RED)),
+						.setEmission(new Color(RED)),
 				// down right
 				new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))
-						.setEmission(new Color(java.awt.Color.BLUE)));
+						.setEmission(new Color(BLUE)));
 
 		Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPDistance(100) //
