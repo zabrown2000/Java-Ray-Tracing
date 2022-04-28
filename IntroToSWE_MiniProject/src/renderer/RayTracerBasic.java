@@ -41,8 +41,11 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return the color of the point
 	 */
 	private primitives.Color calcColor(GeoPoint gp) {
-		return scene.ambientLight.getIntensity()
-				.add(gp.geometry.getEmission());
+		//primitives.Color amb = this.scene.ambientLight.getIntensity();
+		//primitives.Color em = gp.geometry.getEmission();
+		//return em.add(amb);
+		//return gp.geometry.getEmission().add(this.scene.ambientLight.getIntensity());
+		return this.scene.ambientLight.getIntensity().add(gp.geometry.getEmission()); //problem: not adding emission to ambient
 	}
-	
+	//to add the object’s color to the point’s color
 }

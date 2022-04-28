@@ -6,6 +6,7 @@ public abstract class Geometry extends Intersectable {
 	
 	protected primitives.Color emission = Color.BLACK;
 
+
 	public abstract Vector getNormal(Point point);
 
 	/**
