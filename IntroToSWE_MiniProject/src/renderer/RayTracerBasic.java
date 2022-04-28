@@ -2,8 +2,10 @@ package renderer;
 import java.awt.Color;
 import java.util.List;
 
+
 import lighting.AmbientLight;
 import geometries.*;
+import lighting.AmbientLight;
 import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import scene.*;
