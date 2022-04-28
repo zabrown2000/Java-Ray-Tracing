@@ -27,6 +27,9 @@ public class RayTracerBasic extends RayTraceBase {
 	 */
 	public primitives.Color traceRay(Ray ray) {
 		List<GeoPoint> intersections = this.scene.geometries.findGeoIntersections(ray);
+		/*Current issue: at this point in the class the scene's triangles have color, but once
+		 * go down into the findgeointersectionshelper functions, the emission defaults to black,
+		 * but not sure why or how it happens*/
 		if (intersections == null) {
 			return this.scene.background;
 		} else {
