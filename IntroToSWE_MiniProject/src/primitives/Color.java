@@ -88,11 +88,8 @@ public class Color {
 		double rb = rgb.d3;
 		for (Color c : colors) {
 			rr += c.rgb.d1;
-			rr = (rr > 255) ? 255 : rr;
 			rg += c.rgb.d2;
-			rg = (rg > 255) ? 255 : rg;
 			rb += c.rgb.d3;
-			rr = (rb > 255) ? 255 : rb;
 		}
 		return new Color(rr, rg, rb);
 	}
