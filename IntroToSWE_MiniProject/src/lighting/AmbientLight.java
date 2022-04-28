@@ -23,6 +23,7 @@ public class AmbientLight extends Light {
 	 */
 	public AmbientLight(Color iA, Double3 kA) {
 		super( iA.scale(kA));
+		
 	}
 
 
