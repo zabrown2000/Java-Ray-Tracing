@@ -45,4 +45,14 @@ public class Material {
 		this.kD = new Double3(kd);
 		return this;
 	}
+	
+	/**
+	 * setter for nShininess
+	 * @param nsh int
+	 * @return new material
+	 */
+	public Material setShininess(int nsh) {
+		this.nShininess = nsh;
+		return this;
+	}
 }
