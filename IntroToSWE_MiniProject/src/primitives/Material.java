@@ -7,6 +7,16 @@ public class Material {
 	public int nShininess = 0;
 	
 	/**
+	 * Setter for kS
+	 * @param ks - double
+	 * @return new material
+	 */
+	public Material setKS(double ks) {
+		this.kS = new Double3(ks);
+		return this;
+	}
+	
+	/**
 	 * Setter for kS 
 	 * @param ks - Double3
 	 * @return new material
@@ -17,12 +27,12 @@ public class Material {
 	}
 	
 	/**
-	 * Setter for kS
-	 * @param ks - double
+	 * Setter for kD
+	 * @param kd - double
 	 * @return new material
 	 */
-	public Material setKS(double ks) {
-		this.kS = new Double3(ks);
+	public Material setKD(double kd) {
+		this.kD = new Double3(kd);
 		return this;
 	}
 	
@@ -36,15 +46,6 @@ public class Material {
 		return this;
 	}
 	
-	/**
-	 * Setter for kD
-	 * @param kd - double
-	 * @return new material
-	 */
-	public Material sedKD(double kd) {
-		this.kD = new Double3(kd);
-		return this;
-	}
 	
 	/**
 	 * setter for nShininess

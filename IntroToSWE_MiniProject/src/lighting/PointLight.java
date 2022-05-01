@@ -23,7 +23,7 @@ public class PointLight extends Light implements LightSource {
 	 * @param kc the attenuation coefficient 
 	 * @return the point light 
 	 */
-	public PointLight setkC(double kc) {
+	public PointLight setKC(double kc) {
 		this.kC = kc;
 		return this;
 	}
@@ -33,7 +33,7 @@ public class PointLight extends Light implements LightSource {
 	 * @param kl attenuation coefficient 
 	 * @return the point light
 	 */
-	public PointLight setkL(double kl) {
+	public PointLight setKL(double kl) {
 		this.kL = kl;
 		return this;
 	}
@@ -43,7 +43,7 @@ public class PointLight extends Light implements LightSource {
 	 * @param kq attenuation coefficient 
 	 * @return the pointLight
 	 */
-	public PointLight setkQ(double kq) {
+	public PointLight setKQ(double kq) {
 		this.kQ = kq;
 		return this;
 	}
@@ -61,7 +61,7 @@ public class PointLight extends Light implements LightSource {
 	 * @return vector from my light to the point 
 	 */
 	public Vector getL(Point p){
-		return position.subtract(p);
+		return position.subtract(p); //if sign is wrong, swap these
 	}
 		
 
