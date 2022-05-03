@@ -1,6 +1,7 @@
 package geometries;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.Point;
@@ -58,7 +59,11 @@ public class Geometries extends Intersectable { //look up composite design patte
 		}
 				
 		List<GeoPoint> p = new ArrayList<GeoPoint>(); //array list because need to index
-				
+		
+		//saw other student did shape calls old findIntersections and adds those points with current geo in the loop to the 
+		//geo point list
+		//issue: the old function has error with toList that they gave us
+		
 		for (Intersectable shape : this.groupGeometries) {
 			List<GeoPoint> temp = shape.findGeoIntersections(ray); //will call each shape's own function
 			if (temp == null) continue;
@@ -76,6 +81,9 @@ public class Geometries extends Intersectable { //look up composite design patte
 		} else {
 			return p;
 		}
+		
+		
+
 	}
 	
 	

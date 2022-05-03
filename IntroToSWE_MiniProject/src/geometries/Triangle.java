@@ -73,7 +73,15 @@ public class Triangle extends Polygon {
 			 double ans3 = ray.getDir().dotProduct(n3);
 			 
 			 if((ans1>0 && ans2>0 && ans3>0) || (ans1<0 && ans2<0 && ans3<0)) {
-				 return this.plane.findGeoIntersectionsHelper(ray);
+				 //return this.plane.findGeoIntersectionsHelper(ray);
+				 
+				 //reassigning geo of geoPoint to be the  triangle, because it calls the funcitom 
+				 //of the plane, which does not have an emission color
+				 List<GeoPoint> result = this.plane.findGeoIntersectionsHelper(ray);
+				 for (GeoPoint gp : result) {
+					 gp.geometry = this;
+				 }
+				 return result;
 			 }
 			 else {
 				 return null;
