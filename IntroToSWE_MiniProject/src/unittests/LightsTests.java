@@ -59,8 +59,7 @@ public class LightsTests {
 		//we were told to have renderImage return void and the image writer class has writeToImage void also so 
 		//the builder pattern won's work here
 		//same for all camera codes below
-		camera1.setImageWriter(imageWriter) //
-		.setRayTracer(new RayTracerBasic(scene1)); //
+		camera1.setImageWriter(imageWriter).setRayTracer(new RayTracerBasic(scene1)); //
 		camera1.renderImage(); //
 		camera1.writeToImage();
 	}
