@@ -23,6 +23,14 @@ public class Material {
 	}
 	
 	/**
+	 * getter function
+	 * @return int nShininess
+	 */
+	public int getNshininess() {
+		return nShininess;
+	}
+	
+	/**
 	 * Setter for kS
 	 * @param ks - double
 	 * @return new material

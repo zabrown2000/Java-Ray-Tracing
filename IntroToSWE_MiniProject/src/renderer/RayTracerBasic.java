@@ -28,9 +28,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 */
 	public primitives.Color traceRay(Ray ray) {
 		List<GeoPoint> intersections = this.scene.geometries.findGeoIntersections(ray);
-		/*Current issue: at this point in the class the scene's triangles have color, but once
-		 * go down into the findgeointersectionshelper functions, the emission defaults to black,
-		 * but not sure why or how it happens*/
+
 		if (intersections == null) {
 			return this.scene.background;
 		} else {
@@ -47,18 +45,19 @@ public class RayTracerBasic extends RayTraceBase {
 	 */
 	private primitives.Color calcLocalEffects(GeoPoint intersection, Ray ray) {
 		Vector v = ray.getDir();
-		Vector n = intersection.geometry.getNormal(v); //not sure if that should be v or not
-		double nv = n.dotProduct(v); //alignZero(n.dotProduct(v)); //not working not sure why 
-		Double3 kd = intersection.geometry.getMaterial().kD, ks = intersection.geometry.getMaterial().kS;
+		Vector n = intersection.geometry.getNormal(intersection.point); //not sure if that should be v or not
+		double nv = Util.alignZero(n.dotProduct(v)); //not working not sure why 
+		int nShininess = intersection.geometry.getMaterial().getNshininess();
+		Double3 kd = intersection.geometry.getMaterial().kD;
+		Double3 ks = intersection.geometry.getMaterial().kS;
 		
 		primitives.Color color = new primitives.Color(Color.BLACK);
 		for (LightSource lightSource : scene.lights) {
 			Vector l = lightSource.getL(intersection.point);
-			double nl = n.dotProduct(l); //alignZero(n.dotProduct(l));
+			double nl = Util.alignZero(n.dotProduct(l));
 			if(nl*nv > 0 ) {
 				primitives.Color lightIntensity = lightSource.getIntensity(intersection.point);
-				color = color.add(calcDiffusive(kd,l,n,lightIntensity));
-						//.add(calcSpecular(ks,l,n,v,nShininess,lightIntensity));
+				color = color.add(calcDiffusive(kd,l,n,lightIntensity), calcSpecular(ks,l,n,v,nShininess,lightIntensity));
 			}
 		}
 		return color;
