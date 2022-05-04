@@ -7,6 +7,22 @@ public class Material {
 	public int nShininess = 0;
 	
 	/**
+	 * getter function 
+	 * @return Double3 kS
+	 */
+	public Double3 getkS() {
+		return kS;
+	}
+	
+	/**
+	 * getter function
+	 * @return Double3 kD
+	 */
+	public Double3 getkD() {
+		return kD;
+	}
+	
+	/**
 	 * Setter for kS
 	 * @param ks - double
 	 * @return new material
