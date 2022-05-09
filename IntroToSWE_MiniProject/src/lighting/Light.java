@@ -4,14 +4,14 @@ import static java.awt.Color.*;
 
 public abstract class Light{
 	
-	private Color intensity;
+	private primitives.Color intensity;
 	
 	/**
 	 * light constructor 
 	 * 
 	 * @param color returns the intensity of the light 
 	 */
-	protected Light(Color color) {
+	protected Light(primitives.Color color) {
 		this.intensity = color;
 	}
 
@@ -19,7 +19,7 @@ public abstract class Light{
 	 * 
 	 * @return the intensity 
 	 */
-	public Color getIntensity() {
+	public primitives.Color getIntensity() {
 		return intensity;
 	}
 
