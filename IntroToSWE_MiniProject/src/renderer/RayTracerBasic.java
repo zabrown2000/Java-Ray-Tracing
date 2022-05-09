@@ -117,8 +117,7 @@ public class RayTracerBasic extends RayTraceBase {
 		//primitives.Color em = gp.geometry.getEmission();
 		//return em.add(amb);
 		//return gp.geometry.getEmission().add(this.scene.ambientLight.getIntensity());
-		
-		
+
 		return this.scene.ambientLight.getIntensity()
 				.add(gp.geometry.getEmission())
 				.add(calcLocalEffects(gp,ray));
@@ -127,3 +126,15 @@ public class RayTracerBasic extends RayTraceBase {
 		//return emANDamb.add(calcLocalEffects(gp, ray));
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
