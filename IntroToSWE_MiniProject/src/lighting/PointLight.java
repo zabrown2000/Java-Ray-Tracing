@@ -61,7 +61,8 @@ public class PointLight extends Light implements LightSource {
 	 * @return vector from my light to the point 
 	 */
 	public Vector getL(Point p){
-		return position.subtract(p); //if sign is wrong, swap these
+		//return position.subtract(p); //if sign is wrong, swap these
+		return p.subtract(position).normalize();
 	}
 		
 

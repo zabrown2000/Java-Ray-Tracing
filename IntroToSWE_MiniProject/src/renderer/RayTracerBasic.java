@@ -59,6 +59,8 @@ public class RayTracerBasic extends RayTraceBase {
 				primitives.Color lightIntensity = lightSource.getIntensity(intersection.point);
 				color = color.add(calcDiffusive(kd,l,n,lightIntensity), calcSpecular(ks,l,n,v,nShininess,lightIntensity));
 			}
+			//primitives.Color lightIntensity = lightSource.getIntensity(intersection.point);
+			//color = color.add(calcDiffusive(kd,l,n,lightIntensity), calcSpecular(ks,l,n,v,nShininess,lightIntensity));
 		}
 		return color;
 	}
@@ -98,8 +100,8 @@ public class RayTracerBasic extends RayTraceBase {
 		//}
 		//return lightIntensity.scale(bracket);
 		
-		Vector r = l.subtract(n.scale(l.dotProduct(n)*2));
-		double vrMinus = v.scale(-1).dotProduct(r);
+		Vector r = l.subtract(n.scale(2*(l.dotProduct(n))));
+		double vrMinus = Math.max(0, v.scale(-1).dotProduct(r));
 		double vrn =Math.pow(vrMinus,nShininess);
         return lightIntensity.scale(ks.scale(vrn));
 	}
@@ -111,7 +113,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return the color of the point
 	 */
 	private primitives.Color calcColor(GeoPoint gp, Ray ray) {
-		primitives.Color amb = this.scene.ambientLight.getIntensity();
+		//primitives.Color amb = this.scene.ambientLight.getIntensity();
 		//primitives.Color em = gp.geometry.getEmission();
 		//return em.add(amb);
 		//return gp.geometry.getEmission().add(this.scene.ambientLight.getIntensity());

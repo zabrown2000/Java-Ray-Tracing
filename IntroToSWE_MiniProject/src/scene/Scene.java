@@ -13,8 +13,8 @@ import primitives.*;
 public class Scene {
 	
 	public String name;
-	public primitives.Color background = primitives.Color.BLACK ;
-	public AmbientLight ambientLight;
+	public primitives.Color background = primitives.Color.BLACK;
+	public AmbientLight ambientLight = new AmbientLight(primitives.Color.BLACK, new Double3(1.0));
 	public Geometries geometries;
 	public List<LightSource> lights = new LinkedList<LightSource>();
 	
