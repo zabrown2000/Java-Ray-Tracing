@@ -64,6 +64,12 @@ public class PointLight extends Light implements LightSource {
 		//return position.subtract(p); //if sign is wrong, swap these
 		return p.subtract(position).normalize();
 	}
+
+	@Override
+	public double getDistance(Point point) {
+		
+		return this.position.distance(point);
+	}
 		
 
 }

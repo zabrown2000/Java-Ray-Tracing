@@ -13,6 +13,8 @@ import scene.*;
 
 public class RayTracerBasic extends RayTraceBase {
 	
+	private static final double DELTA = 0.1;
+	
 	/**
 	 * constructor 
 	 * @param scene Scene
@@ -56,13 +58,37 @@ public class RayTracerBasic extends RayTraceBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl = Util.alignZero(n.dotProduct(l));
 			if(nl*nv > 0 ) {
-				primitives.Color lightIntensity = lightSource.getIntensity(intersection.point);
-				color = color.add(calcDiffusive(kd,l,n,lightIntensity), calcSpecular(ks,l,n,v,nShininess,lightIntensity));
+				if (unshaded(intersection, lightSource, l, n)) { //only getting light of point if not blocked by light
+					primitives.Color lightIntensity = lightSource.getIntensity(intersection.point);
+					color = color.add(calcDiffusive(kd,l,n,lightIntensity), calcSpecular(ks,l,n,v,nShininess,lightIntensity));
+				}
 			}
-			//primitives.Color lightIntensity = lightSource.getIntensity(intersection.point);
-			//color = color.add(calcDiffusive(kd,l,n,lightIntensity), calcSpecular(ks,l,n,v,nShininess,lightIntensity));
 		}
 		return color;
+	}
+	
+	/**
+	 * Function to check if a geo is blocking light source to current geo
+	 * @param v vector to make shadow ray
+	 * @param gp point on geometry
+	 * @return if intersection list is empty
+	 */
+	private boolean unshaded(GeoPoint gp, LightSource ls, Vector l, Vector n) {
+		Vector lightDirection = l.scale(-1); // from point to light source
+		Vector deltaV = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
+		Point p = gp.point.add(deltaV);
+
+		Ray lightRay = new Ray(p, lightDirection);
+		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+		
+		if (intersections == null) return true;
+		
+		double rayLightDistance = ls.getDistance(lightRay.p0);
+		for (GeoPoint geopoint : intersections) {
+			double rayIntersectionDistance = lightRay.p0.distance(geopoint.point);
+			if (rayIntersectionDistance < rayLightDistance) return false;
+		}
+		return true;  //nothing in between geo and lightsource
 	}
 	
 	/**
