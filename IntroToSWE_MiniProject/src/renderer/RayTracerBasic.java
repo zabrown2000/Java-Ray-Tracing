@@ -14,7 +14,7 @@ import scene.*;
 public class RayTracerBasic extends RayTraceBase {
 	
 	private static final double DELTA = 0.1;
-	private static final int MAX_CALC_COLOR_LEVEL = 4; 
+	private static final int MAX_CALC_COLOR_LEVEL = 10; 
 	private static final double MIN_CALC_COLOR_K = 0.001;
 
 	/**
@@ -69,6 +69,13 @@ public class RayTracerBasic extends RayTraceBase {
 		return color;
 	}
 	
+	/**
+	 * 
+	 * @param ray Ray
+	 * @param point Point
+	 * @param n Vector
+	 * @return constructs a reflection ray 
+	 */
 	private Ray constructReflectedRay(Ray ray, Point point, Vector n) {
 		
 		Vector reflectedV =  ray.dir.subtract((n.scale(n.dotProduct(ray.dir))).scale(2));
@@ -80,8 +87,15 @@ public class RayTracerBasic extends RayTraceBase {
 		//Ray r = ray.getDir().subtract((ray.dir).dotProduct(null).scale(2)) //check subtracting the correct things 
 	}
 	
-	private Ray constructRefractedRay(Point point, Ray ray) {
-		Vector deltaV = ray.dir.scale(ray.dir.dotProduct(ray.dir) > 0 ? DELTA : - DELTA);  //?????????
+	/**
+	 * 
+	 * @param point Point
+	 * @param ray Ray
+	 * @param n Vecto
+	 * @return constructs a refraction ray 
+	 */
+	private Ray constructRefractedRay(Point point, Ray ray, Vector n) {
+		Vector deltaV = n.scale(n.dotProduct(ray.dir) > 0 ? DELTA : - DELTA);  //?????????
 		return new Ray(point.add(deltaV), ray.dir);
 	}
 	
@@ -107,6 +121,17 @@ public class RayTracerBasic extends RayTraceBase {
 			if (rayIntersectionDistance < rayLightDistance) return false;
 		}
 		return true;  //nothing in between geo and lightsource
+	}
+	
+	/**
+	 * 
+	 * @param gp Geopoint
+	 * @param ray Ray
+	 * @return calculates the color of the GeoPoint intersected by that ray 
+	 */
+	private primitives.Color calcColor(GeoPoint gp, Ray ray) {
+		return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, MIN_CALC_COLOR_K)
+				.add(scene.ambientLight.getIntensity());
 	}
 	
 	
@@ -175,20 +200,28 @@ public class RayTracerBasic extends RayTraceBase {
 	/**
 	 * Function to get the color of a specific point
 	 * @param point point to get color of
-	 * @return the color of the point
+	 * @return recersively calculates the at color of the point
 	 */
-	private primitives.Color calcColor(GeoPoint gp, Ray ray) {
+	private primitives.Color calcColor(GeoPoint gp, Ray ray, int level, double k) {
 		//primitives.Color amb = this.scene.ambientLight.getIntensity();
 		//primitives.Color em = gp.geometry.getEmission();
 		//return em.add(amb);
 		//return gp.geometry.getEmission().add(this.scene.ambientLight.getIntensity());
 
-		return this.scene.ambientLight.getIntensity()
-				.add(gp.geometry.getEmission())
-				.add(calcLocalEffects(gp,ray));
+		//return this.scene.ambientLight.getIntensity()
+		//		.add(gp.geometry.getEmission())
+		//		.add(calcLocalEffects(gp,ray));
+		
 		//primitives.Color em = gp.geometry.getEmission();	
 		//primitives.Color emANDamb = scene.ambientLight.getIntensity().add(em);
 		//return emANDamb.add(calcLocalEffects(gp, ray));
+		
+		primitives.Color color = calcLocalEffects(gp,ray);
+		return 1 == level ? color : color.add(calcGlobalEffects(gp,ray,level,k));
+	}
+	
+	private primitives.Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k ){
+		
 	}
 }
 

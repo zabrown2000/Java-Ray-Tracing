@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 public abstract class Intersectable {
@@ -44,6 +45,16 @@ public abstract class Intersectable {
 			return "GeoPoint [geometry=" + geometry + ", point=" + point + "]";
 		}
 	    
+	}
+	
+	/**
+	 * 
+	 * @param ray Ray
+	 * @return the geopoint closest to the head of the ray 
+	 */
+	private GeoPoint findClosestIntersection(Ray ray) {
+		List<GeoPoint> intersectableList = findGeoIntersections(ray);
+		return ray.findClosestGeoPoint(intersectableList);
 	}
 
 	public List<Point> findIntersections(Ray ray) {
