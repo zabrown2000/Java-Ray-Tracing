@@ -205,16 +205,6 @@ public class LightsTests {
 	}
 	
 	
-	
-	/*10.	In the module for lights tests, add two test methods for multiple lights 
-	 * (that includes all light types) – one for the sphere and one for the two triangles. 
-	 * You must change the light source locations from the original tests so that you can 
-	 * see how the light sources actually affect the color of the point. Also, you need to 
-	 * change the coefficients and intensities in order to get a convincing photo for the sphere 
-	 * and the triangles. Do not change the sphere or the triangle’s parameters.*/
-	
-	
-	
 	/**
 	 * Produce a picture of a two triangles lighted by many lights
 	 */
@@ -223,7 +213,7 @@ public class LightsTests {
 		
 		
 		scene2.geometries.add(triangle1, triangle2);
-		scene2.lights.add(new SpotLight(new Color(PINK), new Point(-50,-10,-25), new Vector(0, 1, -0.5)).setKL(0.0005).setKQ(0.00003));
+		scene2.lights.add(new SpotLight(new Color(PINK), new Point(-50,-10,-25), new Vector(0, 1, -0.5)).setKL(0.005).setKQ(0.0003));
 		scene2.lights.add(new PointLight(new Color(BLUE), new Point(50,50,100)));
 		scene2.lights.add(new DirectionalLight(new Color(WHITE), new Vector(1, 1, -0.5)));
 		
@@ -242,12 +232,12 @@ public class LightsTests {
 	@Test
 	public void sphereManyLights() {
 		scene1.geometries.add(sphere);
-		//scene1.lights.add(new SpotLight(new Color(PINK), new Point(-50,-10,-25), new Vector(0, 1, -0.5)).setKL(0.0005).setKQ(0.00003));
-		//scene1.lights.add(new PointLight(new Color(BLUE), new Point(50,50,100)));
-		//scene1.lights.add(new DirectionalLight(new primitives.Color(10,0,10), new Vector(1, 1, -0.5)));
-		scene1.lights.add(new DirectionalLight(new primitives.Color(100,0,100), new Vector(1, 1, -0.5)));
-		scene1.lights.add(new SpotLight(new primitives.Color(100,0,0), spPL, new Vector(1, 1, -0.5)).setKL(0.001).setKQ(0.001));
-		scene1.lights.add(new PointLight(new primitives.Color(0,100,100), spPL).setKL(0.001).setKQ(0.0002));
+		scene1.lights.add(new SpotLight(new Color(PINK), new Point(-25,-25,12), new Vector(0, 1, -0.5)).setKL(0.005).setKQ(0.0003));
+		scene1.lights.add(new PointLight(new Color(BLUE), new Point(50,50,100)));
+		scene1.lights.add(new DirectionalLight(new primitives.Color(YELLOW), new Vector(1, 1, -0.5)));
+		//scene1.lights.add(new DirectionalLight(new primitives.Color(100,0,100), new Vector(1, 1, -0.5)));
+		//scene1.lights.add(new SpotLight(new primitives.Color(100,0,0), spPL, new Vector(1, 1, -0.5)).setKL(0.001).setKQ(0.001));
+		//scene1.lights.add(new PointLight(new primitives.Color(0,100,100), spPL).setKL(0.001).setKQ(0.0002));
 		
 		
 		ImageWriter imageWriter = new ImageWriter("lightSphereMany", 500, 500);
