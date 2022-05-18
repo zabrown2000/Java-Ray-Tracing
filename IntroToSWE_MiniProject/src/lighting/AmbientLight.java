@@ -10,7 +10,7 @@ public class AmbientLight extends Light {
 	 * 
 	 */
 	public AmbientLight(){
-		super(primitives.Color.BLACK);
+		super(new Color(BLACK));
 	}
 
 	
