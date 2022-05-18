@@ -14,7 +14,9 @@ import scene.*;
 public class RayTracerBasic extends RayTraceBase {
 	
 	private static final double DELTA = 0.1;
-	
+	private static final int MAX_CALC_COLOR_LEVEL = 4; 
+	private static final double MIN_CALC_COLOR_K = 0.001;
+
 	/**
 	 * constructor 
 	 * @param scene Scene
@@ -67,6 +69,22 @@ public class RayTracerBasic extends RayTraceBase {
 		return color;
 	}
 	
+	private Ray constructReflectedRay(Ray ray, Point point, Vector n) {
+		
+		Vector reflectedV =  ray.dir.subtract((n.scale(n.dotProduct(ray.dir))).scale(2));
+		Vector deltaV = n.scale(n.dotProduct(reflectedV) > 0 ? DELTA : - DELTA);  //decide which dircetion to add dalta in 
+		return new Ray(point.add(deltaV), reflectedV);
+		
+		//GeoPoint geopoint = ray.findClosestGeoPoint(intersection); //getting my nearest intersection to the point 
+		//Point deltaPoint = geopoint.point; //add dalta to that point 
+		//Ray r = ray.getDir().subtract((ray.dir).dotProduct(null).scale(2)) //check subtracting the correct things 
+	}
+	
+	private Ray constructRefractedRay(Point point, Ray ray) {
+		Vector deltaV = ray.dir.scale(ray.dir.dotProduct(ray.dir) > 0 ? DELTA : - DELTA);  //?????????
+		return new Ray(point.add(deltaV), ray.dir);
+	}
+	
 	/**
 	 * Function to check if a geo is blocking light source to current geo
 	 * @param v vector to make shadow ray
@@ -90,6 +108,27 @@ public class RayTracerBasic extends RayTraceBase {
 		}
 		return true;  //nothing in between geo and lightsource
 	}
+	
+	
+	/*private double transparency(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
+			Vector lightDirection = l.scale(-1);//trace ray backwards from light 
+			Vector deltaV = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA:DELTA); //DECIDE IF YOU ARE ADDING TO THE NORM UPWARDS OR DOWNWARDS 
+			Point point = geopoint.point.add(deltaV); //add the epsilor 
+			
+			Ray lightRay = new Ray(point, lightDirection);
+			List <GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+			
+			if(intersections == null) return 1;
+			
+			double ktr = 1;
+			
+			for(GeoPoint geopoint : intersections) {
+				///////////
+			}
+			
+			return ktr;
+	}*/
+	
 	
 	/**
 	 * calculates the diffuse 
