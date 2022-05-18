@@ -31,14 +31,17 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return the color
 	 */
 	public primitives.Color traceRay(Ray ray) {
-		List<GeoPoint> intersections = this.scene.geometries.findGeoIntersections(ray);
+		
+		GeoPoint closestPoint = findClosestIntersection(ray);
+		return closestPoint = null ? scene.background:calColor(closestPoint, ray);
+		//List<GeoPoint> intersections = this.scene.geometries.findGeoIntersections(ray);
 
-		if (intersections == null) {
-			return this.scene.background;
-		} else {
-			GeoPoint closestPoint = ray.findClosestGeoPoint(intersections);
-			return this.calcColor(closestPoint, ray);
-		}
+		//if (intersections == null) {
+		//	return this.scene.background;
+		//} else {
+		//	GeoPoint closestPoint = ray.findClosestGeoPoint(intersections);
+		//	return this.calcColor(closestPoint, ray);
+		//}
 	}
 	
 	/**
