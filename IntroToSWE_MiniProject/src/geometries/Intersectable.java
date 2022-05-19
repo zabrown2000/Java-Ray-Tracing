@@ -52,10 +52,10 @@ public abstract class Intersectable {
 	 * @param ray Ray
 	 * @return the geopoint closest to the head of the ray 
 	 */
-	private GeoPoint findClosestIntersection(Ray ray) {
+	/*private GeoPoint findClosestIntersection(Ray ray) {
 		List<GeoPoint> intersectableList = findGeoIntersections(ray);
 		return ray.findClosestGeoPoint(intersectableList);
-	}
+	}*/
 
 	public List<Point> findIntersections(Ray ray) {
 	    var geoList = findGeoIntersections(ray);

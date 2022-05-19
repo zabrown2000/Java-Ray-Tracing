@@ -10,18 +10,29 @@ import lighting.AmbientLight;
 import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import scene.*;
+import geometries.*;
 
 public class RayTracerBasic extends RayTraceBase {
 	
 	private static final double DELTA = 0.1;
 	private static final int MAX_CALC_COLOR_LEVEL = 10; 
-	private static final double MIN_CALC_COLOR_K = 0.001;
+	private static final Double3 MIN_CALC_COLOR_K = new Double3(0.001);  // changed from double to Double3 ??
 
 	/**
 	 * constructor 
 	 * @param scene Scene
 	 */
 	public RayTracerBasic(Scene scene) { super(scene);}
+	
+	/**
+	 * 
+	 * @param ray Ray
+	 * @return the geopoint closest to the head of the ray 
+	 */
+	private GeoPoint findClosestIntersection(Ray ray) {
+		List<GeoPoint> intersectableList = findGeoIntersections(ray); //??
+		return ray.findClosestGeoPoint(intersectableList);
+	}
 	
 	
 	@Override
@@ -33,7 +44,8 @@ public class RayTracerBasic extends RayTraceBase {
 	public primitives.Color traceRay(Ray ray) {
 		
 		GeoPoint closestPoint = findClosestIntersection(ray);
-		return closestPoint = null ? scene.background:calColor(closestPoint, ray);
+		return closestPoint != null ? scene.background:calcColor(closestPoint, ray);  // added a ! not sure its correct
+		
 		//List<GeoPoint> intersections = this.scene.geometries.findGeoIntersections(ray);
 
 		//if (intersections == null) {
@@ -205,7 +217,8 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @param point point to get color of
 	 * @return recersively calculates the at color of the point
 	 */
-	private primitives.Color calcColor(GeoPoint gp, Ray ray, int level, double k) {
+	private primitives.Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
+		
 		//primitives.Color amb = this.scene.ambientLight.getIntensity();
 		//primitives.Color em = gp.geometry.getEmission();
 		//return em.add(amb);
@@ -223,8 +236,31 @@ public class RayTracerBasic extends RayTraceBase {
 		return 1 == level ? color : color.add(calcGlobalEffects(gp,ray,level,k));
 	}
 	
-	private primitives.Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k ){
+	/**
+	 * 
+	 * @param gp GeoPoint
+	 * @param v Ray
+	 * @param level int 
+	 * @param k Double3
+	 * @return recursive function that takes into account all the relection and refraction rays if transparent 
+	 */
+	private primitives.Color calcGlobalEffects(GeoPoint gp, Ray v, int level, Double3 k ){
 		
+		primitives.Color color = new primitives.Color(Color.BLACK);
+		Vector n = gp.geometry.getNormal(gp.point);  // get normal vector 
+		Material material = gp.geometry.getMaterial();
+		Double3 kkr = k.product(material.kR);
+		if(kkr > MIN_CALC_COLOR_K)  //stop recursion 
+			color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr));
+		Double3 kkt = k.product(material.kT);
+		if(kkt > MIN_CALC_COLOR_K)
+			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt));
+		return color;
+	}
+	
+	private primitives.Color calcGlobalEffects(Ray ray, int level, Double3 kx, Double3 kkx ) {
+		GeoPoint gp = findClosestIntersection(ray);
+		return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
 	}
 }
 
