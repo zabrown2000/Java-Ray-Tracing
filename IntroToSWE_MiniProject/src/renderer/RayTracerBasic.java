@@ -46,7 +46,7 @@ public class RayTracerBasic extends RayTraceBase {
 	public primitives.Color traceRay(Ray ray) {
 		
 		GeoPoint closestPoint = findClosestIntersection(ray);
-		return closestPoint != null ? scene.background:calcColor(closestPoint, ray);  // added a ! not sure its correct
+		return closestPoint != null ? calcColor(closestPoint, ray) : scene.background;  // added a ! not sure its correct
 		
 		//List<GeoPoint> intersections = this.scene.geometries.findGeoIntersections(ray);
 
