@@ -17,7 +17,8 @@ public class RayTracerBasic extends RayTraceBase {
 	private static final double DELTA = 0.1;
 	private static final int MAX_CALC_COLOR_LEVEL = 10; 
 	private static final double MIN_CALC_COLOR_K = 0.001;  // changed from double to Double3 ??
-
+	private static final Double3 INITIAL_K = new Double3(1.0);
+	
 	/**
 	 * constructor 
 	 * @param scene Scene
@@ -30,6 +31,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return the geopoint closest to the head of the ray 
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
+		
 		List<GeoPoint> intersectableList = findGeoIntersections(ray); //??
 		return ray.findClosestGeoPoint(intersectableList);
 	}
@@ -114,6 +116,7 @@ public class RayTracerBasic extends RayTraceBase {
 		return new Ray(point.add(deltaV), ray.dir);
 	}
 	
+	
 	/**
 	 * Function to check if a geo is blocking light source to current geo
 	 * @param v vector to make shadow ray
@@ -121,6 +124,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return if intersection list is empty
 	 */
 	private double unshaded(GeoPoint gp, LightSource ls, Vector l, Vector n) {
+		
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Vector deltaV = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
 		Point p = gp.point.add(deltaV);
@@ -131,8 +135,6 @@ public class RayTracerBasic extends RayTraceBase {
 		if (intersections == null) return 1.0;
 		
 		double ktr = 1.0;
-		
-		
 		
 		for (GeoPoint geopoint : intersections) {
 			
@@ -226,9 +228,12 @@ public class RayTracerBasic extends RayTraceBase {
 	
 
 	/**
-	 * Function to get the color of a specific point
-	 * @param point point to get color of
-	 * @return recersively calculates the at color of the point
+	 * 
+	 * @param gp
+	 * @param ray
+	 * @param level
+	 * @param k
+	 * @return
 	 */
 	private primitives.Color calcColor(GeoPoint gp, Ray ray, int level, double k) {
 		
@@ -275,7 +280,7 @@ public class RayTracerBasic extends RayTraceBase {
 		return color;
 	}
 	
-	private primitives.Color calcGlobalEffects(Ray ray, int level, Double3 kx, double kkx ) {
+	private primitives.Color calcGlobalEffects(Ray ray, int level, Double3 kx, Double3 kkx ) {
 		GeoPoint gp = findClosestIntersection(ray);
 		return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
 	}
