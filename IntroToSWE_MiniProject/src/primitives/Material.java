@@ -21,8 +21,8 @@ public class Material {
 	 * @param kT transparency coeff
 	 * @return the material
 	 */
-	public Material setkT(Double3 kT) {
-		this.kT = kT;
+	public Material setkT(double kT) {
+		this.kT = new Double3(kT);
 		return this;
 	}
 
@@ -31,8 +31,8 @@ public class Material {
 	 * @param kR reflection coeff
 	 * @return the material
 	 */
-	public Material setkR(Double3 kR) {
-		this.kR = kR;
+	public Material setkR(double kR) {
+		this.kR = new Double3(kR);
 		return this;
 	}
 
