@@ -97,7 +97,7 @@ public class Ray {
 	 * @return the GeoPoint closest to ray head
 	 */
 	public GeoPoint findClosestGeoPoint(List<GeoPoint> intersection) {
-        if (intersection.isEmpty()) return null;
+        if ((intersection == null) || (intersection.isEmpty())) return null;
 		
 		double minDistance = Double.MAX_VALUE;
 		GeoPoint closest = null;
