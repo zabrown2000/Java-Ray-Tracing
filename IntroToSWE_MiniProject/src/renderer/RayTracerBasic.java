@@ -77,7 +77,7 @@ public class RayTracerBasic extends RayTraceBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl = Util.alignZero(n.dotProduct(l));
 			if(nl*nv > 0 ) {
-				if (unshaded(intersection, lightSource, l, n)!= 0) { //only getting light of point if not blocked by light
+				if (unshaded(intersection, lightSource, l, n) != 0) { //only getting light of point if not blocked by light
 					primitives.Color lightIntensity = lightSource.getIntensity(intersection.point);
 					color = color.add(calcDiffusive(kd,l,n,lightIntensity), calcSpecular(ks,l,n,v,nShininess,lightIntensity));
 				}
@@ -96,8 +96,7 @@ public class RayTracerBasic extends RayTraceBase {
 	private Ray constructReflectedRay(Ray ray, Point point, Vector n) {
 		
 		Vector reflectedV =  ray.dir.subtract((n.scale(n.dotProduct(ray.dir))).scale(2));
-		Vector deltaV = n.scale(n.dotProduct(reflectedV) > 0 ? DELTA : - DELTA);  //decide which dircetion to add dalta in 
-		return new Ray(point.add(deltaV), reflectedV);
+		return new Ray(point, reflectedV,  n);
 		
 		//GeoPoint geopoint = ray.findClosestGeoPoint(intersection); //getting my nearest intersection to the point 
 		//Point deltaPoint = geopoint.point; //add dalta to that point 
@@ -112,8 +111,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return constructs a refraction ray 
 	 */
 	private Ray constructRefractedRay(Point point, Ray ray, Vector n) {
-		Vector deltaV = n.scale(n.dotProduct(ray.dir) > 0 ? DELTA : - DELTA);  //?????????
-		return new Ray(point.add(deltaV), ray.dir);
+		return new Ray(point, ray.dir,  n);
 	}
 	
 	
@@ -126,10 +124,9 @@ public class RayTracerBasic extends RayTraceBase {
 	private double unshaded(GeoPoint gp, LightSource ls, Vector l, Vector n) {
 		
 		Vector lightDirection = l.scale(-1); // from point to light source
-		Vector deltaV = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
-		Point p = gp.point.add(deltaV);
-
-		Ray lightRay = new Ray(p, lightDirection);
+		
+		Ray lightRay = new Ray(gp.point, lightDirection,  n);
+		
 		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
 		
 		if (intersections == null) return 1.0;
