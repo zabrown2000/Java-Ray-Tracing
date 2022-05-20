@@ -15,7 +15,7 @@ import geometries.*;
 public class RayTracerBasic extends RayTraceBase {
 	
 	private static final int MAX_CALC_COLOR_LEVEL = 10; 
-	private static final double MIN_CALC_COLOR_K = 0.001;  // changed from double to Double3 ??
+	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
 	
 	/**
@@ -31,7 +31,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
 		
-		List<GeoPoint> intersectableList = scene.geometries.findGeoIntersections(ray); //??
+		List<GeoPoint> intersectableList = scene.geometries.findGeoIntersections(ray); 
 		return ray.findClosestGeoPoint(intersectableList);
 	}
 	
@@ -45,8 +45,7 @@ public class RayTracerBasic extends RayTraceBase {
 	public primitives.Color traceRay(Ray ray) {
 		
 		GeoPoint closestPoint = findClosestIntersection(ray);
-		return closestPoint == null ?  scene.background : calcColor(closestPoint, ray) ;  // added a ! not sure its correct
-		
+		return closestPoint == null ?  scene.background : calcColor(closestPoint, ray) ;  
 	}
 	
 	
@@ -128,7 +127,7 @@ public class RayTracerBasic extends RayTraceBase {
 		
 		for (GeoPoint geopoint : intersections) {
 			double rayIntersectionDistance = lightRay.p0.distance(geopoint.point); 
-			if (rayIntersectionDistance < rayLightDistance) return geopoint.geometry.getMaterial().kT.product(ktr); //sure it sonly showing light in the right places
+			if (rayIntersectionDistance < rayLightDistance) return geopoint.geometry.getMaterial().kT.product(ktr); 
 		}
 		return ktr;  
 	}
