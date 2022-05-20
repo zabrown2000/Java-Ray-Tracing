@@ -36,7 +36,7 @@ public class Ray {
 	 * sets ray to start at point and delta
 	 */
 	public Ray(Point p, Vector dir, Vector normal) {
-		Vector deltaV = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : - DELTA);  //?????????
+		Vector deltaV = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : - DELTA).normalize();  //?????????
 		this.p0 = p.add(deltaV);
 		this.dir = dir;
 	}
