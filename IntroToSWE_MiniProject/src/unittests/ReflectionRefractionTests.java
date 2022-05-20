@@ -107,4 +107,30 @@ public class ReflectionRefractionTests {
 				camera.renderImage(); //
 				camera.writeToImage();
 	}
+	
+	@Test
+	public void fourShapes() {
+		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setVPSize(200,200).setVPDistance(1000);
+		scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3 (0.15)));
+		
+		scene.geometries.add(
+				new Triangle(new Point(-14.5823,8.8826,10), new Point(0,20,0), new Point(15.379,-13.9439,-10))
+					.setEmission(new Color(PINK)).setMaterial(new Material().setKD(0.25).setKS(0.25).setShininess(20)),
+				new Triangle(new Point(-89.216,22.7966,-50), new Point(66.6284,69.7684,-50), new Point(41.3255,-106.1116,-50))
+					.setEmission(new Color(50,100,100)).setMaterial(new Material().setKD(0.25).setKS(0.25).setkR(0.9)),
+				new Sphere(new Point(25,0,30), 30).setEmission(new Color(CYAN))
+					.setMaterial(new Material().setKD(0.30).setKS(0.25).setShininess(30).setkT(0.8)),
+				new Sphere(new Point(15,-20,20), 20).setEmission(new Color(50,10,20))
+					.setMaterial(new Material().setKD(0.2).setKS(0.2).setShininess(30).setkT(0.6)));
+		
+		scene.lights.add(new SpotLight(new Color(1020, 200, 200), new Point(160, 150, 850), new Vector(-1, 1, -4)) //
+				.setKL(0.0001).setKQ(0.000005));
+		
+		ImageWriter imageWriter = new ImageWriter("4Shapes", 600, 600);
+		camera.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene)); //
+		camera.renderImage(); //
+		camera.writeToImage();
+	}
 }
