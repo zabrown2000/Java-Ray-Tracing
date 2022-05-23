@@ -127,7 +127,7 @@ public class RayTracerBasic extends RayTraceBase {
 		
 		for (GeoPoint geopoint : intersections) {
 			double rayIntersectionDistance = lightRay.p0.distance(geopoint.point); 
-			if (rayIntersectionDistance < rayLightDistance) return geopoint.geometry.getMaterial().kT.product(ktr); 
+			if (rayIntersectionDistance < rayLightDistance) ktr = geopoint.geometry.getMaterial().kT.product(ktr); 
 		}
 		return ktr;  
 	}
