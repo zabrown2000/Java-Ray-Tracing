@@ -83,7 +83,7 @@ public class Camera {
 	 * @return The camera
 	 */
 	public Camera setVto(Vector vto) {
-		Vto = vto;
+		Vto = vto.normalize();
 		return this;
 	}
 
@@ -93,7 +93,7 @@ public class Camera {
 	 * @return The camera
 	 */
 	public Camera setVup(Vector vup) {
-		Vup = vup;
+		Vup = vup.normalize();
 		return this;
 	}
 
@@ -103,7 +103,7 @@ public class Camera {
 	 * @return The camera
 	 */
 	public Camera setVright(Vector vright) {
-		Vright = vright;
+		Vright = vright.normalize();
 		return this;
 	}
 
