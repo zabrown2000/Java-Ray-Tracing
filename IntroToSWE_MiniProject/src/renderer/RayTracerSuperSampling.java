@@ -28,8 +28,8 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	
 	@Override
 	public primitives.Color traceRay(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+		GeoPoint closestPoint = findClosestIntersection(ray);
+		return closestPoint == null ?  scene.background : calcColor(closestPoint, ray); 
 	}
 	
 	
@@ -60,7 +60,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		
 		List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
 		
-		for( int i = 0; i < 80; i++) {
+		for( int i = 0; i < 9; i++) {
 			
 			// we chose our rage angle not to exceed a hard coded value.
 			double xLimit = Math.random()*((ray.dir.getX() + d)-(ray.dir.getX() - d)) + (ray.dir.getX() - d);
@@ -283,6 +283,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		primitives.Color globalColor = primitives.Color.BLACK; //set default to black and not null so don't get null exceptions later
 		for(Ray r : rays) {
 			GeoPoint gp = findClosestIntersection(r);
+			if (gp == null) continue;
 			globalColor.add(calcColor(gp, r, level-1, kkx).scale(kx));
 		}
 		return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor;	
