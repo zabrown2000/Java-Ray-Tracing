@@ -26,4 +26,22 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	private List<Ray> shootMultipleReflectiveRays(Ray ray) {
+		Ray relective = constructReflectiveRay(ray);
+		List<Ray> multipleRays = calcVectors(relective);
+		return multipleRays;
+		
+	}
+	
+	private List<Ray> shootMultipleRefractoredRays(Ray ray) {
+		Ray relective = constructRefractoredRay(ray);
+		List<Ray> multipleRays = calcRayVectors(relective);
+		return multipleRays;
+		
+	}
+	
+	private List<Ray> calcRayVectors(Ray ray){
+		
+	}
 }

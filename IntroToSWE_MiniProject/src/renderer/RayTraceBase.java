@@ -23,6 +23,8 @@ public abstract class RayTraceBase {
 	 * @return the Color on the point that the ray hit
 	 */
 	public abstract primitives.Color traceRay(Ray ray);
+	
+
 		
 	
 
