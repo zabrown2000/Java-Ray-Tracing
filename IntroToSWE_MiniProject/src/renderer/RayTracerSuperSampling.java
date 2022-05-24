@@ -43,9 +43,10 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	}
 	
 	private List<Ray> calcRayVectors(Ray ray){
-		List<Ray> multipleRays =  new List<Ray>;
+		List<Ray> multipleRays;
 		for( int i = 0; i < 80; i++) {
 			
 		}
+		return multipleRays;
 	}
 }
