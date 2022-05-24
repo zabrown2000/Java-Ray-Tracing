@@ -29,7 +29,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	
 	
 	private List<Ray> shootMultipleReflectiveRays(Ray ray) {
-		Ray relective = constructReflectiveRay(ray);
+		Ray relective = constructReflectedRay(ray);
 		List<Ray> multipleRays = calcVectors(relective);
 		return multipleRays;
 		
