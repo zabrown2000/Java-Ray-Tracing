@@ -78,6 +78,7 @@ public class ReflectionRefractionTests {
 		        .setRayTracer(new RayTracerSuperSampling(scene));
 				camera.renderImage(); //
 				camera.writeToImage();
+
 	}
 
 	/**
@@ -129,6 +130,72 @@ public class ReflectionRefractionTests {
 				.setKL(0.0001).setKQ(0.000005));
 		
 		ImageWriter imageWriter = new ImageWriter("4Shapes", 600, 600);
+		camera.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene)); //
+		camera.renderImage(); // 
+		camera.writeToImage();
+	}
+	
+	@Test
+	public void shapesBonus() {
+		//Camera camera = new Camera(new Point(0,0,10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+		//		.setVPSize(2500,2500).setVPDistance(10000);
+		Camera camera = new Camera(new Point(0,0,1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setVPSize(200,200).setVPDistance(1000);
+		scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3 (0.15))).setBackground(new Color(51,204,255));
+		
+		scene.geometries.add(
+				//new Sphere(new Point(-1.84594,1.39726,0), 70).setEmission(new Color(LIGHT_GRAY))
+				//	.setMaterial(new Material().setKD(0.30).setKS(0.25).setkT(0.9).setShininess(30)), //big ball
+				//new Sphere(new Point(6,-4.5,6), 50).setEmission(new Color(LIGHT_GRAY))
+				//	.setMaterial(new Material().setKD(0.25).setKS(0.20).setkT(0.9).setShininess(30)), //medium ball
+				//new Sphere(new Point(10,-8,11), 30).setEmission(new Color(LIGHT_GRAY))
+				//	.setMaterial(new Material().setKD(0.20).setKS(0.15).setkT(0.9).setkR(0.4).setShininess(100))) //small ball
+				
+				//new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) 
+					//.setEmission(new Color(20,20,20)).setMaterial(new Material().setkT(0.7).setkR(0.2)),
+				//new Triangle(new Point(-1500, 1500, -1500), new Point(670, 670, 3000), new Point(-1500, -1500, -2000)) 
+					//.setEmission(new Color(20,20,20)).setMaterial(new Material().setkT(0.7).setkR(0.2)),
+				//new Triangle(new Point(1500, -1500, -1500), new Point(670, 670, 3000), new Point(-1500, -1500, -2000)) 
+				//	.setEmission(new Color(20,20,20)).setMaterial(new Material().setkT(0.7).setkR(0.2)),
+				//new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(-1500, -1500, -2000)) 
+				//	.setEmission(new Color(20,20,20)).setMaterial(new Material().setkT(0.7).setkR(0.2)),
+				//new Sphere(new Point(421,-658,-863), 400).setEmission(new Color(RED)) //sphere in middle
+				//	.setMaterial(new Material().setkT(0.9).setShininess(70)),
+				//new Sphere(new Point(670, 900, 3500), 500).setEmission(new Color(137,62,184)) //corner sphere
+				//	.setMaterial(new Material().setKS(0.25).setkT(0.6).setShininess(50)),
+				//new Triangle(new Point(-1657,-671,1000), new Point(-459,-1378,1000), new Point(1170,1136,1000)).setEmission(new Color(LIGHT_GRAY)) //triangle through middle
+				//	.setMaterial(new Material().setkR(0.8).setkT(0.5))
+				new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
+					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(60)), //
+				new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
+					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(60)),
+				new Sphere(new Point(-2.8,-37.7,-100),20).setEmission(new Color(GREEN))
+					.setMaterial(new Material().setKD(0.3).setkT(0.3)),
+				new Sphere(new Point(0,-70,-100),20).setEmission(new Color(MAGENTA))
+					.setMaterial(new Material().setKD(0.3).setkT(0.15)),
+				new Sphere(new Point(-27.5,-55,-100),20).setEmission(new Color(MAGENTA))
+					.setMaterial(new Material().setKD(0.3).setkT(0.15)),
+				new Sphere(new Point(25,-50,-100),20).setEmission(new Color(MAGENTA))
+					.setMaterial(new Material().setKD(0.3).setkT(0.15)),
+				new Sphere(new Point(22.5,-17.5,-100),20).setEmission(new Color(MAGENTA))
+					.setMaterial(new Material().setKD(0.3).setkT(0.15)),
+				new Sphere(new Point(-30,-22.5,-100),20).setEmission(new Color(MAGENTA))
+					.setMaterial(new Material().setKD(0.3).setkT(0.15)),
+				new Sphere(new Point(-5,-5,-100),20).setEmission(new Color(MAGENTA))
+					.setMaterial(new Material().setKD(0.3).setkT(0.15))
+					);
+		
+		//scene.lights.add(new SpotLight(new Color(176, 203, 245), new Point(200,400,300), new Vector(0, 0, -1)) //
+		//		.setKL(0.001).setKQ(0.00005));
+		
+		//scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point(-750, -750, -150), new Vector(-1, -1, -4)) //
+		//		.setKL(0.00001).setKQ(0.000005));
+		
+		scene.lights.add(new SpotLight(new Color(700, 700, 400), new Point(80, 70, 10), new Vector(0, 0, -1)) //
+				.setKL(4E-5).setKQ(2E-7));
+		
+		ImageWriter imageWriter = new ImageWriter("BonusPicture", 600, 600);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)); //
 		camera.renderImage(); //
