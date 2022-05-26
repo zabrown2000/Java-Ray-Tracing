@@ -35,7 +35,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	
 	private List<Ray> shootMultipleReflectiveRays(Ray ray, Point point, Vector n) {
 		
-		Ray relective = constructRefractedRay(point, ray, n);  
+		Ray relective = constructRefractedRay(point, ray, n);  // the center ray 
 		List<Ray> multipleRays = calcRayVectors(relective, TARGET_ANGLE_RANGE_LIMIT);
 		return multipleRays;
 		
@@ -59,18 +59,19 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	private List<Ray> calcRayVectors(Ray ray, double d ){
 		
 		List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
+		multipleRays.add(ray); //adding our center ray 
 		
-		for( int i = 0; i < 9; i++) {
+		/*for( int i = 0; i < 6; i++) {
 			
 			// we chose our rage angle not to exceed a hard coded value.
 			double xLimit = Math.random()*((ray.dir.getX() + d)-(ray.dir.getX() - d)) + (ray.dir.getX() - d);
-			double yLimit = Math.random()*((ray.dir.getX() + d)-(ray.dir.getX() - d)) + (ray.dir.getX() - d);
-			double zLimit = Math.random()*((ray.dir.getX() + d)-(ray.dir.getX() - d)) + (ray.dir.getX() - d);
+			double yLimit = Math.random()*((ray.dir.getY() + d)-(ray.dir.getY() - d)) + (ray.dir.getY() - d);
+			double zLimit = Math.random()*((ray.dir.getZ() + d)-(ray.dir.getZ() - d)) + (ray.dir.getZ() - d);
 			
 			Ray newRay = new Ray(ray.p0, new Vector(xLimit, yLimit, zLimit));
 			
 			multipleRays.add(newRay);	
-		}
+		}*/
 		
 		return multipleRays;
 	}
@@ -102,9 +103,36 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	
 	/////////////////////////////
 	
+	/**
+	 * helps global effect recursion by decreasing level and rescaleing the k
+	 * @param ray Ray
+	 * @param level int (stops when level = 
+	 * @param kx Double3
+	 * @param kkx Double3
+	 * @return primitives.Color
+	 */
+	private primitives.Color calcGlobalEffects(List<Ray> rays, int level, Double3 kx, Double3 kkx ) {  //now accepst a list of rays and not only one ray 
+		/*CHANGES:
+		 * 1) function now receives list of rays to work with
+		 * 2) have color variable set default to black and will use to calc color from each ray
+		 * 3) loop through list of rays to find closest geopoint and then using recursive calcColor to find color at that point
+		 * 4) add the return of calcColor to the global color variable
+		 * 5) check after loop if color still black return background, otherwise return the global color*/
+		
+		primitives.Color globalColor = primitives.Color.BLACK; //set default to black and not null so don't get null exceptions later
+		for(Ray r : rays) {
+			GeoPoint gp = findClosestIntersection(r);
+			if (gp == null) continue; //if non is found go to the next ray
+			globalColor.add(calcColor(gp, r, level-1, kkx)).scale(kx);
+		}
+		return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor;	
+		
+		//return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
+	}
 	
-	private static final int MAX_CALC_COLOR_LEVEL = 10; 
-	private static final double MIN_CALC_COLOR_K = 0.001; 
+	
+	private static final int MAX_CALC_COLOR_LEVEL = 4; 
+	private static final double MIN_CALC_COLOR_K = 0.0001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
 	
 	/**
@@ -265,29 +293,5 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	
 	
 	
-	/**
-	 * helps global effect recursion by decreasing level and rescaleing the k
-	 * @param ray Ray
-	 * @param level int (stops when level = 
-	 * @param kx Double3
-	 * @param kkx Double3
-	 * @return primitives.Color
-	 */
-	private primitives.Color calcGlobalEffects(List<Ray> rays, int level, Double3 kx, Double3 kkx ) {  //now accepst a list of rays and not only one ray 
-		/*CHANGES:
-		 * 1) function now receives list of rays to work with
-		 * 2) have color variable set default to black and will use to calc color from each ray
-		 * 3) loop through list of rays to find closest geopoint and then using recursive calcColor to find color at that point
-		 * 4) add the return of calcColor to the global color variable
-		 * 5) check after loop if color still black return background, otherwise return the global color*/
-		primitives.Color globalColor = primitives.Color.BLACK; //set default to black and not null so don't get null exceptions later
-		for(Ray r : rays) {
-			GeoPoint gp = findClosestIntersection(r);
-			if (gp == null) continue;
-			globalColor.add(calcColor(gp, r, level-1, kkx).scale(kx));
-		}
-		return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor;	
-		
-		//return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
-	}
+	
 }
