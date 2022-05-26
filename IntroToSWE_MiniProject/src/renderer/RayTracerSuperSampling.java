@@ -35,7 +35,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	
 	private List<Ray> shootMultipleReflectiveRays(Ray ray, Point point, Vector n) {
 		
-		Ray relective = constructRefractedRay(point, ray, n);  // the center ray 
+		Ray relective = constructReflectedRay(ray,point,  n);  // the center ray 
 		List<Ray> multipleRays = calcRayVectors(relective, TARGET_ANGLE_RANGE_LIMIT);
 		return multipleRays;
 		
@@ -61,7 +61,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
 		multipleRays.add(ray); //adding our center ray 
 		
-		/*for( int i = 0; i < 6; i++) {
+		for( int i = 0; i < 6; i++) {
 			
 			// we chose our rage angle not to exceed a hard coded value.
 			double xLimit = Math.random()*((ray.dir.getX() + d)-(ray.dir.getX() - d)) + (ray.dir.getX() - d);
@@ -71,7 +71,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 			Ray newRay = new Ray(ray.p0, new Vector(xLimit, yLimit, zLimit));
 			
 			multipleRays.add(newRay);	
-		}*/
+		}
 		
 		return multipleRays;
 	}
@@ -123,16 +123,18 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		for(Ray r : rays) {
 			GeoPoint gp = findClosestIntersection(r);
 			if (gp == null) continue; //if non is found go to the next ray
-			globalColor.add(calcColor(gp, r, level-1, kkx)).scale(kx);
+			//globalColor = globalColor.add(gp.geometry.getEmission());
+		    globalColor.add(calcColor(gp, r, level-1, kkx)).scale(kx);
 		}
-		return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor;	
+		//return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor;	
+		return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor; //.add(calcColor(gp, r, level-1, kkx)).scale(kx);
 		
 		//return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
 	}
 	
 	
 	private static final int MAX_CALC_COLOR_LEVEL = 4; 
-	private static final double MIN_CALC_COLOR_K = 0.0001; 
+	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
 	
 	/**
