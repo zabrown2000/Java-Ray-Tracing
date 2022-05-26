@@ -75,9 +75,10 @@ public class ReflectionRefractionTests {
 		ImageWriter imageWriter = new ImageWriter("reflectionTwoSpheresMirrored", 500, 500);
 		camera.setImageWriter(imageWriter) //
 				//.setRayTracer(new RayTracerBasic(scene)); //
-				.setRayTracer(new RayTracerSuperSampling(scene));
-		camera.renderImage(); //
-		camera.writeToImage();
+		        .setRayTracer(new RayTracerSuperSampling(scene));
+				camera.renderImage(); //
+				camera.writeToImage();
+
 	}
 
 	/**
