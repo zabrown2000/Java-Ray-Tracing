@@ -147,24 +147,24 @@ public class ReflectionRefractionTests {
 		scene.geometries.add(
 				//base
 				new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //base right
-					.setEmission(new Color(41, 135, 67)).setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(60)), //
+					.setEmission(new Color(41, 135, 67)).setMaterial(new Material().setKD(0.6).setKS(0.7).setShininess(30)), //
 				new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //base left
-					.setEmission(new Color(41, 135, 67)).setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(60)),
+					.setEmission(new Color(41, 135, 67)).setMaterial(new Material().setKD(0.6).setKS(0.7).setShininess(30)),
 				//flower
-				new Sphere(new Point(-2.8,-37.7,-100),20).setEmission(new Color(GREEN)) //flower center
-					.setMaterial(new Material().setKD(0.3).setkT(0.2)),
-				new Sphere(new Point(0,-70,-100),20).setEmission(new Color(MAGENTA)) //petal
-					.setMaterial(new Material().setKD(0.3).setkT(0.35)),
-				new Sphere(new Point(-27.5,-55,-100),20).setEmission(new Color(MAGENTA)) //petal
-					.setMaterial(new Material().setKD(0.3).setkT(0.35)),
-				new Sphere(new Point(25,-50,-100),20).setEmission(new Color(MAGENTA)) //petal
-					.setMaterial(new Material().setKD(0.3).setkT(0.35)),
-				new Sphere(new Point(22.5,-17.5,-100),20).setEmission(new Color(MAGENTA)) //petal
-					.setMaterial(new Material().setKD(0.3).setkT(0.35)),
-				new Sphere(new Point(-30,-22.5,-100),20).setEmission(new Color(MAGENTA)) //petal
-					.setMaterial(new Material().setKD(0.3).setkT(0.35)),
-				new Sphere(new Point(-5,-5,-100),20).setEmission(new Color(MAGENTA)) //petal
-					.setMaterial(new Material().setKD(0.3).setkT(0.35)),
+				new Sphere(new Point(-2.8,-37.7,-100),20).setEmission(new Color(14, 80, 11)) //flower center
+					.setMaterial(new Material().setKD(0.3).setkT(0.4)),
+				new Sphere(new Point(0,-70,-100),20).setEmission(new Color(168, 71, 161)) //bottom petal
+					.setMaterial(new Material().setKD(0.3).setkT(0.5)),
+				new Sphere(new Point(-27.5,-55,-100),20).setEmission(new Color(168, 71, 161)) //bottom left petal
+					.setMaterial(new Material().setKD(0.3).setkT(0.5)),
+				new Sphere(new Point(25,-50,-100),20).setEmission(new Color(168, 71, 161)) //bottom right petal
+					.setMaterial(new Material().setKD(0.3).setkT(0.5)),
+				new Sphere(new Point(22.5,-17.5,-100),20).setEmission(new Color(168, 71, 161)) //top right petal
+					.setMaterial(new Material().setKD(0.3).setkT(0.5)),
+				new Sphere(new Point(-30,-22.5,-100),20).setEmission(new Color(168, 71, 161)) //top left petal
+					.setMaterial(new Material().setKD(0.3).setkT(0.5)),
+				new Sphere(new Point(-5,-5,-100),20).setEmission(new Color(168, 71, 161)) //top petal
+					.setMaterial(new Material().setKD(0.3).setkT(0.5)),
 				//middle tree
 				new Triangle(new Point(12.3,40.0433,-130), new Point(-15.1,38.8867,-130), new Point(0,70,-40)).setEmission(new Color(133, 101, 16)) //tree base middle
 					.setMaterial(new Material().setKS(0.3).setkT(0.1)),
@@ -185,10 +185,21 @@ public class ReflectionRefractionTests {
 				new Triangle(new Point(-65,40.3,0), new Point(-25,40.3,0), new Point(-45,70.3,100)).setEmission(new Color(48, 184, 85)) //1st level tree left
 					.setMaterial(new Material().setKS(0.3).setKD(0.7)),
 				new Triangle(new Point(-60,40.3,140), new Point(-20,40.3,140), new Point(-40,70.3,220)).setEmission(new Color(48, 184, 85)) //2nd level tree left
-					.setMaterial(new Material().setKS(0.3).setKD(0.7)));
+					.setMaterial(new Material().setKS(0.3).setKD(0.7)),
+				//sun
+				new Sphere(new Point(-70,70,200), 10).setEmission(new Color(RED)) //inner sphere
+					.setMaterial(new Material().setKS(0.3).setkT(0.2).setkR(0.5)),
+				new Sphere(new Point(-70,70,200), 20).setEmission(new Color(YELLOW)) //outer sphere
+					.setMaterial(new Material().setKS(0.5).setkT(0.5))
+				);
 	
-		scene.lights.add(new SpotLight(new Color(700, 700, 400), new Point(180, 190, 120), new Vector(0, 0, -1)) //
-				.setKL(4E-5).setKQ(2E-7));
+		//scene.lights.add(new SpotLight(new Color(700, 700, 300), new Point(180, 190, 120), new Vector(0, 0, -1)) //
+		//		.setKL(4E-5).setKQ(2E-7));
+		scene.lights.add(new SpotLight(new Color(700, 700, 300), new Point(-150,150,700), new Vector(15, -25, -80)) //
+				.setKL(0.001).setKQ(0.000005));
+		
+		//scene.lights.add(new DirectionalLight(new Color(700, 700, 300), new Vector(10,-20,-60))); //
+				
 		
 		ImageWriter imageWriter = new ImageWriter("BonusPicture", 600, 600);
 		camera.setImageWriter(imageWriter) //
