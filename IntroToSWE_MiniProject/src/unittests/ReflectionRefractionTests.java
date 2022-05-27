@@ -137,9 +137,8 @@ public class ReflectionRefractionTests {
 	}
 	
 	@Test
-	public void shapesBonus() {       //add sun, sphere in sphere, dif shades of yellow, darker inside
-		//Camera camera = new Camera(new Point(0,0,10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-		//		.setVPSize(2500,2500).setVPDistance(10000);
+	public void shapesBonus() {      
+
 		Camera camera = new Camera(new Point(0,0,1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPSize(200,200).setVPDistance(1000);
 		scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3 (0.15))).setBackground(new Color(51,204,255));
@@ -193,13 +192,9 @@ public class ReflectionRefractionTests {
 					.setMaterial(new Material().setKS(0.5).setkT(0.5))
 				);
 	
-		//scene.lights.add(new SpotLight(new Color(700, 700, 300), new Point(180, 190, 120), new Vector(0, 0, -1)) //
-		//		.setKL(4E-5).setKQ(2E-7));
 		scene.lights.add(new SpotLight(new Color(700, 700, 300), new Point(-150,150,700), new Vector(15, -25, -80)) //
 				.setKL(0.001).setKQ(0.000005));
 		
-		//scene.lights.add(new DirectionalLight(new Color(700, 700, 300), new Vector(10,-20,-60))); //
-				
 		
 		ImageWriter imageWriter = new ImageWriter("BonusPicture", 600, 600);
 		camera.setImageWriter(imageWriter) //
