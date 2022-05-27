@@ -119,7 +119,9 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		 * 4) add the return of calcColor to the global color variable
 		 * 5) check after loop if color still black return background, otherwise return the global color*/
 		
-		primitives.Color globalColor = primitives.Color.BLACK; //set default to black and not null so don't get null exceptions later
+		//primitives.Color globalColor = primitives.Color.BLACK; //set default to black and not null so don't get null exceptions later
+		//primitives.Color globalColor = primitives.Color.BLACK;
+		primitives.Color globalColor = new primitives.Color(Color.BLACK);
 		for(Ray r : rays) {
 			GeoPoint gp = findClosestIntersection(r);
 			if (gp == null) continue; //if non is found go to the next ray
