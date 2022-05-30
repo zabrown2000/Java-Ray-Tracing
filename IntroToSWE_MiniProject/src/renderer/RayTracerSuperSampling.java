@@ -17,7 +17,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	/**
 	 * sets our target range 
 	 */
-	private double TARGET_ANGLE_RANGE_LIMIT = 20;
+	private double TARGET_ANGLE_RANGE_LIMIT = 1;
 	
 	/**
 	 * constructor 
@@ -61,14 +61,21 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
 		multipleRays.add(ray); //adding our center ray 
 		
-		for( int i = 0; i < 6; i++) {
+		for( int i = 0; i < 4 ; i++) {
 			
 			// we chose our rage angle not to exceed a hard coded value.
 			double xLimit = Math.random()*((ray.dir.getX() + d)-(ray.dir.getX() - d)) + (ray.dir.getX() - d);
 			double yLimit = Math.random()*((ray.dir.getY() + d)-(ray.dir.getY() - d)) + (ray.dir.getY() - d);
 			double zLimit = Math.random()*((ray.dir.getZ() + d)-(ray.dir.getZ() - d)) + (ray.dir.getZ() - d);
 			
+			//double zLimit = ray.dir.getZ();
+			//double yLimit = ray.dir.getY();
+			//double xLimit = 
+			//double 		
+			
 			Ray newRay = new Ray(ray.p0, new Vector(xLimit, yLimit, zLimit));
+			
+			
 			
 			multipleRays.add(newRay);	
 		}
@@ -121,18 +128,65 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		
 		//primitives.Color globalColor = primitives.Color.BLACK; //set default to black and not null so don't get null exceptions later
 		//primitives.Color globalColor = primitives.Color.BLACK;
-		primitives.Color globalColor = new primitives.Color(Color.BLACK);
+		/*primitives.Color globalColor = new primitives.Color(Color.BLACK);
 		for(Ray r : rays) {
 			GeoPoint gp = findClosestIntersection(r);
-			if (gp == null) continue; //if non is found go to the next ray
+			//if (gp == null) continue; //if non is found go to the next ray
 			//globalColor = globalColor.add(gp.geometry.getEmission());
-		    globalColor.add(calcColor(gp, r, level-1, kkx)).scale(kx);
-		}
+			if(gp != null){
+				globalColor.add(calcColor(gp, r, level-1, kkx)).scale(kx);
+			}
+		}*/
 		//return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor;	
-		return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor; //.add(calcColor(gp, r, level-1, kkx)).scale(kx);
+		
+		
+		//return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor; //.add(calcColor(gp, r, level-1, kkx)).scale(kx);
 		
 		//return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
+		
+		List<primitives.Color> globalColor = new LinkedList<primitives.Color>(); //bc we are adding to the list 
+		
+		for(Ray r : rays) {
+			GeoPoint gp = findClosestIntersection(r);
+			if (gp != null) { //if non is found go to the next ray
+			    globalColor.add(calcColor(gp, r, level-1, kkx).scale(kx));
+			    
+			}	
+		}
+		
+		return (addColorList(globalColor) == primitives.Color.BLACK) ? scene.background : addColorList(globalColor);
 	}
+		
+	
+		
+	private primitives.Color addColorList(List<primitives.Color> colorList ){
+		
+		if(colorList.isEmpty()) return primitives.Color.BLACK ;
+		
+		primitives.Color firstColor = colorList.get(0);
+		
+		for (int i = 1; i < colorList.size(); i++) {
+			firstColor.add(colorList.get(i));
+		}
+		return firstColor;
+
+	}
+		
+		
+		//return (totalColor == primitives.Color.BLACK) ? scene.background : totalColor; 
+		
+		
+		
+		
+	//}
+	
+	/*itterateThroughRays(List<Ray> ray){
+		for( rays r : rays ) {
+			GeoPoint gp = findClosestIntersection(r);
+			if gp = null
+			clor = calclGlobaleffects (gp,ray );
+		}
+	}*/
 	
 	
 	private static final int MAX_CALC_COLOR_LEVEL = 4; 
