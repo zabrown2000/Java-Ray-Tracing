@@ -57,27 +57,85 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	
 	//angle generator 
 	private List<Ray> calcRayVectors(Ray ray, double d ){
-		
+        
+	
 		List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
 		multipleRays.add(ray); //adding our center ray 
 		
-		for( int i = 0; i < 4 ; i++) {
+		for( int i = 0; i < 80 ; i++) {
+			
+			
+			/*idea:
+				calculate the vector after add 45 degrees 
+				//maybe look at culc and look at the form8ula of a cone 
+				 * newVectpr 
+				// another idea is create a square or circle as a target area and only generate vectors that hit it 
+				
+				randomX = Util.random( ray.dir.getX(), newVector.getX());
+				randomY = Util.random( ray.dir.getY(), newVector.getY());
+				randomZ = Util.random( ray.dir.getZ(), newVector.getZ());
+			
+			new Ray = new Ray( ray.p0, newVector(randomX, randomY, randomZ);
+			*/
+			
+			
+			
+			
+			
+			 //******new idea:********
+			  
+			 // we will use our reflection and refraction ray as the center of a circle which will be our target area :
+			 
+			 // need to find the point at the top of your ray vector 
+			 // have a few ideas: 
+			 // 1) is using the length(function we have)
+			 // 2) or using the add from point like this..... 
+			 Point centerPoint = ray.p0.add(ray.dir); // return point at the top of you vector and treate as the center of the circle 
+			 
+			 //pick random radius :
+			 double radius = 0.9; // maybe set ontop 
+			 
+			 //generate random xyz points: //can maybe do in another function 
+			 double randomX = Util.random(centerPoint.getX() + radius, centerPoint.getX() - radius);
+			 double randomY = Util.random(centerPoint.getY() + radius, centerPoint.getY() - radius);
+			 double randomZ = Util.random(centerPoint.getZ() + radius, centerPoint.getZ() - radius);
+			 
+			 //create points from the random x y z:
+			 Point randomPoint = new Point(randomX, randomY, randomZ);
+			 
+			 //create the vector part of the ray from star point to random point:
+			 Vector newVector = randomPoint.subtract(ray.p0); //might need to be the other way around
+			 
+			 //create the ray:
+			 Ray newRay = new Ray(ray.p0, newVector);
+			 
+			 //add to the list:
+			 multipleRays.add(newRay);	
+			 
+			 
+				
+			
+			
+			
 			
 			// we chose our rage angle not to exceed a hard coded value.
-			double xLimit = Math.random()*((ray.dir.getX() + d)-(ray.dir.getX() - d)) + (ray.dir.getX() - d);
-			double yLimit = Math.random()*((ray.dir.getY() + d)-(ray.dir.getY() - d)) + (ray.dir.getY() - d);
-			double zLimit = Math.random()*((ray.dir.getZ() + d)-(ray.dir.getZ() - d)) + (ray.dir.getZ() - d);
+			//double xLimit = Math.random()*((ray.dir.getX() + d)-(ray.dir.getX() - d)) + (ray.dir.getX() - d);
+			//double yLimit = Math.random()*((ray.dir.getY() + d)-(ray.dir.getY() - d)) + (ray.dir.getY() - d);
+			//double zLimit = Math.random()*((ray.dir.getZ() + d)-(ray.dir.getZ() - d)) + (ray.dir.getZ() - d);
 			
 			//double zLimit = ray.dir.getZ();
 			//double yLimit = ray.dir.getY();
 			//double xLimit = 
 			//double 		
 			
-			Ray newRay = new Ray(ray.p0, new Vector(xLimit, yLimit, zLimit));
+			//Ray newRay = new Ray(ray.p0, new Vector(xLimit, yLimit, zLimit));
+			//double randomNum = (Math.random()*(1-(-1)))+(-1);
+			
+			//Ray newRay = new Ray(ray.p0, ray.dir.scale(randomNum)); //this thethod does not change things much 
 			
 			
 			
-			multipleRays.add(newRay);	
+			//multipleRays.add(newRay);	
 		}
 		
 		return multipleRays;
