@@ -110,7 +110,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 			 Ray newRay = new Ray(ray.p0, newVector);
 			 
 			 //add to the list:
-			 multipleRays.add(newRay);	
+			 multipleRays.add(newRay);
 			 
 			 
 				
