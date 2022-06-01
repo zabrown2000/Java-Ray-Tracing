@@ -14,11 +14,12 @@ import geometries.*;
 
 public class RayTracerSuperSampling extends RayTraceBase {
 	
-	/**
-	 * sets our target range 
-	 */
-	private double TARGET_ANGLE_RANGE_LIMIT = 1;
 	
+	private static final int MAX_CALC_COLOR_LEVEL = 5; 
+	private static final double MIN_CALC_COLOR_K = 0.001; 
+	private static final Double3 INITIAL_K = new Double3(1.0);
+	private static final double RADIUS = 0.1;
+	private static final int SUPERSAMPLING_RAYS = 20;
 	/**
 	 * constructor 
 	 * @param scene Scene
@@ -30,115 +31,6 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	public primitives.Color traceRay(Ray ray) {
 		GeoPoint closestPoint = findClosestIntersection(ray);
 		return closestPoint == null ?  scene.background : calcColor(closestPoint, ray); 
-	}
-	
-	
-	private List<Ray> shootMultipleReflectiveRays(Ray ray, Point point, Vector n) {
-		
-		Ray relective = constructReflectedRay(ray,point,  n);  // the center ray 
-		List<Ray> multipleRays = calcRayVectors(relective, TARGET_ANGLE_RANGE_LIMIT);
-		return multipleRays;
-		
-		//primitives.Color addedColor = calMultipleRayColor(multipleRays);
-		//return addedColor;
-		
-	}
-	
-	private List<Ray> shootMultipleRefractoredRays( Ray ray, Point point, Vector n) {
-		
-		Ray refractored = constructRefractedRay(point, ray, n);
-		List<Ray> multipleRays = calcRayVectors(refractored, TARGET_ANGLE_RANGE_LIMIT);
-		return multipleRays;
-		
-		//primitives.Color addedColor = calMultipleRayColor(multipleRays);
-		//return addedColor;
-		
-	}
-	
-	//angle generator 
-	private List<Ray> calcRayVectors(Ray ray, double d ){
-        
-	
-		List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
-		multipleRays.add(ray); //adding our center ray 
-		
-		for( int i = 0; i < 80 ; i++) {
-			
-			
-			/*idea:
-				calculate the vector after add 45 degrees 
-				//maybe look at culc and look at the form8ula of a cone 
-				 * newVectpr 
-				// another idea is create a square or circle as a target area and only generate vectors that hit it 
-				
-				randomX = Util.random( ray.dir.getX(), newVector.getX());
-				randomY = Util.random( ray.dir.getY(), newVector.getY());
-				randomZ = Util.random( ray.dir.getZ(), newVector.getZ());
-			
-			new Ray = new Ray( ray.p0, newVector(randomX, randomY, randomZ);
-			*/
-			
-			
-			
-			
-			
-			 //******new idea:********
-			  
-			 // we will use our reflection and refraction ray as the center of a circle which will be our target area :
-			 
-			 // need to find the point at the top of your ray vector 
-			 // have a few ideas: 
-			 // 1) is using the length(function we have)
-			 // 2) or using the add from point like this..... 
-			 Point centerPoint = ray.p0.add(ray.dir); // return point at the top of you vector and treate as the center of the circle 
-			 
-			 //pick random radius :
-			 double radius = 0.9; // maybe set ontop 
-			 
-			 //generate random xyz points: //can maybe do in another function 
-			 double randomX = Util.random(centerPoint.getX() + radius, centerPoint.getX() - radius);
-			 double randomY = Util.random(centerPoint.getY() + radius, centerPoint.getY() - radius);
-			 double randomZ = Util.random(centerPoint.getZ() + radius, centerPoint.getZ() - radius);
-			 
-			 //create points from the random x y z:
-			 Point randomPoint = new Point(randomX, randomY, randomZ);
-			 
-			 //create the vector part of the ray from star point to random point:
-			 Vector newVector = randomPoint.subtract(ray.p0); //might need to be the other way around
-			 
-			 //create the ray:
-			 Ray newRay = new Ray(ray.p0, newVector);
-			 
-			 //add to the list:
-			 multipleRays.add(newRay);
-			 
-			 
-				
-			
-			
-			
-			
-			// we chose our rage angle not to exceed a hard coded value.
-			//double xLimit = Math.random()*((ray.dir.getX() + d)-(ray.dir.getX() - d)) + (ray.dir.getX() - d);
-			//double yLimit = Math.random()*((ray.dir.getY() + d)-(ray.dir.getY() - d)) + (ray.dir.getY() - d);
-			//double zLimit = Math.random()*((ray.dir.getZ() + d)-(ray.dir.getZ() - d)) + (ray.dir.getZ() - d);
-			
-			//double zLimit = ray.dir.getZ();
-			//double yLimit = ray.dir.getY();
-			//double xLimit = 
-			//double 		
-			
-			//Ray newRay = new Ray(ray.p0, new Vector(xLimit, yLimit, zLimit));
-			//double randomNum = (Math.random()*(1-(-1)))+(-1);
-			
-			//Ray newRay = new Ray(ray.p0, ray.dir.scale(randomNum)); //this thethod does not change things much 
-			
-			
-			
-			//multipleRays.add(newRay);	
-		}
-		
-		return multipleRays;
 	}
 	
 	/**
@@ -159,14 +51,18 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		Double3 kkt = k.product(material.kT);
 		
 		if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
-			color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(v, gp.point,n), level, material.kR, kkr));
+			//color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(v, gp.point,n), level, material.kR, kkr));
+			//color = color.add(shootMultipleReflectiveRays(v, gp.point,n, level, material.kR, kkr).add);
+			color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr)).add(shootMultipleReflectiveRays(v, gp.point,n));
+		
 		
 		if(!(kkt.lowerThan(MIN_CALC_COLOR_K)))
-			color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(v,gp.point,n), level, material.kT, kkt));
+			//color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(v,gp.point,n), level, material.kT, kkt));
+			//color = color.add(shootMultipleRefractoredRays(v, gp.point,n, level, material.kR, kkr));
+			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleReflectiveRays(v, gp.point,n));
+		
 		return color;
 	}
-	
-	/////////////////////////////
 	
 	/**
 	 * helps global effect recursion by decreasing level and rescaleing the k
@@ -176,47 +72,83 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	 * @param kkx Double3
 	 * @return primitives.Color
 	 */
-	private primitives.Color calcGlobalEffects(List<Ray> rays, int level, Double3 kx, Double3 kkx ) {  //now accepst a list of rays and not only one ray 
-		/*CHANGES:
-		 * 1) function now receives list of rays to work with
-		 * 2) have color variable set default to black and will use to calc color from each ray
-		 * 3) loop through list of rays to find closest geopoint and then using recursive calcColor to find color at that point
-		 * 4) add the return of calcColor to the global color variable
-		 * 5) check after loop if color still black return background, otherwise return the global color*/
+	private primitives.Color calcGlobalEffects(Ray ray, int level, Double3 kx, Double3 kkx ) {
+		GeoPoint gp = findClosestIntersection(ray);
+		return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
+	}
+	
+	
+	private primitives.Color shootMultipleReflectiveRays(Ray ray, Point point, Vector n) {
 		
-		//primitives.Color globalColor = primitives.Color.BLACK; //set default to black and not null so don't get null exceptions later
-		//primitives.Color globalColor = primitives.Color.BLACK;
-		/*primitives.Color globalColor = new primitives.Color(Color.BLACK);
-		for(Ray r : rays) {
-			GeoPoint gp = findClosestIntersection(r);
-			//if (gp == null) continue; //if non is found go to the next ray
-			//globalColor = globalColor.add(gp.geometry.getEmission());
-			if(gp != null){
-				globalColor.add(calcColor(gp, r, level-1, kkx)).scale(kx);
-			}
-		}*/
-		//return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor;	
+		Ray relective = constructReflectedRay(ray,point,  n);  // the center ray 
+		primitives.Color multipleRays = calcRayVectors(relective);
+		return multipleRays;
 		
+	}
+	
+	private primitives.Color/*List<Ray>*/ shootMultipleRefractoredRays( Ray ray, Point point, Vector n) {
 		
-		//return (globalColor == primitives.Color.BLACK) ? scene.background : globalColor; //.add(calcColor(gp, r, level-1, kkx)).scale(kx);
+		Ray refractored = constructRefractedRay(point, ray, n);
+		primitives.Color multipleRays = calcRayVectors(refractored);
+		return multipleRays;
+	}
+	
+	
+	private primitives.Color calcRayVectors(Ray ray){
+        
+	
+		List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
+		multipleRays.add(ray); //adding our center ray 
 		
-		//return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
+		//initalize color list
+		 List<primitives.Color> globalColor = new LinkedList<primitives.Color>();
 		
-		List<primitives.Color> globalColor = new LinkedList<primitives.Color>(); //bc we are adding to the list 
-		
-		for(Ray r : rays) {
-			GeoPoint gp = findClosestIntersection(r);
-			if (gp != null) { //if non is found go to the next ray
-			    globalColor.add(calcColor(gp, r, level-1, kkx).scale(kx));
-			    
-			}	
+		for( int i = 0; i < SUPERSAMPLING_RAYS; i++) {
+			
+			 //******new idea:********
+			  
+			 // we will use our reflection and refraction ray as the center of a circle which will be our target area :
+			 
+			 // need to find the point at the top of your ray vector 
+			 Point centerPoint = ray.p0.add(ray.dir); // return point at the top of you vector and treate as the center of the circle 
+			 
+			 //pick random radius :
+			 //double radius = 0.1; // maybe set ontop 
+			 
+			 //generate random xyz points: //can maybe do in another function 
+			 double randomX = Util.random(centerPoint.getX() + RADIUS, centerPoint.getX() - RADIUS);
+			 double randomY = Util.random(centerPoint.getY() + RADIUS, centerPoint.getY() - RADIUS);
+			 double randomZ = Util.random(centerPoint.getZ() + RADIUS, centerPoint.getZ() - RADIUS);
+			 
+			 //create points from the random x y z:
+			 Point randomPoint = new Point(randomX, randomY, randomZ);
+			 
+			 //create the vector part of the ray from star point to random point:
+			 Vector newVector = randomPoint.subtract(ray.p0); //might need to be the other way around
+			 //Vector newVector = ray.p0.subtract(randomPoint);
+			 
+			 //create the ray:
+			 Ray newRay = new Ray(ray.p0, newVector);
+			 
+			 //add to the list:
+			 //multipleRays.add(newRay);
+			 
+			 //could do this all in a new function 
+			 
+			 // get intersection point color 
+			 GeoPoint gp = findClosestIntersection(newRay);
+				if(gp != null) {
+				    globalColor.add(gp.geometry.getEmission());
+				    
+				}	
+			
 		}
 		
 		return (addColorList(globalColor) == primitives.Color.BLACK) ? scene.background : addColorList(globalColor);
+		//return multipleRays;
 	}
-		
 	
-		
+	
 	private primitives.Color addColorList(List<primitives.Color> colorList ){
 		
 		if(colorList.isEmpty()) return primitives.Color.BLACK ;
@@ -226,30 +158,13 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		for (int i = 1; i < colorList.size(); i++) {
 			firstColor.add(colorList.get(i));
 		}
-		return firstColor;
+		
+		return firstColor.scale(1/SUPERSAMPLING_RAYS);
+	    //return firstColor;
 
 	}
 		
-		
-		//return (totalColor == primitives.Color.BLACK) ? scene.background : totalColor; 
-		
-		
-		
-		
-	//}
-	
-	/*itterateThroughRays(List<Ray> ray){
-		for( rays r : rays ) {
-			GeoPoint gp = findClosestIntersection(r);
-			if gp = null
-			clor = calclGlobaleffects (gp,ray );
-		}
-	}*/
-	
-	
-	private static final int MAX_CALC_COLOR_LEVEL = 4; 
-	private static final double MIN_CALC_COLOR_K = 0.001; 
-	private static final Double3 INITIAL_K = new Double3(1.0);
+
 	
 	/**
 	 * 
@@ -404,6 +319,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	 */
 	private primitives.Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
 		primitives.Color color = gp.geometry.getEmission().add(calcLocalEffects(gp,ray,k));
+		//return color;
 		return level == 1 ? color : color.add(calcGlobalEffects(gp,ray,level,k));
 	}
 	

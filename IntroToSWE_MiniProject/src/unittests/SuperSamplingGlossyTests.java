@@ -24,8 +24,8 @@ class SuperSamplingGlossyTests {
 		scene.geometries.add( //
 				//new Sphere(new Point(-550, -500, -1000), 400d).setEmission(new Color(0, 0, 100)) //blue sphere
 				//		.setMaterial(new Material().setKD(0.25).setKS(0.25).setShininess(20).setkT(0.5)),
-				new Sphere(new Point(-550, -500, -1000), 200d).setEmission(new Color(100, 20, 20)) //pink sphere
-						.setMaterial(new Material().setKD(0.25).setKS(0.25).setShininess(20)),
+				new Sphere(new Point(-550, -500, -1200), 200d).setEmission(new Color(100, 20, 20)) //pink sphere
+						.setMaterial(new Material().setKD(0.6)),
 				new Sphere(new Point(-1300,-100,-300), 300d).setEmission(new Color(20,255,20)) //green sphere, further away
 						.setMaterial(new Material().setKD(0.6)),
 				new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) //tall triangle, mirror
