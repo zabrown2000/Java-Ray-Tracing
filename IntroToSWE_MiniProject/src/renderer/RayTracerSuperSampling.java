@@ -104,9 +104,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		 List<primitives.Color> globalColor = new LinkedList<primitives.Color>();
 		
 		for( int i = 0; i < SUPERSAMPLING_RAYS; i++) {
-			
-			 //******new idea:********
-			  
+		
 			 // we will use our reflection and refraction ray as the center of a circle which will be our target area :
 			 
 			 // need to find the point at the top of your ray vector 
@@ -141,7 +139,6 @@ public class RayTracerSuperSampling extends RayTraceBase {
 				    globalColor.add(gp.geometry.getEmission());
 				    
 				}	
-			
 		}
 		
 		return (addColorList(globalColor) == primitives.Color.BLACK) ? scene.background : addColorList(globalColor);
