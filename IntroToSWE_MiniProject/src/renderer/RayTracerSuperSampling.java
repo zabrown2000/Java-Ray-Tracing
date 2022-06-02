@@ -59,7 +59,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		if(!(kkt.lowerThan(MIN_CALC_COLOR_K)))
 			//color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(v,gp.point,n), level, material.kT, kkt));
 			//color = color.add(shootMultipleRefractoredRays(v, gp.point,n, level, material.kR, kkr));
-			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleReflectiveRays(v, gp.point,n));
+			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleRefractoredRays(v, gp.point,n));
 		
 		return color;
 	}
