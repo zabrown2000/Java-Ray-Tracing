@@ -19,7 +19,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
 	private static final double RADIUS = 0.1;
-	private static final int SUPERSAMPLING_RAYS = 20;
+	private static final int SUPERSAMPLING_RAYS = 80;
 	/**
 	 * constructor 
 	 * @param scene Scene
@@ -52,14 +52,14 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		
 		if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
 			//color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(v, gp.point,n), level, material.kR, kkr));
-			//color = color.add(shootMultipleReflectiveRays(v, gp.point,n, level, material.kR, kkr).add);
-			color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr)).add(shootMultipleReflectiveRays(v, gp.point,n));
+			color = color.add(shootMultipleReflectiveRays(v, gp.point,n));
+			//color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr));//.add(shootMultipleReflectiveRays(v, gp.point,n));
 		
 		
 		if(!(kkt.lowerThan(MIN_CALC_COLOR_K)))
 			//color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(v,gp.point,n), level, material.kT, kkt));
-			//color = color.add(shootMultipleRefractoredRays(v, gp.point,n, level, material.kR, kkr));
-			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleReflectiveRays(v, gp.point,n));
+			color = color.add(shootMultipleRefractoredRays(v, gp.point,n));
+			//color = color.add(calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleReflectiveRays(v, gp.point,n));
 		
 		return color;
 	}
@@ -156,8 +156,8 @@ public class RayTracerSuperSampling extends RayTraceBase {
 			firstColor.add(colorList.get(i));
 		}
 		
-		return firstColor.scale(1/SUPERSAMPLING_RAYS);
-	    //return firstColor;
+		//return firstColor.scale(1/SUPERSAMPLING_RAYS);
+	    return firstColor;
 
 	}
 		
