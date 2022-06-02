@@ -52,15 +52,28 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		
 		if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
 			//color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(v, gp.point,n), level, material.kR, kkr));
+<<<<<<< HEAD
 			color = color.add(shootMultipleReflectiveRays(v, gp.point,n));
 			//color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr));//.add(shootMultipleReflectiveRays(v, gp.point,n));
 		
+=======
+			//color = color.add(shootMultipleReflectiveRays(v, gp.point,n, level, material.kR, kkr).add);
+			//color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr)).add(shootMultipleReflectiveRays(v, gp.point,n));
+			color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr), shootMultipleReflectiveRays(v, gp.point,n));
+>>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
 		
 		if(!(kkt.lowerThan(MIN_CALC_COLOR_K)))
 			//color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(v,gp.point,n), level, material.kT, kkt));
+<<<<<<< HEAD
 			color = color.add(shootMultipleRefractoredRays(v, gp.point,n));
 			//color = color.add(calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleReflectiveRays(v, gp.point,n));
 		
+=======
+			//color = color.add(shootMultipleRefractoredRays(v, gp.point,n, level, material.kR, kkr));
+			//color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleRefractoredRays(v, gp.point,n));
+			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt), shootMultipleRefractoredRays(v, gp.point,n));
+			
+>>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
 		return color;
 	}
 	
@@ -141,7 +154,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 				}	
 		}
 		
-		return (addColorList(globalColor) == primitives.Color.BLACK) ? scene.background : addColorList(globalColor);
+		return (globalColor.isEmpty()) ? scene.background : addColorList(globalColor);
 		//return multipleRays;
 	}
 	
