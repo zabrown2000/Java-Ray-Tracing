@@ -19,12 +19,9 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
 	private static final double RADIUS = 0.1;
-<<<<<<< HEAD
 	private static final int SUPERSAMPLING_RAYS = 20;
 	private static final double DISTANCE = 10;
-=======
-	private static final int SUPERSAMPLING_RAYS = 80;
->>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
+
 	/**
 	 * constructor 
 	 * @param scene Scene
@@ -46,7 +43,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	 * @param k Double3
 	 * @return primitive.Color
 	 */
-	private primitives.Color calcGlobalEffects(GeoPoint gp, Ray r, int level, Double3 k ){
+	private primitives.Color calcGlobalEffects(GeoPoint gp, Ray v, int level, Double3 k ){
 		
 		primitives.Color color = new primitives.Color(Color.BLACK);
 		Vector n = gp.geometry.getNormal(gp.point).normalize();  // get normal vector 
@@ -54,8 +51,8 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		
 		Double3 kkr = k.product(material.kR);
 		Double3 kkt = k.product(material.kT);
-<<<<<<< HEAD
-																	//getting color of center ray twice, in global color and calcrayvectors
+
+	  //getting color of center ray twice, in global color and calcrayvectors
 		/*if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
 			//color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(r, gp.point,n), level, material.kR, kkr));
 =======
@@ -100,21 +97,21 @@ public class RayTracerSuperSampling extends RayTraceBase {
 >>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
 			//color = color.add(shootMultipleRefractoredRays(v, gp.point,n, level, material.kR, kkr));
 			//color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleRefractoredRays(v, gp.point,n));
-			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,r,n), level, material.kT, kkt), shootMultipleRefractoredRays(r, gp.point,n));
+			color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr), shootMultipleReflectiveRays(v, gp.point,n));
 			
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
 		return color;*/
 		if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
-			color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(r, gp.point,n), level, material.kR, kkr));
+			//color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(r, gp.point,n), level, material.kR, kkr));
+			color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr), shootMultipleReflectiveRays(v, gp.point,n));
+
 		
 		if(!(kkt.lowerThan(MIN_CALC_COLOR_K)))
-			color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(r,gp.point,n), level, material.kT, kkt));
-=======
->>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
->>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
->>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
+			color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr), shootMultipleReflectiveRays(v, gp.point,n));
+
+			//color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(r,gp.point,n), level, material.kT, kkt));
 		return color;
 	}
 	
@@ -126,10 +123,10 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	 * @param kkx Double3
 	 * @return primitives.Color
 	 */
-	private primitives.Color calcGlobalEffects(List<Ray> rays, int level, Double3 kx, Double3 kkx ) {
+	private primitives.Color calcGlobalEffects(Ray ray, int level, Double3 kx, Double3 kkx ) {
 		//GeoPoint gp = findClosestIntersection(ray);
 		//return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
-		List<primitives.Color> globalColor = new LinkedList<primitives.Color>(); //bc we are adding to the list 
+		/*List<primitives.Color> globalColor = new LinkedList<primitives.Color>(); //bc we are adding to the list 
 		
 		for(Ray r : rays) {
 			GeoPoint gp = findClosestIntersection(r);
@@ -141,30 +138,38 @@ public class RayTracerSuperSampling extends RayTraceBase {
 			}
 		}
 		
-		return (addColorList(globalColor) == scene.background) ? scene.background : addColorList(globalColor);
+		return (addColorList(globalColor) == scene.background) ? scene.background : addColorList(globalColor);*/
+		GeoPoint gp = findClosestIntersection(ray);
+		return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
 	}
 	
 	
-	private List<Ray> shootMultipleReflectiveRays(Ray ray, Point point, Vector n) {
+	//private List<Ray> shootMultipleReflectiveRays(Ray ray, Point point, Vector n) {
+	private primitives.Color shootMultipleReflectiveRays(Ray ray, Point point, Vector n) {
 		
 		Ray relective = constructReflectedRay(ray,point,  n);  // the center ray 
-		List<Ray> multipleRays = calcRayVectors(relective);
+		//List<Ray> multipleRays = calcRayVectors(relective);
+		primitives.Color multipleRays = calcRayVectors(relective);
 		return multipleRays;
 		
 	}
 	
-	private List<Ray> shootMultipleRefractoredRays( Ray ray, Point point, Vector n) {
+	//private List<Ray> shootMultipleRefractoredRays( Ray ray, Point point, Vector n) {
+	private primitives.Color shootMultipleRefractoredRays( Ray ray, Point point, Vector n) {
 		
 		Ray refractored = constructRefractedRay(point, ray, n);
-		List<Ray> multipleRays = calcRayVectors(refractored);
+		//List<Ray> multipleRays = calcRayVectors(refractored);
+		primitives.Color multipleRays = calcRayVectors(refractored);
 		return multipleRays;
 		
 	}
 	
 	
-	private List<Ray> calcRayVectors(Ray ray){ /*primitives.Color*/
-		List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
-		multipleRays.add(ray); //adding our center ray
+	//private List<Ray> calcRayVectors(Ray ray){ 
+	private primitives.Color calcRayVectors(Ray ray){ 
+		/*primitives.Color*/
+		//List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
+		//multipleRays.add(ray); //adding our center ray
 		
 		
 		/*public List<Ray> generateBeam(Vector n, double radius, double distance, int numOfRays) {
@@ -201,13 +206,12 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		 
 		
 		//initalize color list
-<<<<<<< HEAD
+
 		 List<primitives.Color> globalColor = new LinkedList<primitives.Color>();
 		 
 		 //List<Double3> rgb = new LinkedList<Double3>();
-=======
 		// List<primitives.Color> globalColor = new LinkedList<primitives.Color>();
->>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
+
 		
 		for( int i = 0; i < SUPERSAMPLING_RAYS; i++) {
 		
@@ -235,12 +239,11 @@ public class RayTracerSuperSampling extends RayTraceBase {
 			 Ray newRay = new Ray(ray.p0, newVector);
 			 
 			 //add to the list:
-			 multipleRays.add(newRay);
+			 //multipleRays.add(newRay);
 			 
 			 //could do this all in a new function 
 			 
 			 // get intersection point color 
-<<<<<<< HEAD
 			 GeoPoint gp = findClosestIntersection(newRay);
 				if(gp == null) {
 					globalColor.add(scene.background);
@@ -248,7 +251,6 @@ public class RayTracerSuperSampling extends RayTraceBase {
 					if(gp != null) {
 					globalColor.add(gp.geometry.getEmission());  //added rgb to color 
 				   // globalColor.add(gp.geometry.getEmission());
-=======
 			 /*GeoPoint gp = findClosestIntersection(newRay);
 				if(gp != null) {
 				    globalColor.add(gp.geometry.getEmission());
@@ -257,17 +259,17 @@ public class RayTracerSuperSampling extends RayTraceBase {
 				} //else {
 					//globalColor.add(scene.background);
 				//}*/
-		}
+					}
+			}
 		
-<<<<<<< HEAD
+
 		return (globalColor.isEmpty()) ? scene.background : addColorList(globalColor);
 		//return (globalColor.isEmpty()) ? scene.background : addColorList(globalColor);
 		//return multipleRays;
-=======
+
 		//return (globalColor.isEmpty()) ? scene.background : addColorList(globalColor);
-		return multipleRays;
->>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
-	}
+		//return multipleRays;
+		}
 	
 	
 	private primitives.Color addColorList(List<primitives.Color> colorList ){
@@ -285,16 +287,15 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		
 		//firstColor = firstColor.reduce(SUPERSAMPLING_RAYS);
 		//return firstColor.scale(1/SUPERSAMPLING_RAYS);
-<<<<<<< HEAD
+
 		//primitives.Color total = new primitives.Color(firstColor);
-=======
-<<<<<<< HEAD
-		return firstColor.reduce(SUPERSAMPLING_RAYS);
-	    //return firstColor;
-=======
->>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
+
+		//return firstColor.reduce(SUPERSAMPLING_RAYS);
 	    return firstColor;
->>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
+
+
+	    //return firstColor;
+
 
 	}
 		
