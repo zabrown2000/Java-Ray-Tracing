@@ -112,12 +112,42 @@ public class Vector extends Point { //need equals to string
 	 * Method to normalize a vector
 	 * @return new vector, normalized
 	 */
-	public Vector normalize() {
+	public Vector normalize() { 
 		double lengthFactor = (1/ this.length());
 		if (lengthFactor == 0) {
 			throw new IllegalArgumentException("Error: Zero Vector");
 		}
 		return this.scale(lengthFactor);
+	}
+	
+	/**
+	 * Function to calculate a normal to the calling vector
+	 * @return the normal vector
+	 */
+	public Vector calcNormal() {
+		int min = 1;
+		double x = this.getX(), y = this.getY(), z = this.getZ();
+		double minCoor = x > 0 ? x : -x;
+		if (Math.abs(y) < minCoor) {
+			minCoor = y > 0 ? y : -y;
+			min = 2;
+		}
+		if (Math.abs(z) < minCoor) {
+			min = 3;
+		}
+		switch (min) {
+		case 1: {
+			return new Vector(0, -z, y).normalize();
+		}
+		case 2: {
+			return new Vector(-z, 0, x).normalize();
+		}
+		case 3: {
+			return new Vector(y, -x, 0).normalize();
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + min);
+		}
 	}
 	
 	@Override
