@@ -26,6 +26,10 @@ public class Color {
 	private Color() {
 		rgb = Double3.ZERO;
 	}
+	
+	public Double3 getRGB() { // new function 
+		return this.rgb;
+	}
 
 	/**
 	 * Constructor to generate a color according to RGB components Each component in
@@ -48,7 +52,7 @@ public class Color {
 	 *
 	 * @param rgb triad of Red/Green/Blue components 
 	 */
-	private Color(Double3 rgb) {
+	public Color(Double3 rgb) {
 		if (rgb.d1 < 0 || rgb.d2 < 0 || rgb.d3 < 0)
 			throw new IllegalArgumentException("Negative color component is illegal");
 		this.rgb = rgb;
@@ -96,6 +100,8 @@ public class Color {
 		}
 		return new Color(rr, rg, rb);
 	}
+	
+	
 
 	/**
 	 * Scale the color by a scalar triad per rgb
