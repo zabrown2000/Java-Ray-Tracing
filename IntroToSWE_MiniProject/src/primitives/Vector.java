@@ -112,7 +112,7 @@ public class Vector extends Point { //need equals to string
 	 * Method to normalize a vector
 	 * @return new vector, normalized
 	 */
-	public Vector normalize() {
+	public Vector normalize() { 
 		double lengthFactor = (1/ this.length());
 		if (lengthFactor == 0) {
 			throw new IllegalArgumentException("Error: Zero Vector");

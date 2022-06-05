@@ -15,11 +15,12 @@ import geometries.*;
 public class RayTracerSuperSampling extends RayTraceBase {
 	
 	
-	private static final int MAX_CALC_COLOR_LEVEL = 5; 
+	private static final int MAX_CALC_COLOR_LEVEL = 4; 
 	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
 	private static final double RADIUS = 0.1;
 	private static final int SUPERSAMPLING_RAYS = 20;
+	private static final double DISTANCE = 10;
 	/**
 	 * constructor 
 	 * @param scene Scene
@@ -41,7 +42,7 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	 * @param k Double3
 	 * @return primitive.Color
 	 */
-	private primitives.Color calcGlobalEffects(GeoPoint gp, Ray v, int level, Double3 k ){
+	private primitives.Color calcGlobalEffects(GeoPoint gp, Ray r, int level, Double3 k ){
 		
 		primitives.Color color = new primitives.Color(Color.BLACK);
 		Vector n = gp.geometry.getNormal(gp.point).normalize();  // get normal vector 
@@ -49,19 +50,25 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		
 		Double3 kkr = k.product(material.kR);
 		Double3 kkt = k.product(material.kT);
-		
-		if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
-			//color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(v, gp.point,n), level, material.kR, kkr));
+																	//getting color of center ray twice, in global color and calcrayvectors
+		/*if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
+			//color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(r, gp.point,n), level, material.kR, kkr));
 			//color = color.add(shootMultipleReflectiveRays(v, gp.point,n, level, material.kR, kkr).add);
 			//color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr)).add(shootMultipleReflectiveRays(v, gp.point,n));
-			color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr), shootMultipleReflectiveRays(v, gp.point,n));
+			color = color.add(calcGlobalEffects(constructReflectedRay(r, gp.point,n), level, material.kR, kkr), shootMultipleReflectiveRays(r, gp.point,n));
 		
 		if(!(kkt.lowerThan(MIN_CALC_COLOR_K)))
-			//color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(v,gp.point,n), level, material.kT, kkt));
+			//color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(r,gp.point,n), level, material.kT, kkt));
 			//color = color.add(shootMultipleRefractoredRays(v, gp.point,n, level, material.kR, kkr));
 			//color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleRefractoredRays(v, gp.point,n));
-			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt), shootMultipleRefractoredRays(v, gp.point,n));
+			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,r,n), level, material.kT, kkt), shootMultipleRefractoredRays(r, gp.point,n));
 			
+		return color;*/
+		if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
+			color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(r, gp.point,n), level, material.kR, kkr));
+		
+		if(!(kkt.lowerThan(MIN_CALC_COLOR_K)))
+			color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(r,gp.point,n), level, material.kT, kkt));
 		return color;
 	}
 	
@@ -73,36 +80,81 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	 * @param kkx Double3
 	 * @return primitives.Color
 	 */
-	private primitives.Color calcGlobalEffects(Ray ray, int level, Double3 kx, Double3 kkx ) {
-		GeoPoint gp = findClosestIntersection(ray);
-		return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
+	private primitives.Color calcGlobalEffects(List<Ray> rays, int level, Double3 kx, Double3 kkx ) {
+		//GeoPoint gp = findClosestIntersection(ray);
+		//return(gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
+		List<primitives.Color> globalColor = new LinkedList<primitives.Color>(); //bc we are adding to the list 
+		
+		for(Ray r : rays) {
+			GeoPoint gp = findClosestIntersection(r);
+			if (gp != null) { //if non is found go to the next ray
+			    globalColor.add(calcColor(gp, r, level-1, kkx).scale(kx));
+			    
+			} else {
+				globalColor.add(scene.background);
+			}
+		}
+		
+		return (addColorList(globalColor) == scene.background) ? scene.background : addColorList(globalColor);
 	}
 	
 	
-	private primitives.Color shootMultipleReflectiveRays(Ray ray, Point point, Vector n) {
+	private List<Ray> shootMultipleReflectiveRays(Ray ray, Point point, Vector n) {
 		
 		Ray relective = constructReflectedRay(ray,point,  n);  // the center ray 
-		primitives.Color multipleRays = calcRayVectors(relective);
+		List<Ray> multipleRays = calcRayVectors(relective);
 		return multipleRays;
 		
 	}
 	
-	private primitives.Color/*List<Ray>*/ shootMultipleRefractoredRays( Ray ray, Point point, Vector n) {
+	private List<Ray> shootMultipleRefractoredRays( Ray ray, Point point, Vector n) {
 		
 		Ray refractored = constructRefractedRay(point, ray, n);
-		primitives.Color multipleRays = calcRayVectors(refractored);
+		List<Ray> multipleRays = calcRayVectors(refractored);
 		return multipleRays;
 	}
 	
 	
-	private primitives.Color calcRayVectors(Ray ray){
-        
-	
+	private List<Ray> calcRayVectors(Ray ray){ /*primitives.Color*/
 		List<Ray> multipleRays = new LinkedList<Ray>(); //choosing linked list as we are constantly adding to the list 
-		multipleRays.add(ray); //adding our center ray 
+		multipleRays.add(ray); //adding our center ray
+		
+		
+		/*public List<Ray> generateBeam(Vector n, double radius, double distance, int numOfRays) {
+		List<Ray> rays = new LinkedList<Ray>();
+		rays.add(this);// Includeing the main ray
+		if (numOfRays == 1 || isZero(radius))// The component (glossy surface /diffuse glass) is turned off
+			return rays;
+		Vector nX = _dir.createNormal();
+		Vector nY = _dir.crossProduct(nX);
+		Point3D centerCircle = this.getPoint(distance);
+		Point3D randomPoint;
+		double x, y, d;
+		double nv = alignZero(n.dotProduct(_dir));
+		for (int i = 1; i < numOfRays; ++i) {
+			x = getRandomNumber(-1, 1);
+			y = Math.sqrt(1 - x * x);
+			d = getRandomNumber(-radius, radius);
+			x = alignZero(x * d);
+			y = alignZero(y * d);
+			randomPoint = centerCircle;
+			if (x != 0)
+				randomPoint = randomPoint.add(nX.scale(x));
+			if (y != 0)
+				randomPoint = randomPoint.add(nY.scale(y));
+			Vector tPoint = randomPoint.subtract(_p0);
+			double nt = alignZero(n.dotProduct(tPoint));
+			if (nv * nt > 0) {
+				rays.add(new Ray(_p0, tPoint));
+			}
+		}
+		return rays;
+	}*/
+		
+		 
 		
 		//initalize color list
-		 List<primitives.Color> globalColor = new LinkedList<primitives.Color>();
+		// List<primitives.Color> globalColor = new LinkedList<primitives.Color>();
 		
 		for( int i = 0; i < SUPERSAMPLING_RAYS; i++) {
 		
@@ -130,20 +182,22 @@ public class RayTracerSuperSampling extends RayTraceBase {
 			 Ray newRay = new Ray(ray.p0, newVector);
 			 
 			 //add to the list:
-			 //multipleRays.add(newRay);
+			 multipleRays.add(newRay);
 			 
 			 //could do this all in a new function 
 			 
 			 // get intersection point color 
-			 GeoPoint gp = findClosestIntersection(newRay);
+			 /*GeoPoint gp = findClosestIntersection(newRay);
 				if(gp != null) {
 				    globalColor.add(gp.geometry.getEmission());
 				    
-				}	
+				} //else {
+					//globalColor.add(scene.background);
+				//}*/
 		}
 		
-		return (globalColor.isEmpty()) ? scene.background : addColorList(globalColor);
-		//return multipleRays;
+		//return (globalColor.isEmpty()) ? scene.background : addColorList(globalColor);
+		return multipleRays;
 	}
 	
 	
@@ -157,7 +211,8 @@ public class RayTracerSuperSampling extends RayTraceBase {
 			firstColor.add(colorList.get(i));
 		}
 		
-		return firstColor.scale(1/SUPERSAMPLING_RAYS);
+		//return firstColor.scale(1/SUPERSAMPLING_RAYS);
+		return firstColor.reduce(SUPERSAMPLING_RAYS);
 	    //return firstColor;
 
 	}
