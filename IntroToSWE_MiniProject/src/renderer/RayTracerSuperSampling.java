@@ -19,8 +19,12 @@ public class RayTracerSuperSampling extends RayTraceBase {
 	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
 	private static final double RADIUS = 0.1;
+<<<<<<< HEAD
 	private static final int SUPERSAMPLING_RAYS = 20;
 	private static final double DISTANCE = 10;
+=======
+	private static final int SUPERSAMPLING_RAYS = 80;
+>>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 	/**
 	 * constructor 
 	 * @param scene Scene
@@ -50,25 +54,54 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		
 		Double3 kkr = k.product(material.kR);
 		Double3 kkt = k.product(material.kT);
+<<<<<<< HEAD
 																	//getting color of center ray twice, in global color and calcrayvectors
 		/*if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
 			//color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(r, gp.point,n), level, material.kR, kkr));
+=======
+		
+		if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
+			//color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(v, gp.point,n), level, material.kR, kkr));
+<<<<<<< HEAD
+			color = color.add(shootMultipleReflectiveRays(v, gp.point,n));
+			//color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr));//.add(shootMultipleReflectiveRays(v, gp.point,n));
+		
+=======
+>>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 			//color = color.add(shootMultipleReflectiveRays(v, gp.point,n, level, material.kR, kkr).add);
 			//color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr)).add(shootMultipleReflectiveRays(v, gp.point,n));
+<<<<<<< HEAD
 			color = color.add(calcGlobalEffects(constructReflectedRay(r, gp.point,n), level, material.kR, kkr), shootMultipleReflectiveRays(r, gp.point,n));
+=======
+			color = color.add(calcGlobalEffects(constructReflectedRay(v, gp.point,n), level, material.kR, kkr), shootMultipleReflectiveRays(v, gp.point,n));
+>>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
+>>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 		
 		if(!(kkt.lowerThan(MIN_CALC_COLOR_K)))
+<<<<<<< HEAD
 			//color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(r,gp.point,n), level, material.kT, kkt));
+=======
+			//color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(v,gp.point,n), level, material.kT, kkt));
+<<<<<<< HEAD
+			color = color.add(shootMultipleRefractoredRays(v, gp.point,n));
+			//color = color.add(calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleReflectiveRays(v, gp.point,n));
+		
+=======
+>>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 			//color = color.add(shootMultipleRefractoredRays(v, gp.point,n, level, material.kR, kkr));
 			//color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,v,n), level, material.kT, kkt)).add(shootMultipleRefractoredRays(v, gp.point,n));
 			color = color.add( calcGlobalEffects(constructRefractedRay(gp.point,r,n), level, material.kT, kkt), shootMultipleRefractoredRays(r, gp.point,n));
 			
+<<<<<<< HEAD
 		return color;*/
 		if(!(kkr.lowerThan(MIN_CALC_COLOR_K))) //stop recursion 
 			color = color.add(calcGlobalEffects(shootMultipleReflectiveRays(r, gp.point,n), level, material.kR, kkr));
 		
 		if(!(kkt.lowerThan(MIN_CALC_COLOR_K)))
 			color = color.add( calcGlobalEffects(shootMultipleRefractoredRays(r,gp.point,n), level, material.kT, kkt));
+=======
+>>>>>>> branch 'main' of https://github.com/zabrown2000/IntroToSWE_MiniProject.git
+>>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 		return color;
 	}
 	
@@ -212,8 +245,12 @@ public class RayTracerSuperSampling extends RayTraceBase {
 		}
 		
 		//return firstColor.scale(1/SUPERSAMPLING_RAYS);
+<<<<<<< HEAD
 		return firstColor.reduce(SUPERSAMPLING_RAYS);
 	    //return firstColor;
+=======
+	    return firstColor;
+>>>>>>> branch 'main' of git@github.com:zabrown2000/IntroToSWE_MiniProject.git
 
 	}
 		
