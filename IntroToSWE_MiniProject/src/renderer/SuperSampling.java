@@ -14,8 +14,8 @@ public class SuperSampling extends RayTraceBase{
 	private static final int MAX_CALC_COLOR_LEVEL = 4; 
 	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
-	private static final double RADIUS = 0.2;
-	private static final int SUPERSAMPLING_RAYS = 120;
+	private static final double HALF_DISTANCE = 0.05;
+	private static final int SUPERSAMPLING_RAYS = 80;
 	
 	public SuperSampling(Scene scene) {
 		super(scene);
@@ -98,7 +98,7 @@ public class SuperSampling extends RayTraceBase{
 	 */
 	private Double3 transparency(GeoPoint geoPoint, LightSource ls, Vector l, Vector n){
 		
-		Vector lightDirection = l.scale(-1); // from point to light source
+		Vector lightDirection = l.scale(-1);
 		Ray lightRay = new Ray(geoPoint.point, lightDirection,n);
 		
 		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
@@ -208,43 +208,65 @@ public class SuperSampling extends RayTraceBase{
 	 */
 	private primitives.Color calcGlobalEffects(Ray ray, int level, Double3 kx, Double3 kkx ) {
 		GeoPoint gp = findClosestIntersection(ray);
+		
+		//***FIRST CHANGE***//
 		List<Ray> beam = shootBeam(ray);
 		primitives.Color coloredBeam = coloredBeam(beam);
 		return(gp == null ? scene.background : add(calcColor(gp, ray, level-1, kkx), coloredBeam).scale(kx));
 	}
 	
+	/**
+	 * shoots multiple rays in the shape of a grid
+	 * 
+	 * @param ray the reflection or refraction ray 
+	 * @return a list of rays 
+	 */
 	private List<Ray> shootBeam(Ray ray){
+		
 		
 		List<Ray> beam = new LinkedList<Ray> ();
 		
-		for(int i = 0; i < SUPERSAMPLING_RAYS; i ++ ) {
-			 
-			// return point at the top of you vector and treat as the center of the circle 
-			 Point centerPoint = ray.p0.add(ray.dir); 
-			 
-			 //generate random xyz points: //can maybe do in another function 
-			 double randomX = Util.random(centerPoint.getX() + RADIUS, centerPoint.getX() - RADIUS);
-			 double randomY = Util.random(centerPoint.getY() + RADIUS, centerPoint.getY() - RADIUS);
-			 double randomZ = Util.random(centerPoint.getZ() + RADIUS, centerPoint.getZ() - RADIUS);
-			 
-			 //create points from the random x y z:
-			 Point randomPoint = new Point(randomX, randomY, randomZ);
-			 
-			 //create the vector part of the ray from star point to random point:
-			 Vector newVector = randomPoint.subtract(ray.p0); 
-			 
-			 //create the ray:
-			 Ray newRay = new Ray(ray.p0, newVector);
-			 
-			 //add to the list:
-			 beam.add(newRay);
-			
+		//get the center point of your square by getting the point of the ray 
+		Point centerPoint = ray.p0.add(ray.dir);
+		
+		//get the left most corner point of your grid 
+		//we will keep the same z axis as our center point but change the x and y axis
+		//**** NOTE: added a new function that adds two points****//
+		Point cornerPoint = centerPoint.add(new Point(HALF_DISTANCE, HALF_DISTANCE, 0)); 
+		
+		
+		// equally shoot rays in the shape of a grid 
+		for(int i = 0; i < Math.sqrt(SUPERSAMPLING_RAYS); i++) {
+			for(int j = 0;  j < Math.sqrt(SUPERSAMPLING_RAYS); j++) {
+				
+				//get the interval between each point 
+			    Point interval = new Point(i*(2*HALF_DISTANCE/(Math.sqrt(SUPERSAMPLING_RAYS))), j*(2*HALF_DISTANCE/(Math.sqrt(SUPERSAMPLING_RAYS))), 0);
+			    
+			    //added to the corner
+				Point onGrid = cornerPoint.add(interval);
+				
+				//create the vector part of the ray from star point to random point:
+				Vector newVector = onGrid.subtract(ray.p0); 
+				 
+				//create the ray:
+				Ray newRay = new Ray(ray.p0, newVector);
+				 
+				//add to the list:
+			    beam.add(newRay);
+				
+			}
 		}
 		
 		return beam;
 		
 	}
 	
+	/**
+	 * calculate the color from a list of rays 
+	 * 
+	 * @param beam List of rays 
+	 * @return color of all these rays added together ans scaled 
+	 */
 	private primitives.Color coloredBeam(List<Ray> beam){
 		
 		primitives.Color color = new primitives.Color(Color.BLACK);
@@ -269,9 +291,15 @@ public class SuperSampling extends RayTraceBase{
 		//return the avrage color of all these rays 
 		return color.reduce(SUPERSAMPLING_RAYS);
 		
-		
 	}
 	
+	/**
+	 * adds two colors 
+	 * 
+	 * @param color1 first color 
+	 * @param color2 second color 
+	 * @return primitive.Color
+	 */
 	private primitives.Color add(primitives.Color color1, primitives.Color color2){
 		
 		Double3 firstColor = color1.getRGB();
@@ -282,4 +310,3 @@ public class SuperSampling extends RayTraceBase{
 
 	
 }
-
