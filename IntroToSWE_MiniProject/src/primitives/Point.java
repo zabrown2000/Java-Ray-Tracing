@@ -32,6 +32,7 @@ public class Point {
 		this.xyz = new Double3(d1,d2,d3);
 	}
 
+
 	/**
 	 * Getter for x coordinate
 	 * @return double
