@@ -84,6 +84,14 @@ public class Point {
 		 return new Point(result);
 	}
 	
+	/**
+	 * adds two points 
+	 * @param point to add
+	 * @return the new point that is the sum of two points
+	 */
+	public Point add(Point point) {
+		return new Point(this.xyz.add(point.xyz));	
+	}
 	
 	
 
