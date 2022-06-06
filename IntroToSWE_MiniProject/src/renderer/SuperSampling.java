@@ -11,15 +11,50 @@ import scene.Scene;
 
 public class SuperSampling extends RayTraceBase{
 	
-	private static final int MAX_CALC_COLOR_LEVEL = 4; 
 	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
-	private static final double HALF_DISTANCE = 0.05;
-	private static final int SUPERSAMPLING_RAYS = 80;
 	
+	private int maxCalcColorLevel; 
+	private double halfDistance;
+	private int superSamplingRays;
+	
+	/**
+	 * constructor
+	 * @param scene
+	 */
 	public SuperSampling(Scene scene) {
 		super(scene);
 		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * setter for max color level
+	 * @param level
+	 * @return
+	 */
+	public SuperSampling setColorLevel(int level) {
+		this.maxCalcColorLevel = level;
+		return this;
+	}
+	
+	/**
+	 * setter for half distance for grid
+	 * @param hd
+	 * @return
+	 */
+	public SuperSampling setHalfDistance(double hd) {
+		this.halfDistance = hd;
+		return this;
+	}
+	
+	/**
+	 * setter for amount of rays for beam
+	 * @param amount
+	 * @return
+	 */
+	public SuperSampling setSamplingRays(int amount) {
+		this.superSamplingRays = amount;
+		return this;
 	}
 
 	/**
@@ -47,7 +82,7 @@ public class SuperSampling extends RayTraceBase{
 	}
 	
 	private primitives.Color calcColor(GeoPoint gp, Ray ray) {
-		return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K )
+		return calcColor(gp, ray, maxCalcColorLevel, INITIAL_K )
 				.add(scene.ambientLight.getIntensity());
 	}
 	
@@ -232,15 +267,15 @@ public class SuperSampling extends RayTraceBase{
 		//get the left most corner point of your grid 
 		//we will keep the same z axis as our center point but change the x and y axis
 		//**** NOTE: added a new function that adds two points****//
-		Point cornerPoint = centerPoint.add(new Point(HALF_DISTANCE, HALF_DISTANCE, 0)); 
+		Point cornerPoint = centerPoint.add(new Point(halfDistance, halfDistance, 0)); 
 		
 		
 		// equally shoot rays in the shape of a grid 
-		for(int i = 0; i < Math.sqrt(SUPERSAMPLING_RAYS); i++) {
-			for(int j = 0;  j < Math.sqrt(SUPERSAMPLING_RAYS); j++) {
+		for(int i = 0; i < Math.sqrt(superSamplingRays); i++) {
+			for(int j = 0;  j < Math.sqrt(superSamplingRays); j++) {
 				
 				//get the interval between each point 
-			    Point interval = new Point(i*(2*HALF_DISTANCE/(Math.sqrt(SUPERSAMPLING_RAYS))), j*(2*HALF_DISTANCE/(Math.sqrt(SUPERSAMPLING_RAYS))), 0);
+			    Point interval = new Point(i*(2*halfDistance/(Math.sqrt(superSamplingRays))), j*(2*halfDistance/(Math.sqrt(superSamplingRays))), 0);
 			    
 			    //added to the corner
 				Point onGrid = cornerPoint.add(interval);
@@ -289,7 +324,7 @@ public class SuperSampling extends RayTraceBase{
 		}
 		
 		//return the avrage color of all these rays 
-		return color.reduce(SUPERSAMPLING_RAYS);
+		return color.reduce(superSamplingRays);
 		
 	}
 	
