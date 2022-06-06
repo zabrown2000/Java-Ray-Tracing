@@ -15,7 +15,7 @@ public class SuperSampling extends RayTraceBase{
 	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
 	private static final double HALF_DISTANCE = 0.05;
-	private static final int SUPERSAMPLING_RAYS = 80;
+	private static final int SUPERSAMPLING_RAYS = 81;
 	
 	public SuperSampling(Scene scene) {
 		super(scene);
