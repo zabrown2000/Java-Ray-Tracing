@@ -7,8 +7,9 @@ import renderer.*;
 public class Camera {
 	
 	private static int PRINT_INTERVAL = 1;
-	private static int threadsCount = 4;
+	//private static int threadsCount = 4;
 	
+	private int threadsCount;
 	private Point p0;
 	private Vector Vto;
 	private Vector Vup;
@@ -21,6 +22,8 @@ public class Camera {
 	double width;
 	double height;
 	double distance;
+	
+	
 	
 	/**
 	 * 
@@ -283,6 +286,16 @@ public class Camera {
 			throw new IllegalArgumentException("MissingResourcesException");
 		}
 		imageWriter.writeToImage();
+	}
+
+	
+	/**
+	 * set threat count 
+	 * @param n int number of threads 
+	 */
+	public Camera setMultithreading(int n) {
+		this.threadsCount  = n;
+		return this;
 	}
 		
 }
