@@ -5,12 +5,17 @@ import geometries.*;
 import renderer.*;
 
 public class Camera {
+	
+	private static int PRINT_INTERVAL = 1;
+	private static int threadsCount = 4;
+	
 	private Point p0;
 	private Vector Vto;
 	private Vector Vup;
 	private Vector Vright;
 	private ImageWriter imageWriter;
 	private RayTraceBase rayTracer;
+	
 	
 	//view plane fields
 	double width;
@@ -229,14 +234,26 @@ public class Camera {
 			throw new IllegalArgumentException("MissingResourcesException");
 			//throw new IllegalArgumentException("UnsupportedOperationException");
 		}
-		for (int i = 0; i < imageWriter.getNy(); i++) {
+		
+		/*for (int i = 0; i < imageWriter.getNy(); i++) {
 			for (int j = 0; j < imageWriter.getNx(); j++) {
 				
 				Ray r = this.constructRay(imageWriter.getNx(), imageWriter.getNx(), j, i); //construct ray through pixel
 				primitives.Color c = this.rayTracer.traceRay(r); //color at point intersected by ray
 				this.imageWriter.writePixel(j, i, c); //coloring that pixel
 			}
+		}*/
+		
+		/**THREADING**/
+		Pixel.initialize(imageWriter.getNy(),imageWriter.getNx(), PRINT_INTERVAL);
+		while(threadsCount-- > 0) {
+			new Thread( () -> {
+				for(Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+					this.imageWriter.writePixel(pixel.col, pixel.row, this.rayTracer.traceRay(this.constructRay(imageWriter.getNy(),imageWriter.getNx(), pixel.col, pixel.row))); 
+				    
+			}).start();
 		}
+		Pixel.waitToFinish();
 	}
 	
 	/**

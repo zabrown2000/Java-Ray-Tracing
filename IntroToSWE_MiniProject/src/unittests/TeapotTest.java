@@ -12,7 +12,7 @@ import primitives.Point;
 import primitives.Vector;
 import renderer.Camera;
 import renderer.ImageWriter;
-import renderer.RayTracerBasic;
+import renderer.*;
 import scene.Scene;
 
 /**
@@ -31,7 +31,7 @@ public class TeapotTest {
 	private final Scene scene = new Scene("Test scene");
 
 	private static final Color color = new Color(200, 0, 0);
-	private static final Material mat = new Material().setKd(0.5).setKs(0.5).setShininess(60);
+	private static final Material mat = new Material().setKD(0.5).setKS(0.5).setShininess(60);
 
 	private static Point[] pnts = new Point[] { null, //
 			new Point(40.6266, 28.3457, -1.10804), //
@@ -1565,7 +1565,7 @@ public class TeapotTest {
 				new Triangle(pnts[470], pnts[469], pnts[529]).setEmission(color).setMaterial(mat), //
 				new Triangle(pnts[529], pnts[530], pnts[470]).setEmission(color).setMaterial(mat) //
 		);
-		scene.lights.add(new PointLight(new Color(500, 500, 500), new Point(100, 0, -100)).setKq(0.000001));
+		scene.lights.add(new PointLight(new Color(500, 500, 500), new Point(100, 0, -100)).setKQ(0.000001));
 
 		camera.setRayTracer(new RayTracerBasic(scene)).renderImage().printGrid(50, new Color(YELLOW)).writeToImage();
 	}
