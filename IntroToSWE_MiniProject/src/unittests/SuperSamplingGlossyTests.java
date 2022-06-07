@@ -82,7 +82,7 @@ class SuperSamplingGlossyTests {
 		
 		//adding choice to use feature or not
 		if (this.on_off == 1) {
-			camera.setRayTracer(new SuperSampling(scene).setColorLevel(4).setHalfDistance(0.05).setSamplingRays(20));
+			camera.setRayTracer(new SuperSampling(scene).setColorLevel(4).setHalfDistance(0.05).setSamplingRays(81));
 		} else if (this.on_off == 0) {
 			camera.setRayTracer(new RayTracerBasic(scene));
 		}
