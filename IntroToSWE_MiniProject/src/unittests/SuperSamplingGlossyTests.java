@@ -14,7 +14,8 @@ class SuperSamplingGlossyTests {
 
 	private Scene scene = new Scene("Test scene");
 	
-	private int on_off = 1;
+	private int superSampling_on_off = 1;
+	private int adaptive_on_off = 1;
 	
 	@Test
 	void glossyAndDiffuseTest() {
@@ -82,9 +83,9 @@ class SuperSamplingGlossyTests {
 		camera.setImageWriter(imageWriter); //
 		
 		//adding choice to use feature or not
-		if (this.on_off == 1) {
-			camera.setRayTracer(new SuperSampling(scene).setColorLevel(4).setHalfDistance(0.05).setSamplingRays(81));
-		} else if (this.on_off == 0) {
+		if (this.superSampling_on_off == 1) {
+			camera.setRayTracer(new SuperSampling(scene).setColorLevel(4).setHalfDistance(0.05).setSamplingRays(81).setSetting(adaptive_on_off));
+		} else if (this.superSampling_on_off == 0) {
 			camera.setRayTracer(new RayTracerBasic(scene));
 		}
 		

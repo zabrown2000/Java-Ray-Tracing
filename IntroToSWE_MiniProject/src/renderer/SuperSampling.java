@@ -17,7 +17,7 @@ public class SuperSampling extends RayTraceBase{
 	private int maxCalcColorLevel; 
 	private double halfDistance;
 	private int superSamplingRays;
-	public int setting; //1 = regular super sampling   2 = adaptive super sampling 
+	private int setting; //0 = regular super sampling   1 = adaptive super sampling 
 	
 	/**
 	 * setter for setting 
@@ -261,6 +261,7 @@ public class SuperSampling extends RayTraceBase{
 		return(gp == null ? scene.background : add(calcColor(gp, ray, level-1, kkx), coloredBeam).scale(kx));
 	}
 	
+	
 	/**
 	 * shoots multiple rays in the shape of a grid
 	 * 
@@ -275,7 +276,7 @@ public class SuperSampling extends RayTraceBase{
 		Point centerPoint = ray.p0.add(ray.dir);
 		
 		//regular algorithm 
-		if(setting == 1) {
+		if(setting == 0) {
 			
 		//get the left most corner point of your grid 
 		//we will keep the same z axis as our center point but change the x and y axis
@@ -307,7 +308,7 @@ public class SuperSampling extends RayTraceBase{
 		}
 		
 		//adaptive super sampling 
-		if(setting == 2) {
+		if(setting == 1) {
 			
 			
 		}
@@ -350,6 +351,7 @@ public class SuperSampling extends RayTraceBase{
 		return color.reduce(beam.size());
 		
 	}
+	
 	
 	/**
 	 * adds two colors 
