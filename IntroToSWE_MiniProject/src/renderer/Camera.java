@@ -235,7 +235,6 @@ public class Camera {
 	public void renderImage() {
 		if(p0 == null || Vto == null || Vup == null|| Vright == null || imageWriter == null || rayTracer == null ) {
 			throw new IllegalArgumentException("MissingResourcesException");
-			//throw new IllegalArgumentException("UnsupportedOperationException");
 		}
 		
 		/*for (int i = 0; i < imageWriter.getNy(); i++) {

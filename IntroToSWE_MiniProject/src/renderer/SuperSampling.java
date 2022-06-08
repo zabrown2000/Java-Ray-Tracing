@@ -13,6 +13,7 @@ public class SuperSampling extends RayTraceBase{
 	
 	private static final double MIN_CALC_COLOR_K = 0.001; 
 	private static final Double3 INITIAL_K = new Double3(1.0);
+	private static int superSamplingLevel = 4;
 	
 	private int maxCalcColorLevel; 
 	private double halfDistance;
@@ -308,13 +309,117 @@ public class SuperSampling extends RayTraceBase{
 		}
 		
 		//adaptive super sampling 
-		if(setting == 1) {
+		if(setting == 1) {  //really not well written way too long 
 			
+			//get the 4 corner points from the center
+			//act as if center point is the middle of the xy axis
+			Point leftTopCorner = centerPoint.add(new Point(-halfDistance, halfDistance, 0)); 
+			Point leftBottomCorner = centerPoint.add(new Point(-halfDistance, -halfDistance, 0));
+			Point rightTopCorner = centerPoint.add(new Point(halfDistance, halfDistance, 0));
+			Point rightBottomCorner = centerPoint.add(new Point(halfDistance, -halfDistance, 0));
+			
+			//get the vectors 
+			Vector LTVector = leftTopCorner.subtract(ray.p0);
+			Vector LBVector = leftBottomCorner.subtract(ray.p0);
+			Vector RTVector = rightTopCorner.subtract(ray.p0);
+			Vector RBVector = rightBottomCorner.subtract(ray.p0);
+			
+			
+			//get ther rays and add to beam 
+			Ray LTRay = new Ray(ray.p0, LTVector);
+			beam.add(LTRay);
+			Ray LBRay = new Ray(ray.p0, LBVector);
+			beam.add(LBRay);
+			Ray RTRay = new Ray(ray.p0, RTVector);
+			beam.add(RTRay);
+			Ray RBRay = new Ray(ray.p0, RBVector);
+			beam.add(RBRay);
+		
+			return addaptiveSuperSampling(beam, LTRay, LBRay, RTRay, RBRay , halfDistance, superSamplingLevel);
 			
 		}
 
 		return beam;
 		
+	}
+	
+	private List<Ray> addaptiveSuperSampling(List<Ray> beam, Ray corner1, Ray corner2 ,Ray corner3 , Ray corner4 , double distance, int level){
+	    
+		//if level = 1 stop recursion
+		if(level == 1) {
+			return beam;
+		}
+		
+		
+		primitives.Color LTColor;
+		primitives.Color LBColor;
+		primitives.Color RTColor;
+		primitives.Color RBColor;
+		
+		//get closed GP and color
+		GeoPoint gp1 = findClosestIntersection(corner1);
+		if( gp1 != null) {
+			 LTColor = gp1.geometry.getEmission();
+		}
+		else {
+			LTColor = scene.background;
+		}
+		
+		GeoPoint gp2 = findClosestIntersection(corner2);
+		if( gp2 != null) {
+			 LBColor = gp2.geometry.getEmission();
+		}
+		else {
+			LBColor = scene.background;
+		}
+		
+		GeoPoint gp3 = findClosestIntersection(corner3);
+		if( gp3 != null) {
+			RTColor = gp3.geometry.getEmission();
+		}
+		else {
+			RTColor = scene.background;
+		}
+		
+		GeoPoint gp4 = findClosestIntersection(corner4);
+		if( gp4 != null) {
+			RBColor = gp4.geometry.getEmission();
+		}
+		else {
+			RBColor = scene.background;
+		}
+		
+		
+		//check it the colors are equal, if yes then your done 
+		if(LTColor == LBColor && LBColor == RTColor && RTColor == RBColor ) {
+			return beam;   
+		}
+		else 
+		{
+		//find your next 4 rays 
+			//use the corner1 as your center of your xy axis
+			Ray center = new Ray(corner1.p0, ((corner1.p0.add(corner1.dir)).add(new Point (distance, distance, 0)).subtract(corner4.p0)));
+			beam.add(center);
+			
+			//use center as the center of your xy
+			Ray top = new Ray(center.p0, ((center.p0.add(center.dir)).add(new Point (0, distance, 0)).subtract(center.p0)));
+			beam.add(top);
+			Ray bottom = new Ray(center.p0, ((center.p0.add(center.dir)).add(new Point (0, -distance, 0)).subtract(center.p0)));
+			beam.add(bottom);
+			Ray left = new Ray(center.p0, ((center.p0.add(center.dir)).add(new Point (-distance, 0, 0)).subtract(center.p0)));
+			beam.add(left);
+			Ray right = new Ray(center.p0, ((center.p0.add(center.dir)).add(new Point (distance, 0, 0)).subtract(center.p0)));
+			beam.add(right);
+		    
+			//each of the 4 divisions are called recursively 
+			addaptiveSuperSampling(beam, corner1, top, center, left, distance/2, level-1);
+			addaptiveSuperSampling(beam, top, corner2, right, center,  distance/2, level-1);
+			addaptiveSuperSampling(beam, left, center, bottom, corner3, distance/2, level-1);
+			addaptiveSuperSampling(beam, center, right, corner4, bottom, distance/2, level-1);
+		}
+			
+
+		return beam;
 	}
 	
 	/**

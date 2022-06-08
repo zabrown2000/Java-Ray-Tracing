@@ -25,20 +25,7 @@ class SuperSamplingGlossyTests {
 
 		scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1)));
 
-		scene.geometries.add( //
-				//new Sphere(new Point(-550, -500, -1000), 400d).setEmission(new Color(0, 0, 100)) //blue sphere
-				//		.setMaterial(new Material().setKD(0.25).setKS(0.25).setShininess(20).setkT(0.5)),
-				//new Sphere(new Point(-550, -500, -1200), 200d).setEmission(new Color(255, 47, 154)) //pink sphere
-				//		.setMaterial(new Material().setKD(0.6)),
-				//new Sphere(new Point(-1300,-100,-300), 200d).setEmission(new Color(23,236,255)) //green sphere, further away
-				//		.setMaterial(new Material().setKD(0.6)),
-				//new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) //tall triangle, mirror
-						//.setEmission(new Color(20, 20, 20)) //
-						//.setMaterial(new Material().setkR(1.0)));
-				//new Triangle(new Point(2519, -1479, -1500), new Point(-563, 3044, -1500), new Point(-3150, -2269, -1500)) //base triangle
-				//		.setEmission(new Color(20, 20, 20)) //
-				//		.setMaterial(new Material().setkR(0.5))
-				
+		scene.geometries.add( 
 				//base
 				new Triangle(new Point(-1500, -1500, -1150), new Point(1500, -1500, -1350), new Point(750, 750, -1500)) //base right
 					.setEmission(new Color(20, 20, 20)).setMaterial(new Material().setkR(1.0)), //
@@ -79,7 +66,7 @@ class SuperSamplingGlossyTests {
 				.setKL(0.001).setKQ(0.000005));
 		scene.lights.add(new DirectionalLight(new Color(100,100,200), new Vector(3.75,-5.1,-20.79)));
 
-		ImageWriter imageWriter = new ImageWriter("superSamplingImprovement", 500, 500);
+		ImageWriter imageWriter = new ImageWriter("superSamplingImprovement1", 500, 500);
 		camera.setImageWriter(imageWriter); //
 		
 		//adding choice to use feature or not
@@ -88,10 +75,20 @@ class SuperSamplingGlossyTests {
 		} else if (this.superSampling_on_off == 0) {
 			camera.setRayTracer(new RayTracerBasic(scene));
 		}
-		
-		        
+		       
 		camera.renderImage(); //
 		camera.writeToImage();
 	}
 
 }
+
+			/****RUN TIMES****
+			 * stage 7 : 2.114
+			 * miniproject 1: 24.442
+			 * Threading: 13.392
+			 * mini project 2: 11.17
+			 * Threading + miniproject 2 = 7.334
+			 */
+			 
+  
+ 
