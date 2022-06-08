@@ -418,8 +418,8 @@ public class SuperSampling extends RayTraceBase{
 			addaptiveSuperSampling(beam, center, right, corner4, bottom, distance/2, level-1);
 		}
 			
-
 		return beam;
+		
 	}
 	
 	/**
