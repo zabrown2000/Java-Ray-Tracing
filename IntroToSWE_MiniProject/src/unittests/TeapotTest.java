@@ -19,6 +19,10 @@ import scene.Scene;
  * @author Dan
  */
 public class TeapotTest {
+	
+	private int superSampling_on_off = 1;
+	private int adaptive_on_off = 1;
+	
 	private final ImageWriter imageWriter = new ImageWriter("teapot", 800, 800);
 
 	private final Camera camera = new Camera(new Point(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, 1, 0)) //
@@ -1565,7 +1569,16 @@ public class TeapotTest {
 		);
 		scene.lights.add(new PointLight(new Color(500, 500, 500), new Point(100, 0, -100)).setKQ(0.000001));
 
-		camera.setRayTracer(new RayTracerBasic(scene));
+		
+		//adding choice to use feature or not
+		if (this.superSampling_on_off == 1) {
+			camera.setRayTracer(new SuperSampling(scene).setColorLevel(4).setHalfDistance(0.05).setSamplingRays(81).setSetting(adaptive_on_off));
+		} else if (this.superSampling_on_off == 0) {
+			camera.setRayTracer(new RayTracerBasic(scene));
+		}
+				
+				
+		
 		camera.renderImage();
 		camera.printGrid(50, new Color(YELLOW));
 		camera.writeToImage();
