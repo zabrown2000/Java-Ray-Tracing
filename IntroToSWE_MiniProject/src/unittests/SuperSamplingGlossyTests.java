@@ -19,7 +19,8 @@ class SuperSamplingGlossyTests {
 	@Test
 	void glossyAndDiffuseTest() {
 		Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-				.setVPSize(2500, 2500).setVPDistance(10000); //
+				.setVPSize(2500, 2500).setVPDistance(10000)
+				.setMultithreading(4); //
 
 		scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1)));
 

@@ -17,6 +17,17 @@ public class SuperSampling extends RayTraceBase{
 	private int maxCalcColorLevel; 
 	private double halfDistance;
 	private int superSamplingRays;
+	public int setting; //1 = regular super sampling   2 = adaptive super sampling 
+	
+	/**
+	 * setter for setting 
+	 * @param n int that chooses the setting
+	 * @return supersampling
+	 */
+	public SuperSampling setSetting(int n) {
+		this.setting = n;
+		return this;
+	}
 	
 	/**
 	 * constructor
@@ -258,12 +269,14 @@ public class SuperSampling extends RayTraceBase{
 	 */
 	private List<Ray> shootBeam(Ray ray){
 		
-		
 		List<Ray> beam = new LinkedList<Ray> ();
 		
 		//get the center point of your square by getting the point of the ray 
 		Point centerPoint = ray.p0.add(ray.dir);
 		
+		//regular algorithm 
+		if(setting == 1) {
+			
 		//get the left most corner point of your grid 
 		//we will keep the same z axis as our center point but change the x and y axis
 		//**** NOTE: added a new function that adds two points****//
@@ -289,9 +302,16 @@ public class SuperSampling extends RayTraceBase{
 				//add to the list:
 			    beam.add(newRay);
 				
+				}
 			}
 		}
 		
+		//adaptive super sampling 
+		if(setting == 2) {
+			
+			
+		}
+
 		return beam;
 		
 	}
@@ -324,7 +344,10 @@ public class SuperSampling extends RayTraceBase{
 		}
 		
 		//return the avrage color of all these rays 
-		return color.reduce(superSamplingRays);
+		//return color.reduce(superSamplingRays);
+		
+		//needed to change because woun't nescsicarly have a super sampling amount of beams 
+		return color.reduce(beam.size());
 		
 	}
 	
