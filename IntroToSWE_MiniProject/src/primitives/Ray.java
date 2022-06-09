@@ -58,6 +58,20 @@ public class Ray {
 	}
 	
 	/**
+	 * Helper function to create a ray specifically for the use of adaptive super sampling
+	 * @param cp center point, the basis
+	 * @param xVal x-coord for point
+	 * @param yVal y-coord for point
+	 * @return new ray
+	 */
+	public Ray createAdaptiveRay(Point cp, double xVal, double yVal) {
+		
+		Point newCorner = cp.add(new Point(xVal, yVal, 0)); //creating corner point
+		Vector cornerVec = newCorner.subtract(this.p0); //creating vector through point from initial ray
+		return new Ray(this.p0, cornerVec);
+	}
+	
+	/**
 	 * Function to find the point closest to the ray's head
 	 * @param points list of points to check
 	 * @return the point closest to ray head

@@ -309,30 +309,16 @@ public class SuperSampling extends RayTraceBase{
 		}
 		
 		//adaptive super sampling 
-		if(setting == 1) {  //really not well written way too long 
+		if(setting == 1) {  
 			
-			//get the 4 corner points from the center
-			//act as if center point is the middle of the xy axis
-			Point leftTopCorner = centerPoint.add(new Point(-halfDistance, halfDistance, 0)); 
-			Point leftBottomCorner = centerPoint.add(new Point(-halfDistance, -halfDistance, 0));
-			Point rightTopCorner = centerPoint.add(new Point(halfDistance, halfDistance, 0));
-			Point rightBottomCorner = centerPoint.add(new Point(halfDistance, -halfDistance, 0));
-			
-			//get the vectors 
-			Vector LTVector = leftTopCorner.subtract(ray.p0);
-			Vector LBVector = leftBottomCorner.subtract(ray.p0);
-			Vector RTVector = rightTopCorner.subtract(ray.p0);
-			Vector RBVector = rightBottomCorner.subtract(ray.p0);
-			
-			
-			//get ther rays and add to beam 
-			Ray LTRay = new Ray(ray.p0, LTVector);
-			beam.add(LTRay);
-			Ray LBRay = new Ray(ray.p0, LBVector);
-			beam.add(LBRay);
-			Ray RTRay = new Ray(ray.p0, RTVector);
+			//get the new rays and add to beam 
+			Ray LTRay = ray.createAdaptiveRay(centerPoint, -halfDistance, halfDistance); //calc ray through top left corner
+			beam.add(LTRay); 
+			Ray LBRay = ray.createAdaptiveRay(centerPoint, -halfDistance, -halfDistance); //calc ray through bottom left corner
+			beam.add(LBRay); 
+			Ray RTRay = ray.createAdaptiveRay(centerPoint, halfDistance, halfDistance); //calc ray through top right corner
 			beam.add(RTRay);
-			Ray RBRay = new Ray(ray.p0, RBVector);
+			Ray RBRay = ray.createAdaptiveRay(centerPoint, halfDistance, -halfDistance); //calc ray through bottom right corner
 			beam.add(RBRay);
 		
 			return addaptiveSuperSampling(beam, LTRay, LBRay, RTRay, RBRay , halfDistance, superSamplingLevel);
@@ -342,6 +328,7 @@ public class SuperSampling extends RayTraceBase{
 		return beam;
 		
 	}
+	
 	
 	private List<Ray> addaptiveSuperSampling(List<Ray> beam, Ray corner1, Ray corner2 ,Ray corner3 , Ray corner4 , double distance, int level){
 	    
@@ -390,7 +377,7 @@ public class SuperSampling extends RayTraceBase{
 		}
 		
 		
-		//check it the colors are equal, if yes then your done 
+		//check it the colors are equal, if yes then you're done 
 		if(LTColor == LBColor && LBColor == RTColor && RTColor == RBColor ) {
 			return beam;   
 		}
@@ -412,10 +399,10 @@ public class SuperSampling extends RayTraceBase{
 			beam.add(right);
 		    
 			//each of the 4 divisions are called recursively 
-			addaptiveSuperSampling(beam, corner1, top, center, left, distance/2, level-1);
-			addaptiveSuperSampling(beam, top, corner2, right, center,  distance/2, level-1);
-			addaptiveSuperSampling(beam, left, center, bottom, corner3, distance/2, level-1);
-			addaptiveSuperSampling(beam, center, right, corner4, bottom, distance/2, level-1);
+			beam = addaptiveSuperSampling(beam, corner1, top, center, left, distance/2, level-1);
+			beam = addaptiveSuperSampling(beam, top, corner2, right, center,  distance/2, level-1);
+			beam = addaptiveSuperSampling(beam, left, center, bottom, corner3, distance/2, level-1);
+			beam = addaptiveSuperSampling(beam, center, right, corner4, bottom, distance/2, level-1);
 		}
 			
 		return beam;
@@ -452,7 +439,7 @@ public class SuperSampling extends RayTraceBase{
 		//return the avrage color of all these rays 
 		//return color.reduce(superSamplingRays);
 		
-		//needed to change because woun't nescsicarly have a super sampling amount of beams 
+		//needed to change because won't necessarily have a super sampling amount of beams, if recursion ends before level 1
 		return color.reduce(beam.size());
 		
 	}
