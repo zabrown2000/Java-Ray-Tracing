@@ -15,7 +15,7 @@ class SuperSamplingGlossyTests {
 	private Scene scene = new Scene("Test scene");
 	
 	private int superSampling_on_off = 1;
-	private int adaptive_on_off = 1;
+	private int adaptive_on_off = 0;
 	
 	@Test
 	void glossyAndDiffuseTest() {
@@ -85,9 +85,9 @@ class SuperSamplingGlossyTests {
 			/****RUN TIMES****
 			 * stage 7 : 2.114
 			 * miniproject 1: 24.442
-			 * Threading: 13.392
+			 * Threading: GB: 13.392                       ZB: 23.57
 			 * mini project 2 without threading: 11.17
-			 * Threading + miniproject 2 = 7.334
+			 * Threading + miniproject 2 = GB: 7.334       ZB: 13.74
 			 */
 			 
   
