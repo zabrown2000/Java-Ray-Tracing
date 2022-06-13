@@ -86,7 +86,7 @@ class SuperSamplingGlossyTests {
 			 * stage 7 : 2.114
 			 * miniproject 1: 24.442
 			 * Threading: 13.392
-			 * mini project 2: 11.17
+			 * mini project 2 without threading: 11.17
 			 * Threading + miniproject 2 = 7.334
 			 */
 			 

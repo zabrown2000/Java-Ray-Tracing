@@ -385,7 +385,7 @@ public class SuperSampling extends RayTraceBase{
 		{
 		//find your next 4 rays 
 			//use the corner1 as your center of your xy axis
-			Ray center = new Ray(corner1.p0, ((corner1.p0.add(corner1.dir)).add(new Point (distance, distance, 0)).subtract(corner4.p0)));
+			Ray center = new Ray(corner1.p0, ((corner1.p0.add(corner1.dir)).add(new Point (distance, distance, 0)).subtract(corner1.p0)));
 			beam.add(center);
 			
 			//use center as the center of your xy
