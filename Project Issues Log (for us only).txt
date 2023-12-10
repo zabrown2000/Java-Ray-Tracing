@@ -1,4 +1,2 @@
-1. LoD, in cross and dot, accessing the ds from Double3
-	  -possible fix: adding getters to double3, need go ahead for that
-2. The multi-color image isn't working correctly. Geos in scene have emission, but once sent to respective findGeoIntersections, emission defaults to black.
+
 
